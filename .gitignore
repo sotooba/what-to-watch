@@ -6,7 +6,6 @@ env/
 # Python
 __pycache__/
 *.py[cod]
-*.pyo
 
 # Environment Variables
 .env
@@ -20,14 +19,14 @@ instance/
 .vscode/
 .idea/
 
-# macOS
+# Operating System
 .DS_Store
-
-# Windows
 Thumbs.db
 
 # Testing
 .pytest_cache/
+.coverage
+htmlcov/
 
 # Logs
 *.log
@@ -35,3 +34,8 @@ Thumbs.db
 # SQLite
 *.db
 *.sqlite3
+
+# Distribution
+build/
+dist/
+*.egg-info/
