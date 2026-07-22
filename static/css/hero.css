@@ -1,0 +1,106 @@
+/* Hero Card Layout Boundaries */
+.hero-wrapper {
+    min-height: auto; 
+    padding: 2.5rem 0 4rem;
+    overflow-x: hidden;
+}
+
+.hero-glass-card {
+    background: rgba(30, 30, 30, 0.25) !important;
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 2rem;
+}
+
+.header-msg {
+    background: rgba(255, 255, 255, 0.06);
+    font-size: 0.60rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    letter-spacing: 2px;
+}
+
+/* Typography Styles */
+.hero-title {
+    font-size: calc(1.8rem + 1.5vw);
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #ffffff 30%, #ffd700 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Interactive Mood Pods Configuration */
+.mood-pod {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 1.25rem;
+    text-decoration: none !important;
+    height: 100%;
+    transition: all 0.25s ease-out;
+}
+
+.mood-emoji {
+    font-size: 2.2rem;
+    transition: transform 0.25s ease-out;
+}
+
+.mood-label {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 2px;
+    transition: color 0.25s ease-out;
+}
+
+.mood-desc {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.75rem;
+    font-weight: 300;
+    text-align: center;
+}
+
+/* Interactions On Hover */
+.mood-pod:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+.mood-pod:hover .mood-emoji { transform: scale(1.15) rotate(3deg); }
+.mood-pod:hover .mood-label { color: #ffd700; }
+
+/* Responsive Scaling Breaks */
+@media (min-width: 1200px) {
+    .hero-wrapper {
+        min-height: 65vh; 
+        padding-top: 1rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .hero-title {
+        font-size: 1.85rem !important;
+        line-height: 1.3;
+        text-wrap-style: balance;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem !important;
+        padding: 0 5px;
+        text-wrap-style: balance;
+    }
+
+    .hero-glass-card {
+        padding: 3rem 1rem !important;
+        border-radius: 1.5rem;
+    }
+
+    .mood-pod { padding: 1.25rem 0.75rem !important; }
+    .mood-emoji { font-size: 1.8rem; }
+}
