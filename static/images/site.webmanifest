@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "What To Watch",
+    "short_name": "WhatToWatch",
     "icons": [
         {
             "src": "static/images/android-chrome-192x192.png",
