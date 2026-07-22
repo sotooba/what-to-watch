@@ -1,0 +1,76 @@
+/* Navigation Links */
+.navbar-nav .nav-link:hover {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    transition: opacity 0.2s ease;
+}
+
+/* Dropdown Menus */
+.dropdown-menu .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dropdown-item svg {
+    opacity: 0.7;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.dropdown-item:hover svg {
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+/* --- Search Input Field --- */
+.search-input-field {
+    background: rgba(255, 255, 255, 0.08) !important;
+    width: 240px; 
+    font-size: 0.95rem; 
+    height: 38px;
+    transition: background 0.2s ease, width 0.2s ease;
+}
+
+.search-input-field:focus {
+    background: rgba(255, 255, 255, 0.13) !important;
+    box-shadow: none !important;
+}
+
+.search-input-field::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Left Search Icon Button */
+.search-icon-btn {
+    height: 38px;
+    z-index: 5;
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.search-icon-btn:hover {
+    opacity: 1 !important;
+    color: #ffffff !important;
+}
+
+/* Responsive container boundary controls */
+.custom-rounded-nav {
+    border-radius: 1.5rem; 
+}
+
+/* Fluid responsive switch back to elegant capsule shape on desktops */
+@media (min-width: 992px) {
+    .custom-rounded-nav {
+        border-radius: 50rem; 
+    }
+    .search-input-field {
+        width: 240px; 
+    }
+}
+
+/* Mobile search expansion style tweak */
+@media (max-width: 991.98px) {
+    .search-input-field {
+        width: 100%;
+    }
+    form {
+        width: 100%;
+    }
+}

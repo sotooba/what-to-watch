@@ -1,0 +1,91 @@
+<header class="w-100 position-sticky top-0 z-3 py-3 px-2 px-md-4">
+
+    <nav class="navbar navbar-expand-lg glass-panel custom-rounded-nav mx-auto shadow-lg px-4 py-2"
+        style="max-width: 1300px;">
+
+        <div class="container-fluid">
+
+            <!-- Brand Logo Context Links to Index Route -->
+            <a class="navbar-brand text-white fw-bold me-4" href="{{ url_for('index') }}">WhatToWatch</a>
+
+            <!-- Compact Mobile Menu Toggle Button -->
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse"
+                data-bs-target="#whatToWatchNav" aria-controls="whatToWatchNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+
+            <!-- Expandable Navbar Elements -->
+            <div class="collapse navbar-collapse pb-3 pb-lg-0" id="whatToWatchNav">
+
+                <!-- Left Aligned Links Group -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-1 gap-lg-2 mt-2 mt-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white opacity-100 fw-medium" href="{{ url_for('index') }}">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white opacity-75 fw-medium" href="{{ url_for('about') }}">About</a>
+                    </li>
+
+                    <!-- Trending Dropdown Menu Element -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white opacity-75 fw-medium" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Trending
+                        </a>
+                        <ul class="dropdown-menu glass-panel shadow border-0 mt-2 p-2 rounded-4">
+                            <li>
+                                <!-- Links dynamically to movie trending route -->
+                                <a class="dropdown-item text-white rounded-3 d-flex align-items-center gap-2 py-2"
+                                    href="{{ url_for('trending', media_type='movies') }}">
+                                    <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor"
+                                        class="bi bi-film" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1-1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8zM1 1v2h2V1zm2 3H1v2h2zM1 7v2h2V7zm2 3H1v2h2zm-2 3v2h2v-2zM15 1v2h-2V1zm-2 3h2v2h-2zm2 3v2h-2V7zm-2 3h2v2h-2zm2 3v2h-2v-2z" />
+                                    </svg>
+                                    <span>Movies This Week</span>
+                                </a>
+                            </li>
+                            <li>
+                                <!-- Links dynamically to TV trending route -->
+                                <a class="dropdown-item text-white rounded-3 d-flex align-items-center gap-2 py-2"
+                                    href="{{ url_for('trending', media_type='tv') }}">
+                                    <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor"
+                                        class="bi bi-tv" viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.5 13.5A.5.5 0 0 1 3 13h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5M13.991 3H2c-.325 0-.602.26-.602.591v6.82c0 .328.277.589.602.589h11.991c.325 0 .602-.261.602-.589V3.592c0-.33-.277-.592-.602-.592M14 2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" />
+                                    </svg>
+                                    <span>TV Shows Today</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Search -->
+                <form class="d-flex position-relative align-items-center mt-3 mt-lg-0" role="search"
+                    action="{{ url_for('search') }}" method="GET" onsubmit="handleMobileSearch()">
+
+                    <button
+                        class="btn p-0 border-0 position-absolute start-0 ms-3 d-flex align-items-center justify-content-center text-white opacity-50 search-icon-btn"
+                        type="submit" style="height: 38px; z-index: 5;">
+
+                        <svg xmlns="http://w3.org" width="15" height="15" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                        
+                    </button>
+
+                    <!-- Added id="navSearchInput" so JavaScript can locate it -->
+                    <input id="navSearchInput" autocomplete="off"
+                        class="form-control text-white border-0 rounded-pill ps-5 pe-4 search-input-field" type="search"
+                        name="q" placeholder="Search" aria-label="Search">
+                </form>
+
+
+            </div>
+        </div>
+    </nav>
+</header>
