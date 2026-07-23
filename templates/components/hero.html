@@ -61,5 +61,210 @@
 
         </div>
 
-    </div>
+        <!-- Interactive Accordion Custom Filter Collapse Wrapper -->
+        <div class="custom-filter-section mt-5 pt-3">
+
+            <!-- Trigger Button Pill -->
+            <button class="btn btn-outline-light rounded-pill filter-toggle-btn px-4 py-2 text-white-50" type="button"
+                data-bs-toggle="collapse" data-bs-target="#advancedFilterPanel" aria-expanded="false"
+                aria-controls="advancedFilterPanel">
+                <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor" class="bi bi-sliders me-2"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v1zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0v-1zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z" />
+                </svg>
+                Mix a Custom Vibe instead
+            </button>
+
+            <!-- Collapsible Advanced Engine Form Container -->
+            <div class="collapse" id="advancedFilterPanel">
+                <form action="{{ url_for('search') }}" method="GET" class="advanced-filter-card p-4 mt-4 text-start">
+
+                    <!-- ============================================================ -->
+                    <!-- DESKTOP SCREEN VIEW: INLINE KEY-VALUE SELECTION PILLS         -->
+                    <!-- ============================================================ -->
+                    <div class="d-none d-md-block desktop-filter-engine">
+
+                        <!-- Row: Genre -->
+                        <div class="filter-row d-flex align-items-center mb-4">
+                            <span class="filter-key-label me-4">Genre</span>
+                            <div class="filter-values-group d-flex flex-wrap gap-2">
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="genre" value="" checked>
+                                    <span>All</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="genre" value="action">
+                                    <span>Action</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="genre" value="comedy">
+                                    <span>Comedy</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="genre" value="drama">
+                                    <span>Drama</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="genre" value="sci-fi">
+                                    <span>Sci-Fi</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Row: Release Year -->
+                        <div class="filter-row d-flex align-items-center mb-4">
+                            <span class="filter-key-label me-4">Release Year</span>
+                            <div class="filter-values-group d-flex flex-wrap gap-2">
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="year" value="" checked>
+                                    <span>Any Year</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="year" value="2025">
+                                    <span>Recent (2025+)</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="year" value="2020s">
+                                    <span>2020s</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="year" value="2010s">
+                                    <span>2010s</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="year" value="classics">
+                                    <span>Classics</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Row: Language -->
+                        <div class="filter-row d-flex align-items-center mb-4">
+                            <span class="filter-key-label me-4">Language</span>
+                            <div class="filter-values-group d-flex flex-wrap gap-2">
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="language" value="" checked>
+                                    <span>Any Language</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="language" value="en">
+                                    <span>English</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="language" value="es">
+                                    <span>Spanish</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="language" value="fr">
+                                    <span>French</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="language" value="ja">
+                                    <span>Japanese</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Row: Rating -->
+                        <div class="filter-row d-flex align-items-center mb-3">
+                            <span class="filter-key-label me-4">Minimum Rating</span>
+                            <div class="filter-values-group d-flex flex-wrap gap-2">
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="rating" value="" checked>
+                                    <span>Any Score</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="rating" value="8">
+                                    <span>⭐ 8.0+ Top Tier</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="rating" value="7">
+                                    <span>⭐ 7.0+ Good</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="rating" value="6">
+                                    <span>⭐ 6.0+ Casual</span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- ============================================================ -->
+                    <!-- MOBILE SCREEN VIEW: YOUR RECENT STUNNING DROP-DOWN PANEL     -->
+                    <!-- ============================================================ -->
+                    <div class="d-block d-md-none mobile-filter-engine">
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <label class="filter-label mb-2">Genre</label>
+                                <select class="form-select filter-select rounded-pill px-3" name="genre_mobile">
+                                    <option value="" selected>All Genres</option>
+                                    <option value="action">Action</option>
+                                    <option value="comedy">Comedy</option>
+                                    <option value="drama">Drama</option>
+                                    <option value="sci-fi">Sci-Fi</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="filter-label mb-2">Release Year</label>
+                                <select class="form-select filter-select rounded-pill px-3" name="year_mobile">
+                                    <option value="" selected>Any Year</option>
+                                    <option value="2025">Recent (2025+)</option>
+                                    <option value="2020s">2020s</option>
+                                    <option value="2010s">2010s</option>
+                                    <option value="classics">Classics</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="filter-label mb-2">Language</label>
+                                <select class="form-select filter-select rounded-pill px-3" name="language_mobile">
+                                    <option value="" selected>Any Language</option>
+                                    <option value="en">English</option>
+                                    <option value="es">Spanish</option>
+                                    <option value="fr">French</option>
+                                    <option value="ja">Japanese</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="filter-label mb-2">Minimum Rating</label>
+                                <select class="form-select filter-select rounded-pill px-3" name="rating_mobile">
+                                    <option value="" selected>Any Score</option>
+                                    <option value="8">⭐ 8.0+ Top Tier</option>
+                                    <option value="7">⭐ 7.0+ Certified</option>
+                                    <option value="6">⭐ 6.0+ Casual</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons Container with Responsive Alignment -->
+                    <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 mt-4">
+
+                        <!-- Action Search Trigger Pill -->
+                        <button type="submit"
+                            class="btn btn-light rounded-pill filter-submit-btn px-5 py-2 fw-semibold order-1 order-sm-2">
+                            Find Matches
+                        </button>
+
+                        <!-- Subtle Glass Clear Filters Button -->
+                        <button type="button"
+                            class="btn filter-clear-btn rounded-pill px-4 py-2 text-white-50 d-flex align-items-center justify-content-center"
+                            onclick="clearAllFilters(this.form)">
+                            <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor"
+                                class="bi bi-x-circle me-2" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                <path
+                                    d="M4.646 4.646a1.5 1.5 0 0 1 2.122 0L8 5.879l1.232-1.233a1.5 1.5 0 1 1 2.122 2.122L10.121 8l1.233 1.232a1.5 1.5 0 1 1-2.122 2.122L8 10.121l-1.232 1.233a1.5 1.5 0 1 1-2.122-2.122L5.879 8 4.646 6.768a1.5 1.5 0 0 1 0-2.122" />
+                            </svg>
+                            Clear Filters
+                        </button>
+
+                    </div>
+
+
+                </form>
+            </div>
+
+        </div>
 </section>

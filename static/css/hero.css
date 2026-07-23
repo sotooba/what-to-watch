@@ -1,6 +1,6 @@
 /* Hero Card Layout Boundaries */
 .hero-wrapper {
-    min-height: auto; 
+    min-height: auto;
     padding: 2.5rem 0 4rem;
     overflow-x: hidden;
 }
@@ -72,13 +72,156 @@
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
 }
 
-.mood-pod:hover .mood-emoji { transform: scale(1.15) rotate(3deg); }
-.mood-pod:hover .mood-label { color: #ffd700; }
+.mood-pod:hover .mood-emoji {
+    transform: scale(1.15) rotate(3deg);
+}
+
+.mood-pod:hover .mood-label {
+    color: #ffd700;
+}
+
+/* --- Filter Section Micro Styles --- */
+.filter-toggle-btn {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    font-size: 0.9rem;
+    transition: all 0.2s ease-out;
+}
+
+.filter-toggle-btn:hover,
+.filter-toggle-btn[aria-expanded="true"] {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Glass panel background for inner filter content box */
+.advanced-filter-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 1.5rem;
+}
+
+.filter-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.5px;
+    display: block;
+}
+
+/* Premium pill shaped selection boxes */
+.filter-select {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
+    font-size: 0.9rem;
+    height: 42px;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://w3.org' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+.filter-select:focus {
+    box-shadow: none !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Forces dropdown option contexts to display dark layers natively */
+.filter-select option {
+    background-color: #121212 !important;
+    color: #ffffff;
+}
+
+/* Glowing action button block styles */
+.filter-submit-btn {
+    font-size: 0.95rem;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
+}
+
+/* --- Desktop Key-Value Alignment Blocks --- */
+.filter-row {
+    display: flex;
+    align-items: center;
+}
+
+/* Fixed width label layout allows alignment across all properties */
+.filter-key-label {
+    width: 140px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.5px;
+}
+
+/* --- Premium CSS Active Pill Checkboxes --- */
+.pill-checkbox-item {
+    cursor: pointer;
+    position: relative;
+}
+
+/* Completely hides the ugly default radio dot layout */
+.pill-checkbox-item input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The custom glass pill design template */
+.pill-checkbox-item span {
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50rem;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+/* Subtle border highlight on hover */
+.pill-checkbox-item:hover span {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+/* Premium white active text styling matching your "Find Matches" button */
+.pill-checkbox-item input[type="radio"]:checked+span {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border-color: #ffffff !important;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+}
+
+/* --- Glass Clear Filters Button --- */
+.filter-clear-btn {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease-out;
+}
+
+.filter-clear-btn:hover {
+    background: rgba(255, 75, 75, 0.1) !important; /* Extremely soft crimson hue glow */
+    border-color: rgba(255, 75, 75, 0.3) !important;
+    color: #ff6b6b !important; /* Soft casual red text accent */
+}
+
 
 /* Responsive Scaling Breaks */
 @media (min-width: 1200px) {
     .hero-wrapper {
-        min-height: 65vh; 
+        min-height: 65vh;
         padding-top: 1rem;
     }
 }
@@ -101,6 +244,15 @@
         border-radius: 1.5rem;
     }
 
-    .mood-pod { padding: 1.25rem 0.75rem !important; }
-    .mood-emoji { font-size: 1.8rem; }
+    .mood-pod {
+        padding: 1.25rem 0.75rem !important;
+    }
+
+    .mood-emoji {
+        font-size: 1.8rem;
+    }
+
+    .filter-submit-btn, .filter-clear-btn {
+        width: 100%; /* Stacks wide cleanly on narrow smartphone viewports */
+    }
 }

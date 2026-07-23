@@ -1,7 +1,23 @@
+/* static/css/variables.css */
+:root {
+    --bg-pure-black: #000000;
+    --accent-cinema-gold: #FFD700;
+    --glass-bg: rgba(45, 45, 45, 0.35);     
+    --glass-border: rgba(255, 255, 255, 0.07); 
+}
+
 html, body {
     background-color: #000000 !important;
     color: #ffffff !important;
     min-height: 100vh;
     margin: 0;
     padding: 0;
+}
+
+/* Glassmorphism Compound Utility Class */
+.glass-panel {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    border: 1px solid var(--glass-border);
 }
