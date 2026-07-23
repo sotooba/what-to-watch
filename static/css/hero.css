@@ -256,3 +256,14 @@
         width: 100%; /* Stacks wide cleanly on narrow smartphone viewports */
     }
 }
+
+@media (max-width: 991.98px) {
+    /* Ensures the inner mobile switch row uses all available container space smoothly */
+    .custom-toggle-pill {
+        width: 100%;
+    }
+    /* Clears native bootstrap float displacements on small touch devices */
+    .custom-toggle-pill .form-check-input {
+        float: none !important;
+    }
+}

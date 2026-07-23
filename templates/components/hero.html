@@ -85,6 +85,20 @@
                     <!-- ============================================================ -->
                     <div class="d-none d-md-block desktop-filter-engine">
 
+                        <!-- Row 1: Movie / TV Content Selector -->
+                        <div class="filter-row d-flex align-items-center mb-4">
+                            <span class="filter-key-label me-4">Watch Type</span>
+                            <div class="filter-values-group d-flex flex-wrap gap-2">
+                                <label class="pill-checkbox-item"><input type="radio" name="type" value="all"
+                                        checked><span>Everything</span></label>
+                                <label class="pill-checkbox-item"><input type="radio" name="type"
+                                        value="movie"><span>Movies</span></label>
+                                <label class="pill-checkbox-item"><input type="radio" name="type" value="tv"><span>TV
+                                        Shows</span></label>
+                            </div>
+                        </div>
+
+
                         <!-- Row: Genre -->
                         <div class="filter-row d-flex align-items-center mb-4">
                             <span class="filter-key-label me-4">Genre</span>
@@ -189,6 +203,18 @@
                             </div>
                         </div>
 
+                        <!-- Row 8: Adult Toggle System Switch -->
+                        <div class="filter-row d-flex align-items-center mb-3">
+                            <span class="filter-key-label me-4">Adult Content</span>
+                            <div class="form-check form-switch custom-toggle-pill m-0 py-0">
+                                <input class="form-check-input" type="checkbox" name="adult" id="adultToggleDesktop"
+                                    value="true">
+                                <label class="form-check-label text-white-50 ms-2" for="adultToggleDesktop"
+                                    style="font-size: 0.88rem;">Include R-18+ results</label>
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <!-- ============================================================ -->
@@ -196,6 +222,14 @@
                     <!-- ============================================================ -->
                     <div class="d-block d-md-none mobile-filter-engine">
                         <div class="row g-3">
+                            <div class="col-12">
+                                <label class="filter-label mb-2">Watch Type</label>
+                                <select class="form-select filter-select rounded-pill px-3" name="type_mobile">
+                                    <option value="all" selected>Everything</option>
+                                    <option value="movie">Movies</option>
+                                    <option value="tv">TV Shows</option>
+                                </select>
+                            </div>
                             <div class="col-6">
                                 <label class="filter-label mb-2">Genre</label>
                                 <select class="form-select filter-select rounded-pill px-3" name="genre_mobile">
@@ -235,6 +269,22 @@
                                     <option value="6">⭐ 6.0+ Casual</option>
                                 </select>
                             </div>
+                            <!-- Mobile-Optimized Adult Content Switch Block -->
+                            <div class="col-12 mt-3">
+                                <!-- Replaced desktop label configurations with clean, fluid touch parameters -->
+                                <div
+                                    class="form-check form-switch custom-toggle-pill m-0 p-0 d-flex align-items-center justify-content-between">
+                                    <label class="form-check-label text-white fw-medium m-0" for="adultToggleMobile"
+                                        style="font-size: 0.95rem;">
+                                        Adult Content <span class="text-white-50 ms-1 fw-light"
+                                            style="font-size: 0.85rem;">(R-18+ results)</span>
+                                    </label>
+                                    <!-- Changed ID target to handle unique JavaScript state updates cleanly -->
+                                    <input class="form-check-input ms-0" type="checkbox" name="adult_mobile"
+                                        id="adultToggleMobile" value="true">
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -265,6 +315,7 @@
 
                 </form>
             </div>
+
 
         </div>
 </section>

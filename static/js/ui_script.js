@@ -1,6 +1,6 @@
 /**
  * Resets all advanced custom dashboard selection values.
- * Restores desktop pill defaults and mobile dropdown indices instantly.
+ * Restores desktop pill defaults, mobile dropdown indices, and toggles off adult switches instantly.
  * @param {HTMLFormElement} formElement - The active filter form reference.
  */
 function clearAllFilters(formElement) {
@@ -16,5 +16,11 @@ function clearAllFilters(formElement) {
     const defaultPills = formElement.querySelectorAll('input[type="radio"][value=""]');
     defaultPills.forEach(radio => {
         radio.checked = true;
+    });
+
+    // 3. Turn off both Desktop and Mobile Adult Switch buttons explicitly
+    const switches = formElement.querySelectorAll('input[type="checkbox"]');
+    switches.forEach(checkbox => {
+        checkbox.checked = false;
     });
 }
