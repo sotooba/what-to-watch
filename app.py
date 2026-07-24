@@ -1,10 +1,14 @@
 from flask import Flask, render_template, request
+from tmdb_service import get_movie_genres, get_all_languages
+from helpers import get_popular_languages
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    genres = get_movie_genres()
+    languages = get_popular_languages(get_all_languages())
+    return render_template('index.html', genres=genres, languages=languages)
 
 @app.route('/about')
 def about():

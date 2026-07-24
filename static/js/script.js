@@ -13,10 +13,12 @@ function clearAllFilters(formElement) {
     });
 
     // 2. Locate and check the default radio buttons (Desktop View Pills)
-    const defaultPills = formElement.querySelectorAll('input[type="radio"][value=""]');
+    // This matches both value="" and value="all"
+    const defaultPills = formElement.querySelectorAll('input[type="radio"][value=""], input[type="radio"][value="all"]');
     defaultPills.forEach(radio => {
         radio.checked = true;
     });
+
 
     // 3. Turn off both Desktop and Mobile Adult Switch buttons explicitly
     const switches = formElement.querySelectorAll('input[type="checkbox"]');

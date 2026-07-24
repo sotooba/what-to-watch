@@ -1,7 +1,7 @@
 <!-- Immersive Hero Wrapper Section -->
 <section class="hero-wrapper d-flex align-items-center justify-content-center p-3 container-fluid">
     <!-- Replaced static styling boundaries with responsive spacing frameworks -->
-    <div class="hero-glass-card text-center w-100 py-5 px-3 px-sm-4 mx-auto" style="max-width: 1000px;">
+    <div class="hero-glass-card text-center w-100 py-5 px-3 px-sm-4 mx-auto">
 
         <!-- Header Messaging -->
         <span class="badge header-msg text-uppercase tracking-wider mb-3 px-3 py-2 text-white-50">
@@ -17,7 +17,7 @@
         </p>
 
         <!-- Interactive Dynamic Mood Pods Grid -->
-        <div class="row row-cols-2 row-cols-md-4 g-3 justify-content-center">
+        <div class="row row-cols-2 row-cols-md-6 g-3 justify-content-center">
 
             <!-- Pod: Happy -->
             <div class="col">
@@ -56,6 +56,24 @@
                     <div class="mood-emoji mb-2">🕯️</div>
                     <span class="mood-label">Date Night</span>
                     <span class="mood-desc">Romance & Drama</span>
+                </a>
+            </div>
+            <!-- Pod: Date Night -->
+            <div class="col">
+                <a href="/discover/mood/datenight"
+                    class="mood-pod d-flex flex-column align-items-center justify-content-center p-4">
+                    <div class="mood-emoji mb-2">💀</div>
+                    <span class="mood-label">Horror Night</span>
+                    <span class="mood-desc">Fear & Screams</span>
+                </a>
+            </div>
+            <!-- Pod: Date Night -->
+            <div class="col">
+                <a href="/discover/mood/datenight"
+                    class="mood-pod d-flex flex-column align-items-center justify-content-center p-4">
+                    <div class="mood-emoji mb-2">🤷‍♂️</div>
+                    <span class="mood-label">Not Sure</span>
+                    <span class="mood-desc">Let us decide for you</span>
                 </a>
             </div>
 
@@ -100,29 +118,19 @@
 
 
                         <!-- Row: Genre -->
-                        <div class="filter-row d-flex align-items-center mb-4">
-                            <span class="filter-key-label me-4">Genre</span>
+                        <div class="filter-row d-flex align-items-start mb-4">
+                            <span class="filter-key-label me-4 pt-1">Genre</span>
                             <div class="filter-values-group d-flex flex-wrap gap-2">
                                 <label class="pill-checkbox-item">
                                     <input type="radio" name="genre" value="" checked>
                                     <span>All</span>
                                 </label>
+                                {% for genre in genres %}
                                 <label class="pill-checkbox-item">
-                                    <input type="radio" name="genre" value="action">
-                                    <span>Action</span>
+                                    <input type="radio" name="genre" value="{{ genre.id }}">
+                                    <span>{{ genre.name }}</span>
                                 </label>
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="genre" value="comedy">
-                                    <span>Comedy</span>
-                                </label>
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="genre" value="drama">
-                                    <span>Drama</span>
-                                </label>
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="genre" value="sci-fi">
-                                    <span>Sci-Fi</span>
-                                </label>
+                                {% endfor %}
                             </div>
                         </div>
 
@@ -147,6 +155,14 @@
                                     <span>2010s</span>
                                 </label>
                                 <label class="pill-checkbox-item">
+                                    <input type="radio" name="year" value="2000s">
+                                    <span>2000s</span>
+                                </label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="year" value="1990s">
+                                    <span>1990s</span>
+                                </label>
+                                <label class="pill-checkbox-item">
                                     <input type="radio" name="year" value="classics">
                                     <span>Classics</span>
                                 </label>
@@ -154,29 +170,19 @@
                         </div>
 
                         <!-- Row: Language -->
-                        <div class="filter-row d-flex align-items-center mb-4">
-                            <span class="filter-key-label me-4">Language</span>
+                        <div class="filter-row d-flex align-items-start mb-4">
+                            <span class="filter-key-label me-4 pt-1">Language</span>
                             <div class="filter-values-group d-flex flex-wrap gap-2">
                                 <label class="pill-checkbox-item">
                                     <input type="radio" name="language" value="" checked>
                                     <span>Any Language</span>
                                 </label>
+                                {% for language in languages %}
                                 <label class="pill-checkbox-item">
-                                    <input type="radio" name="language" value="en">
-                                    <span>English</span>
+                                    <input type="radio" name="language" value="{{ language.iso_639_1 }}">
+                                    <span>{{ language.english_name }}</span>
                                 </label>
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="language" value="es">
-                                    <span>Spanish</span>
-                                </label>
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="language" value="fr">
-                                    <span>French</span>
-                                </label>
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="language" value="ja">
-                                    <span>Japanese</span>
-                                </label>
+                                {% endfor %}
                             </div>
                         </div>
 
@@ -218,7 +224,7 @@
                     </div>
 
                     <!-- ============================================================ -->
-                    <!-- MOBILE SCREEN VIEW: YOUR RECENT STUNNING DROP-DOWN PANEL     -->
+                    <!-- MOBILE SCREEN VIEW: DROP-DOWN PANEL     -->
                     <!-- ============================================================ -->
                     <div class="d-block d-md-none mobile-filter-engine">
                         <div class="row g-3">
@@ -233,40 +239,40 @@
                             <div class="col-6">
                                 <label class="filter-label mb-2">Genre</label>
                                 <select class="form-select filter-select rounded-pill px-3" name="genre_mobile">
-                                    <option value="" selected>All Genres</option>
-                                    <option value="action">Action</option>
-                                    <option value="comedy">Comedy</option>
-                                    <option value="drama">Drama</option>
-                                    <option value="sci-fi">Sci-Fi</option>
+                                    <option value="" selected>Any Genre</option>
+                                    {% for genre in genres %}
+                                        <option value="{{ genre.id }}">{{ genre.name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <div class="col-6">
                                 <label class="filter-label mb-2">Release Year</label>
                                 <select class="form-select filter-select rounded-pill px-3" name="year_mobile">
                                     <option value="" selected>Any Year</option>
-                                    <option value="2025">Recent (2025+)</option>
+                                    <option value="2025">2025+</option>
                                     <option value="2020s">2020s</option>
                                     <option value="2010s">2010s</option>
+                                    <option value="2000s">2000s</option>
+                                    <option value="1990s">1990s</option>
                                     <option value="classics">Classics</option>
                                 </select>
                             </div>
                             <div class="col-6">
                                 <label class="filter-label mb-2">Language</label>
                                 <select class="form-select filter-select rounded-pill px-3" name="language_mobile">
-                                    <option value="" selected>Any Language</option>
-                                    <option value="en">English</option>
-                                    <option value="es">Spanish</option>
-                                    <option value="fr">French</option>
-                                    <option value="ja">Japanese</option>
+                                    <option value="" selected>Any</option>
+                                    {% for language in languages %}
+                                        <option value="{{ language.iso_639_1 }}">{{ language.english_name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <div class="col-6">
                                 <label class="filter-label mb-2">Minimum Rating</label>
                                 <select class="form-select filter-select rounded-pill px-3" name="rating_mobile">
                                     <option value="" selected>Any Score</option>
-                                    <option value="8">⭐ 8.0+ Top Tier</option>
-                                    <option value="7">⭐ 7.0+ Certified</option>
-                                    <option value="6">⭐ 6.0+ Casual</option>
+                                    <option value="8">⭐ 8.0+</option>
+                                    <option value="7">⭐ 7.0+</option>
+                                    <option value="6">⭐ 6.0+</option>
                                 </select>
                             </div>
                             <!-- Mobile-Optimized Adult Content Switch Block -->
