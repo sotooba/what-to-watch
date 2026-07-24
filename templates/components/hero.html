@@ -7,76 +7,37 @@
         <span class="badge header-msg text-uppercase tracking-wider mb-3 px-3 py-2 text-white-50">
             🎬 No more scrolling
         </span>
-        <h1 class="hero-title fw-black text-white mb-3">
-            Tired of <span class="text-gradient">What to Watch</span> tonight?
-        </h1>
-        <p class="hero-subtitle text-white-50 mx-auto mb-5"
-            style="max-width: 580px; font-size: 1.05rem; font-weight: 300; line-height: 1.6;">
+
+        <h1 class="hero-title fw-black text-white mb-3"> Tired of <span class="text-gradient">What to Watch</span>
+            tonight? </h1>
+
+        <p class="hero-subtitle text-white-50 mx-auto mb-5">
             Pick a mood or use the custom filters below. We'll skip the junk and find you something actually worth
-            watching.
-        </p>
+            watching. </p>
 
         <!-- Interactive Dynamic Mood Pods Grid -->
         <div class="row row-cols-2 row-cols-md-6 g-3 justify-content-center">
+            {% for mood in moods %}
+            <div class="col">
 
-            <!-- Pod: Happy -->
-            <div class="col">
-                <a href="/discover/mood/happy"
-                    class="mood-pod d-flex flex-column align-items-center justify-content-center p-4">
-                    <div class="mood-emoji mb-2">✨</div>
-                    <span class="mood-label">Happy</span>
-                    <span class="mood-desc">Feel-good & Uplifting</span>
-                </a>
-            </div>
+                <a href="#" class="mood-pod d-flex flex-column align-items-center justify-content-center p-4"
+                    data-mood="{{ mood.value }}">
 
-            <!-- Pod: Sad -->
-            <div class="col">
-                <a href="/discover/mood/sad"
-                    class="mood-pod d-flex flex-column align-items-center justify-content-center p-4">
-                    <div class="mood-emoji mb-2">🌧️</div>
-                    <span class="mood-label">Melancholic</span>
-                    <span class="mood-desc">Deep & Emotional</span>
-                </a>
-            </div>
+                    <div class="mood-emoji mb-2">
+                        {{ mood.emoji }}
+                    </div>
 
-            <!-- Pod: Family -->
-            <div class="col">
-                <a href="/discover/mood/family"
-                    class="mood-pod d-flex flex-column align-items-center justify-content-center p-4">
-                    <div class="mood-emoji mb-2">🍕</div>
-                    <span class="mood-label">Family Night</span>
-                    <span class="mood-desc">Fun For Everyone</span>
-                </a>
-            </div>
+                    <span class="mood-label">
+                        {{ mood.title }}
+                    </span>
 
-            <!-- Pod: Date Night -->
-            <div class="col">
-                <a href="/discover/mood/datenight"
-                    class="mood-pod d-flex flex-column align-items-center justify-content-center p-4">
-                    <div class="mood-emoji mb-2">🕯️</div>
-                    <span class="mood-label">Date Night</span>
-                    <span class="mood-desc">Romance & Drama</span>
-                </a>
-            </div>
-            <!-- Pod: Date Night -->
-            <div class="col">
-                <a href="/discover/mood/datenight"
-                    class="mood-pod d-flex flex-column align-items-center justify-content-center p-4">
-                    <div class="mood-emoji mb-2">💀</div>
-                    <span class="mood-label">Horror Night</span>
-                    <span class="mood-desc">Fear & Screams</span>
-                </a>
-            </div>
-            <!-- Pod: Date Night -->
-            <div class="col">
-                <a href="/discover/mood/datenight"
-                    class="mood-pod d-flex flex-column align-items-center justify-content-center p-4">
-                    <div class="mood-emoji mb-2">🤷‍♂️</div>
-                    <span class="mood-label">Not Sure</span>
-                    <span class="mood-desc">Let us decide for you</span>
-                </a>
-            </div>
+                    <span class="mood-desc">
+                        {{ mood.description }}
+                    </span>
 
+                </a>
+            </div>
+            {% endfor %}
         </div>
 
         <!-- Interactive Accordion Custom Filter Collapse Wrapper -->
@@ -86,6 +47,7 @@
             <button class="btn btn-outline-light rounded-pill filter-toggle-btn px-4 py-2 text-white-50" type="button"
                 data-bs-toggle="collapse" data-bs-target="#advancedFilterPanel" aria-expanded="false"
                 aria-controls="advancedFilterPanel">
+
                 <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor" class="bi bi-sliders me-2"
                     viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -96,10 +58,12 @@
 
             <!-- Collapsible Advanced Engine Form Container -->
             <div class="collapse" id="advancedFilterPanel">
+
+                <!-- Form -->
                 <form action="{{ url_for('search') }}" method="GET" class="advanced-filter-card p-4 mt-4 text-start">
 
-                    <!-- ================   ============================================ -->
-                    <!-- DESKTOP SCREEN VIEW: INLINE KEY-VALUE SELECTION PILLS         -->
+                    <!-- ============================================================ -->
+                    <!--    DESKTOP SCREEN VIEW: INLINE KEY-VALUE SELECTION PILLS     -->
                     <!-- ============================================================ -->
                     <div id="desktop-filters" class="d-none d-md-block desktop-filter-engine">
 
@@ -137,76 +101,66 @@
 
                         <!-- Row: Release Year -->
                         <div class="filter-row d-flex align-items-center mb-4">
+
                             <span class="filter-key-label me-4">Release Year</span>
+
                             <div class="filter-values-group d-flex flex-wrap gap-2">
                                 <label class="pill-checkbox-item">
                                     <input type="radio" name="year" value="" checked>
-                                    <span>Any Year</span>
+                                    <span>Any Score</span>
                                 </label>
+
+                                {% for year in years %}
+
                                 <label class="pill-checkbox-item">
-                                    <input type="radio" name="year" value="2025">
-                                    <span>Recent (2025+)</span>
+                                    <input type="radio" name="year" value="{{ year.value }}">
+                                    <span>{{ year.label }}</span>
                                 </label>
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="year" value="2020s">
-                                    <span>2020s</span>
-                                </label>
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="year" value="2010s">
-                                    <span>2010s</span>
-                                </label>
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="year" value="2000s">
-                                    <span>2000s</span>
-                                </label>
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="year" value="1990s">
-                                    <span>1990s</span>
-                                </label>
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="year" value="classics">
-                                    <span>Classics</span>
-                                </label>
+
+                                {% endfor %}
                             </div>
                         </div>
 
                         <!-- Row: Language -->
                         <div class="filter-row d-flex align-items-start mb-4">
+
                             <span class="filter-key-label me-4 pt-1">Language</span>
+
                             <div class="filter-values-group d-flex flex-wrap gap-2">
+
                                 <label class="pill-checkbox-item">
                                     <input type="radio" name="language" value="" checked>
                                     <span>Any Language</span>
                                 </label>
+
                                 {% for language in languages %}
+
                                 <label class="pill-checkbox-item">
                                     <input type="radio" name="language" value="{{ language.iso_639_1 }}">
                                     <span>{{ language.english_name }}</span>
                                 </label>
+
                                 {% endfor %}
                             </div>
                         </div>
 
                         <!-- Row: Rating -->
                         <div class="filter-row d-flex align-items-center mb-3">
+
                             <span class="filter-key-label me-4">Minimum Rating</span>
                             <div class="filter-values-group d-flex flex-wrap gap-2">
+
                                 <label class="pill-checkbox-item">
                                     <input type="radio" name="rating" value="" checked>
                                     <span>Any Score</span>
                                 </label>
+
+                                {% for rating in ratings %}
                                 <label class="pill-checkbox-item">
-                                    <input type="radio" name="rating" value="8">
-                                    <span>⭐ 8.0+ Top Tier</span>
+                                    <input type="radio" name="rating" value="{{ rating.value}}">
+                                    <span>{{ rating.label }}</span>
                                 </label>
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="rating" value="7">
-                                    <span>⭐ 7.0+ Good</span>
-                                </label>
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="rating" value="6">
-                                    <span>⭐ 6.0+ Casual</span>
-                                </label>
+                                {% endfor %}
                             </div>
                         </div>
 
@@ -224,11 +178,13 @@
 
                     </div>
 
-                    <!-- ============================================================ -->
-                    <!-- MOBILE SCREEN VIEW: DROP-DOWN PANEL     -->
-                    <!-- ============================================================ -->
+                    <!-- ========================================================== -->
+                    <!--           MOBILE SCREEN VIEW: DROP-DOWN PANEL              -->
+                    <!-- ========================================================== -->
+
                     <div id="mobile-filters" class="d-block d-md-none mobile-filter-engine">
                         <div class="row g-3">
+
                             <div class="col-12">
                                 <label class="filter-label mb-2">Watch Type</label>
                                 <select class="form-select filter-select rounded-pill px-3" name="type">
@@ -237,45 +193,52 @@
                                     <option value="tv">TV Shows</option>
                                 </select>
                             </div>
+
+
                             <div class="col-6">
                                 <label class="filter-label mb-2">Genre</label>
                                 <select class="form-select filter-select rounded-pill px-3" name="genre">
                                     <option value="" selected>Any Genre</option>
                                     {% for genre in genres %}
-                                        <option value="{{ genre.id }}">{{ genre.name }}</option>
+                                    <option value="{{ genre.id }}">{{ genre.name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
+
+
                             <div class="col-6">
                                 <label class="filter-label mb-2">Release Year</label>
                                 <select class="form-select filter-select rounded-pill px-3" name="year">
                                     <option value="" selected>Any Year</option>
-                                    <option value="2025">2025+</option>
-                                    <option value="2020s">2020s</option>
-                                    <option value="2010s">2010s</option>
-                                    <option value="2000s">2000s</option>
-                                    <option value="1990s">1990s</option>
-                                    <option value="classics">Classics</option>
+                                    {% for year in years %}
+                                    <option value="{{ year.value }}">{{ year.label }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
+
+
                             <div class="col-6">
                                 <label class="filter-label mb-2">Language</label>
                                 <select class="form-select filter-select rounded-pill px-3" name="language">
                                     <option value="" selected>Any</option>
                                     {% for language in languages %}
-                                        <option value="{{ language.iso_639_1 }}">{{ language.english_name }}</option>
+                                    <option value="{{ language.iso_639_1 }}">{{ language.english_name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
+
+
                             <div class="col-6">
                                 <label class="filter-label mb-2">Minimum Rating</label>
                                 <select class="form-select filter-select rounded-pill px-3" name="rating">
                                     <option value="" selected>Any Score</option>
-                                    <option value="8">⭐ 8.0+</option>
-                                    <option value="7">⭐ 7.0+</option>
-                                    <option value="6">⭐ 6.0+</option>
+                                    {% for rating in ratings %}
+                                    <option value="{{ rating.value }}">{{ rating.label }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
+
+
                             <!-- Mobile-Optimized Adult Content Switch Block -->
                             <div class="col-12 mt-3">
                                 <!-- Replaced desktop label configurations with clean, fluid touch parameters -->
@@ -291,6 +254,7 @@
                                         id="adultToggleMobile" value="true">
                                 </div>
                             </div>
+
 
                         </div>
                     </div>
@@ -308,6 +272,7 @@
                         <button type="button"
                             class="btn filter-clear-btn rounded-pill px-4 py-2 text-white-50 d-flex align-items-center justify-content-center"
                             onclick="clearAllFilters(this.form)">
+
                             <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor"
                                 class="bi bi-x-circle me-2" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -319,10 +284,7 @@
 
                     </div>
 
-
                 </form>
             </div>
-
-
         </div>
 </section>
