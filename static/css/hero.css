@@ -196,7 +196,7 @@
 }
 
 .pill-checkbox-item input[type="radio"]:checked+span {
-    background: #f3f3f3 !important;
+    background: #eee7e7 !important;
     color: var(--bg-pure-black) !important;
     border-color: #ffffff !important;
     font-weight: 500;

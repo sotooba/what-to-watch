@@ -98,21 +98,22 @@
             <div class="collapse" id="advancedFilterPanel">
                 <form action="{{ url_for('search') }}" method="GET" class="advanced-filter-card p-4 mt-4 text-start">
 
-                    <!-- ============================================================ -->
+                    <!-- ================   ============================================ -->
                     <!-- DESKTOP SCREEN VIEW: INLINE KEY-VALUE SELECTION PILLS         -->
                     <!-- ============================================================ -->
-                    <div class="d-none d-md-block desktop-filter-engine">
+                    <div id="desktop-filters" class="d-none d-md-block desktop-filter-engine">
 
                         <!-- Row 1: Movie / TV Content Selector -->
                         <div class="filter-row d-flex align-items-center mb-4">
                             <span class="filter-key-label me-4">Watch Type</span>
                             <div class="filter-values-group d-flex flex-wrap gap-2">
-                                <label class="pill-checkbox-item"><input type="radio" name="type" value="all"
-                                        checked><span>Everything</span></label>
-                                <label class="pill-checkbox-item"><input type="radio" name="type"
-                                        value="movie"><span>Movies</span></label>
-                                <label class="pill-checkbox-item"><input type="radio" name="type" value="tv"><span>TV
-                                        Shows</span></label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="type" value="all" checked><span>Everything</span></label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="type" value="movie"><span>Movies</span></label>
+                                <label class="pill-checkbox-item">
+                                    <input type="radio" name="type" value="tv">
+                                    <span>TV Shows</span></label>
                             </div>
                         </div>
 
@@ -226,11 +227,11 @@
                     <!-- ============================================================ -->
                     <!-- MOBILE SCREEN VIEW: DROP-DOWN PANEL     -->
                     <!-- ============================================================ -->
-                    <div class="d-block d-md-none mobile-filter-engine">
+                    <div id="mobile-filters" class="d-block d-md-none mobile-filter-engine">
                         <div class="row g-3">
                             <div class="col-12">
                                 <label class="filter-label mb-2">Watch Type</label>
-                                <select class="form-select filter-select rounded-pill px-3" name="type_mobile">
+                                <select class="form-select filter-select rounded-pill px-3" name="type">
                                     <option value="all" selected>Everything</option>
                                     <option value="movie">Movies</option>
                                     <option value="tv">TV Shows</option>
@@ -238,7 +239,7 @@
                             </div>
                             <div class="col-6">
                                 <label class="filter-label mb-2">Genre</label>
-                                <select class="form-select filter-select rounded-pill px-3" name="genre_mobile">
+                                <select class="form-select filter-select rounded-pill px-3" name="genre">
                                     <option value="" selected>Any Genre</option>
                                     {% for genre in genres %}
                                         <option value="{{ genre.id }}">{{ genre.name }}</option>
@@ -247,7 +248,7 @@
                             </div>
                             <div class="col-6">
                                 <label class="filter-label mb-2">Release Year</label>
-                                <select class="form-select filter-select rounded-pill px-3" name="year_mobile">
+                                <select class="form-select filter-select rounded-pill px-3" name="year">
                                     <option value="" selected>Any Year</option>
                                     <option value="2025">2025+</option>
                                     <option value="2020s">2020s</option>
@@ -259,7 +260,7 @@
                             </div>
                             <div class="col-6">
                                 <label class="filter-label mb-2">Language</label>
-                                <select class="form-select filter-select rounded-pill px-3" name="language_mobile">
+                                <select class="form-select filter-select rounded-pill px-3" name="language">
                                     <option value="" selected>Any</option>
                                     {% for language in languages %}
                                         <option value="{{ language.iso_639_1 }}">{{ language.english_name }}</option>
@@ -268,7 +269,7 @@
                             </div>
                             <div class="col-6">
                                 <label class="filter-label mb-2">Minimum Rating</label>
-                                <select class="form-select filter-select rounded-pill px-3" name="rating_mobile">
+                                <select class="form-select filter-select rounded-pill px-3" name="rating">
                                     <option value="" selected>Any Score</option>
                                     <option value="8">⭐ 8.0+</option>
                                     <option value="7">⭐ 7.0+</option>
@@ -286,7 +287,7 @@
                                             style="font-size: 0.85rem;">(R-18+ results)</span>
                                     </label>
                                     <!-- Changed ID target to handle unique JavaScript state updates cleanly -->
-                                    <input class="form-check-input ms-0" type="checkbox" name="adult_mobile"
+                                    <input class="form-check-input ms-0" type="checkbox" name="adult"
                                         id="adultToggleMobile" value="true">
                                 </div>
                             </div>
