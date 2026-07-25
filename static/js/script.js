@@ -1,4 +1,19 @@
 /**
+ * AFter typing in the search box
+ * When enter key is pressed on the mobile devices
+ * Hide the keyboard
+ */
+function handleMobileSearch() {
+    // Finds search input field element
+    const searchInput = document.getElementById('navSearchInput');
+    if (searchInput) {
+        // Strips focus away from the field, which tells the mobile OS to hide the keyboard
+        searchInput.blur();
+    }
+}
+
+
+/**
  * Resets all advanced custom dashboard selection values.
  * Restores desktop pill defaults, mobile dropdown indices, and toggles off adult switches instantly.
  * @param {HTMLFormElement} formElement - The active filter form reference.
@@ -18,7 +33,6 @@ function clearAllFilters(formElement) {
     defaultPills.forEach(radio => {
         radio.checked = true;
     });
-
 
     // Turn off both Desktop and Mobile Adult Switch buttons explicitly
     const switches = formElement.querySelectorAll('input[type="checkbox"]');
