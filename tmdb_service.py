@@ -8,18 +8,24 @@ API_KEY = os.getenv('TMDB_API_KEY')
 BASE_URL = "https://api.themoviedb.org/3"
 
 
-# Method to make the requests
-def make_request(endpoint):
+# Method to make the API requests
+def make_request(endpoint, params=None):
     try:
         url = f"{BASE_URL}/{endpoint}"
-        params = {
+
+        default_params = {
             "api_key": API_KEY,
-            "language": "en-US"
+            "language": "en-US",
         }
-        response = requests.get(url, params=params, timeout=10)
+
+        if params:
+            default_params.update(params)
+
+        response = requests.get(url, params=default_params, timeout=10)
 
         response.raise_for_status()
         return response.json()
+    
     except requests.exceptions.RequestException as e:
         print(f"Error making request to {endpoint}: {e}")
         return None
@@ -27,13 +33,6 @@ def make_request(endpoint):
 
 @lru_cache(maxsize=1)
 def get_movie_genres():
-    
-    """
-    Fetches the list of movie genres from the TMDB API.
-
-    Returns:
-        list: A list of dictionaries containing genre information.
-    """
     endpoint = "genre/movie/list"
     response_data = make_request(endpoint)
 
@@ -44,16 +43,18 @@ def get_movie_genres():
 
 @lru_cache(maxsize=1)
 def get_all_languages():
-    """
-    Fetches the list of all the available languages from the TMDB API.
-
-    Returns:
-        list: A list of dictionaries containing languages information.
-    """
     endpoint = "configuration/languages"
     response_data = make_request(endpoint)
 
     if not response_data:
         return []
     return response_data
-        
+
+
+def discover_movies(params):
+    endpoint = "discover/movie"
+    response_data = make_request(endpoint, params)
+
+    if not response_data:
+        return []
+    return response_data.get("results", [])

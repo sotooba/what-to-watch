@@ -1,4 +1,4 @@
-from const_data import POPULAR_LANGUAGES 
+from const_data import POPULAR_LANGUAGES, ERA_MAPPING
 
 def get_popular_languages(all_languages):
     """
@@ -14,3 +14,29 @@ def get_popular_languages(all_languages):
             filtered_languages.append(language)
     
     return sorted(filtered_languages, key=lambda d: d["english_name"])
+
+
+def convert_filters_to_params(filters):
+    params = {}
+
+    # Genre
+    if filters.get("genre"):
+        params["with_genres"] = filters["genre"]
+
+    # Year
+    era = filters.get("year")
+    if era in ERA_MAPPING:
+        params.update(ERA_MAPPING[era])
+
+    # Language
+    if filters.get("language"):
+        params["with_original_language"] = filters["language"]
+
+    # Rating
+    if filters.get("rating"):
+        params["vote_average.gte"] = filters["rating"]
+
+    # Adult Content
+    params["include_adult"] = filters["adult"]
+    
+    return params

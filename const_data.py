@@ -39,7 +39,7 @@ MOODS = [
         "value": "family"
     },
     {
-        "emoji": "🕯️",
+        "emoji": "💘",
         "title": "Date Night",
         "subtitle": "Romance & Drama",
         "value": "date"
@@ -61,10 +61,6 @@ MOODS = [
 
 # Year options for filtering
 YEAR_OPTIONS = [
-    {
-        "label": "Recent (2025+)",
-        "value": "2025"
-    },
     {
         "label": "2020s",
         "value": "2020s"
@@ -103,3 +99,27 @@ RATING_OPTIONS = [
         "value": "6"
     },
 ]
+
+
+# Converting year options to TMDB API parameters
+ERA_MAPPING = {
+    "classic": {
+        "primary_release_date.lte": "1989-12-31"
+    },
+    "1990s": {
+        "primary_release_date.gte": "1990-01-01",
+        "primary_release_date.lte": "1999-12-31"
+    },
+    "2000s": {
+        "primary_release_date.gte": "2000-01-01",
+        "primary_release_date.lte": "2009-12-31"
+    },
+    "2010s": {
+        "primary_release_date.gte": "2010-01-01",
+        "primary_release_date.lte": "2019-12-31"
+    },
+    "2020s": {
+        "primary_release_date.gte": "2020-01-01",
+        "primary_release_date.lte": "2029-12-31"
+    }
+}

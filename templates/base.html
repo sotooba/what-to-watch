@@ -17,8 +17,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -32,6 +31,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/hero.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/recommendations.css') }}">
 
     <!-- Custom Javascript -->
     <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
@@ -50,20 +50,14 @@
     </main>
 
     <!-- Footer -->
-    {% include 'components/footer.html' %}
+    <footer class="py-4 text-center text-muted" style="font-size: 0.85rem;">
+        &copy; <span id="current-year"></span> WhatToWatch. Powered by TMDB.
+    </footer>
 
-
-    <!-- Hide the keyboard when enter is pressed -->
+    <!-- Update the year automatically -->
     <script>
-        function handleMobileSearch() {
-            // Finds your search input field element
-            const searchInput = document.getElementById('navSearchInput');
-            if (searchInput) {
-                // Strips focus away from the field, which tells the mobile OS to hide the keyboard
-                searchInput.blur();
-            }
-        }
-    </script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>   
 
 
     <!-- Bootstrap JS -->
