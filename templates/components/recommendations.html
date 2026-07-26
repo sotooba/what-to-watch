@@ -52,8 +52,7 @@
                     <h6 class="mobile-caption-title text-white fw-bold mb-1">
                         {{ sample.title or sample.name }}
                     </h6>
-                    <div
-                        class="mobile-caption-meta d-flex align-items-center justify-content-between pe-3 text-secondary small">
+                    <div class="mobile-caption-meta d-flex align-items-center justify-content-between pe-3 text-secondary small">
                         <span class="d-inline-flex align-items-center">
                             <span style="color: var(--accent-cinema-gold); margin-right: 3px;">★</span>
                             {{ sample.vote_average|round(1) if sample.vote_average else 'N/A' }}

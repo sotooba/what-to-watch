@@ -4,7 +4,7 @@ from random import sample
 # My methods
 from tmdb_service import get_movie_genres, get_all_languages, discover_movies_tv
 from helpers import get_popular_languages, convert_filters_to_params
-from const_data import MOODS, YEAR_OPTIONS, RATING_OPTIONS
+from const_data import MOODS, YEAR_OPTIONS, RATING_OPTIONS, MOOD_FILTERS
 
 app = Flask(__name__)
 
@@ -55,9 +55,28 @@ def recommendations():
     random_samples = sample(result, k=4)    
 
     return render_template('components/recommendations.html',
-                           random_samples=random_samples,
-                           watch_type=watch_type)
+                           random_samples=random_samples)
+
     
+
+@app.route('/recommendation/mood/<mood>')
+def recommendation(mood):
+    filters = MOOD_FILTERS.get(mood)
+    filters["adult"] = request.form.get("adult") == "true"
+    params = convert_filters_to_params(filters) 
+    result = discover_movies_tv(params) 
+
+    if len(result) < 4:
+        return render_template('error.html',
+                                msg="Movies/TV-Shows with such filters does not exist. Try changing the filters") 
+    # Randomly sample only 4
+    random_samples = sample(result, k=4)    
+    
+    return render_template('components/recommendations.html',
+                               random_samples=random_samples)
+
+
+
 
 @app.route('/about')
 def about():

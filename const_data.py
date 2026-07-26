@@ -145,3 +145,36 @@ TV_ERA_MAPPING = {
             "first_air_date.lte": "2029-12-31"
         }
 }
+
+
+MOOD_FILTERS = {
+    "happy": {
+        "genre": "35,12,10751",  # Adventure, Animation, Adventure, Family
+        "rating": "7",
+    },
+
+    "melancholic": {
+        "genre": "10402,14,18",  # Music, Fantsay, Drama
+        "rating": "7"
+    },
+
+    "family": {
+        "genre": "10751,16,35",  # Family, Animation, Comedy
+        "rating": "7"
+    },
+
+    "date": {
+        "genre": "10749,35,9648",  # Romance, Comedy, Mystery
+        "rating": "7"
+    },
+
+    "horror": {
+        "genre": "27,53,9648",  # Horror, Thriller, Mystery
+        "rating": "7"
+    },
+
+    "not_sure": {
+        "genre": "28,12,14,53,878",  # Action, Adventure, Fantasy, Thriller, Science Fiction
+        "rating": "7"
+    },
+}
