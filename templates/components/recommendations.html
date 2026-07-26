@@ -5,7 +5,6 @@ Recommendations
 {% endblock %}
 
 {% block main %}
-<!-- Added px-3 here to act as a protective mobile side-gutter wall -->
 <div class="container mt-2 mb-5 pt-3 px-4">
 
     <!-- Header Section -->
@@ -15,12 +14,13 @@ Recommendations
         </h2>
     </div>
 
-    <!-- Added g-3 to keep a balanced structural margin gap between posters -->
     <div class="row g-3 justify-content-center">
 
         {% for sample in random_samples %}
             <div class="col-6 col-md-4 col-lg-3 col-xl-3 d-flex justify-content-center">
-                <div class="movie-card w-100">
+                
+                <!-- Added data-bs-toggle and targeted data-bs-target dynamically using sample.id -->
+                <div class="movie-card w-100" data-bs-toggle="modal" data-bs-target="#movieModal{{ sample.id }}">
 
                         <!-- Poster Image -->
                         <img src="https://image.tmdb.org/t/p/original{{sample.poster_path}}" class="movie-poster"
@@ -38,12 +38,18 @@ Recommendations
                                         <path
                                             d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
                                     </svg>
-                                    {{ sample.vote_average | round(1) }}
+                                    {{ sample.vote_average|round(1) if sample.vote_average else 'N/A' }}
                                 </span>
                                 <span class="meta-pill text-nowrap">{{sample.release_date[:4] if sample.release_date else sample.first_air_date[:4]}}</span>
                             </div>
                         </div>
                 </div>
+
+                <!-- Map 'sample' loop dataset to the global modal template component 'movie' mapping context safely -->
+                {% with movie = sample %}
+                    {% include "components/movie_modal.html" %}
+                {% endwith %}
+
             </div>
         {% endfor %}
 
@@ -76,5 +82,4 @@ Recommendations
 
     </div>
 </div>
-
 {% endblock %}
