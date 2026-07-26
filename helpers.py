@@ -1,4 +1,4 @@
-from const_data import POPULAR_LANGUAGES, ERA_MAPPING
+from const_data import POPULAR_LANGUAGES, MOVIE_ERA_MAPPING, TV_ERA_MAPPING
 
 def get_popular_languages(all_languages):
     """
@@ -23,10 +23,15 @@ def convert_filters_to_params(filters):
     if filters.get("genre"):
         params["with_genres"] = filters["genre"]
 
-    # Year
-    era = filters.get("year")
-    if era in ERA_MAPPING:
-        params.update(ERA_MAPPING[era])
+    # Year as per watch_type
+    if filters.get("type") == "movie":    
+        era = filters.get("year")
+        if era in MOVIE_ERA_MAPPING:
+            params.update(MOVIE_ERA_MAPPING[era])
+    else:
+        era = filters.get("year")
+        if era in TV_ERA_MAPPING:
+            params.update(TV_ERA_MAPPING[era])
 
     # Language
     if filters.get("language"):

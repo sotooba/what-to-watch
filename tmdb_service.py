@@ -51,10 +51,12 @@ def get_all_languages():
     return response_data
 
 
-def discover_movies(params):
-    endpoint = "discover/movie"
+def discover_movies_tv(params, type):
+    endpoint = f"discover/{type}"
     response_data = make_request(endpoint, params)
 
     if not response_data:
         return []
     return response_data.get("results", [])
+
+
