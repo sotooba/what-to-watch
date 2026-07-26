@@ -1,4 +1,6 @@
-/* Movie Cards Base Layout (Desktop) */
+/* ==========================================================================
+   1. Movie Cards Base Layout (Desktop)
+   ========================================================================== */
 .movie-card {
     position: relative;
     border-radius: 24px;
@@ -67,7 +69,7 @@
     transform: translateY(-0.5px); 
 }
 
-/* Hover States */
+/* Desktop Hover States */
 .movie-card:hover .movie-poster {
     transform: scale(1.08);
     opacity: 0.65;
@@ -78,7 +80,9 @@
     transform: translateY(0);
 }
 
-/* Action Buttons */
+/* ==========================================================================
+   2. Action Buttons (Retry & Filters)
+   ========================================================================== */
 .btn-action {
     display: inline-flex;
     align-items: center;
@@ -112,47 +116,49 @@
     transform: translateY(0);
 }
 
-/* Mobile Responsive View Safety Guard (< 576px) */
+/* ==========================================================================
+   3. New Mobile Caption Typography Layout (Inspiration Aligned)
+   ========================================================================== */
+.mobile-movie-caption {
+    cursor: pointer;
+}
+
+.mobile-caption-title {
+    font-size: 0.88rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+}
+
+.mobile-caption-meta {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #a0a0a0 !important; /* Soft gray color matching screenshot */
+}
+
+/* ==========================================================================
+   4. Refactored Mobile Responsive View Safety Guard (< 576px)
+   ========================================================================== */
 @media (max-width: 576px) {
     .movie-card {
-        max-width: 300px; 
+        max-width: 100%; /* Spans across the column width cleanly */
         margin: 0 auto;
-        border-radius: 20px;
+        border-radius: 16px; /* Smooth rounded corners matching your screenshot */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     }
 
-    .movie-details {
-        bottom: 12px !important;  
-        left: 12px !important;    
-        right: 12px !important;   
-        padding: 10px 12px !important; 
-        border-radius: 14px !important; 
+    /* FIX: Completely strips the floating card glass overlay box from mobile viewports */
+    .movie-card .movie-details {
+        display: none !important;
+    }
+
+    /* FIX: Disables scaling animation on touch screens to preserve layout boundaries */
+    .movie-card:hover .movie-poster {
+        transform: none !important;
         opacity: 1 !important;
-        transform: translateY(0) !important;
-        background: rgba(20, 20, 20, 0.65) !important
     }
 
-    .movie-title {
-        font-size: 0.9rem !important;
-        margin-bottom: 6px !important;
-    }
-
-    .movie-meta {
-        gap: 6px !important; 
-    }
-
-    .meta-pill {
-        padding: 4px 8px !important;
-        font-size: 0.75rem !important;
-        border-radius: 10px !important;
-    }
-
-    .star-icon {
-        width: 11px !important;
-        height: 11px !important;
-        margin-right: 3px !important; 
-        transform: translateY(0px) !important; 
-    }    
+    /* Keeps full opacity on mobile so poster image stays clean and crisp */
     .movie-poster {
-        opacity: 0.8;
+        opacity: 1 !important;
     }
 }
