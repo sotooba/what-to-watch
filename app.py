@@ -22,6 +22,7 @@ def index():
                             ratings=RATING_OPTIONS)
 
 
+
 # Calls the API and fetches Movie / TV-Show
 @app.route('/recommendations', methods=['POST'])
 def recommendations():
@@ -45,14 +46,13 @@ def recommendations():
         return render_template('error.html',
                                msg="Invalid Watch Type")  
 
-    # If returned result does not have 4 or more Movies
+    # If returned result does not have 4 or more Movies/TV-Shows
     # Show error
     if len(result) < 4:
         return render_template('error.html',
                                msg="Movies/TV-Shows with such filters does not exist. Try changing the filters") 
     # Randomly sample only 4
-    random_samples = sample(result, k=4)
-    
+    random_samples = sample(result, k=4)    
 
     return render_template('components/recommendations.html',
                            random_samples=random_samples,
