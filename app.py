@@ -2,7 +2,7 @@ from flask import Flask, redirect, render_template, request
 from random import sample
 
 # My methods
-from tmdb_service import get_movie_genres, get_all_languages, discover_movies_tv
+from tmdb_service import get_movie_genres, get_all_languages, discover_movies_tv, get_details
 from helpers import get_popular_languages, convert_filters_to_params
 from const_data import MOODS, YEAR_OPTIONS, RATING_OPTIONS, MOOD_FILTERS
 
@@ -40,11 +40,7 @@ def recommendations():
     params = convert_filters_to_params(filters)   
 
     # Get the results from TMDB
-    if watch_type:
-        result = discover_movies_tv(params, watch_type)
-    else:
-        return render_template('error.html',
-                               msg="Invalid Watch Type")  
+    result = discover_movies_tv(params, watch_type)  
 
     # If returned result does not have 4 or more Movies/TV-Shows
     # Show error
@@ -52,7 +48,9 @@ def recommendations():
         return render_template('error.html',
                                msg="Movies/TV-Shows with such filters does not exist. Try changing the filters") 
     # Randomly sample only 4
-    random_samples = sample(result, k=4)    
+    random_samples = sample(result, k=4)
+    for item in random_samples:
+            item["details"] = get_details(item["id"])
 
     return render_template('components/recommendations.html',
                            random_samples=random_samples)
@@ -63,6 +61,7 @@ def recommendations():
 def recommendation(mood):
     filters = MOOD_FILTERS.get(mood)
     filters["adult"] = request.form.get("adult") == "true"
+
     params = convert_filters_to_params(filters) 
     result = discover_movies_tv(params) 
 
@@ -70,8 +69,10 @@ def recommendation(mood):
         return render_template('error.html',
                                 msg="Movies/TV-Shows with such filters does not exist. Try changing the filters") 
     # Randomly sample only 4
-    random_samples = sample(result, k=4)    
+    random_samples = sample(result, k=4) 
     
+    for item in random_samples:
+        item["details"] = get_details(item["id"])  
     return render_template('components/recommendations.html',
                                random_samples=random_samples)
 
@@ -80,7 +81,7 @@ def recommendation(mood):
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return "about"
 
 @app.route('/search')
 def search():

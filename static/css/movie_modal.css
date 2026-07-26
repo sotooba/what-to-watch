@@ -106,6 +106,8 @@
     cursor: pointer;
 }
 
+
+
 /* Responsive adjustments scaling parameters for phone screens */
 @media (max-width: 768px) {
     .movie-modal-glass {

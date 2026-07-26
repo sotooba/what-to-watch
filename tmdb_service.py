@@ -36,8 +36,6 @@ def get_movie_genres():
     endpoint = "genre/movie/list"
     response_data = make_request(endpoint)
 
-    if not response_data:
-        return []
     return response_data.get("genres", [])
 
 
@@ -51,12 +49,21 @@ def get_all_languages():
     return response_data
 
 
-def discover_movies_tv(params, type="movie"):
-    endpoint = f"discover/{type}"
+def discover_movies_tv(params, media_type="movie"):
+    endpoint = f"discover/{media_type}"
     response_data = make_request(endpoint, params)
 
-    if not response_data:
-        return []
     return response_data.get("results", [])
 
 
+@lru_cache(maxsize=256)
+def get_details(tmdb_id="157336", media_type="movie"):
+    params = {
+    "append_to_response": "credits,videos,watch/providers"
+    }
+
+    response_data = make_request(f"{media_type}/{tmdb_id}", params)
+
+    if not response_data:
+            return None
+    return response_data
