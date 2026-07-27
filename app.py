@@ -1,8 +1,8 @@
 from flask import Flask, redirect, render_template, request
 
 # My methods
-from tmdb_service import get_movie_genres, get_tv_genres, get_all_languages
-from helpers import get_popular_languages, discover_movies_tv
+from tmdb_service import get_movie_genres, get_tv_genres, get_all_languages, get_movie_tv_details
+from helpers import get_popular_languages, discover_movies_tv, get_necessary_details
 from const_data import MOODS, YEAR_OPTIONS, RATING_OPTIONS, MOOD_FILTERS
 
 app = Flask(__name__)
@@ -70,7 +70,7 @@ def recommendations():
     
 
 @app.route('/recommendation/mood/<mood>')
-def mood_recommendation(mood):
+def mood_recommendations(mood):
     filters = MOOD_FILTERS.get(mood)
     filters["adult"] = request.form.get("adult") == "true"
 
@@ -87,7 +87,11 @@ def mood_recommendation(mood):
 @app.route('/recommendation/<string:watch_type>/<int:tmdb_id>')
 def recommendation_click(watch_type, tmdb_id):
     # Ensure you are using an f-string so {movie_id} renders as a number
-    return f"it worked and type is {watch_type} and id is {tmdb_id}"
+    response = get_movie_tv_details(tmdb_id, watch_type)
+    movie = get_necessary_details(response)
+
+    return render_template('components/modal.html',
+                           movie=movie)
 
 
 

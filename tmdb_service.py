@@ -64,12 +64,12 @@ def discover_media(params, watch_type="movie"):
     return response_data.get("results", [])
 
 
-def get_details(tmdb_id="157336", media_type="movie"):
+def get_movie_tv_details(tmdb_id, watch_type="movie"):
     params = {
     "append_to_response": "credits,videos,watch/providers"
     }
 
-    response_data = make_request(f"{media_type}/{tmdb_id}", params)
+    response_data = make_request(f"{watch_type}/{tmdb_id}", params)
 
     if not response_data:
             return None

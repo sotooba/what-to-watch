@@ -12,6 +12,7 @@
 
 {% block scripts %}
 
+    <!-- Since this red line isn't breaking any thing, ignore it for now -->
     <script>
         window.movieGenres = {{ movie_genres | tojson }};
         window.tvGenres = {{ tv_genres | tojson }};
