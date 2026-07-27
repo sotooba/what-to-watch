@@ -1,12 +1,14 @@
+from flask import render_template
 from const_data import POPULAR_LANGUAGES, MOVIE_ERA_MAPPING, TV_ERA_MAPPING
+from tmdb_service import  discover_media
+
+
+# Return aplogy (error) if something goes wrong
+def apology(message):
+    return render_template('error.html', msg=message)
+
 
 def get_popular_languages(all_languages):
-    """
-    Takes a list of all languages.
-
-    Returns:
-        A list of popular languages (sorted alphabetically).
-    """
     filtered_languages = []
 
     for language in all_languages:
@@ -45,3 +47,13 @@ def convert_filters_to_params(filters):
     params["include_adult"] = filters["adult"]
     
     return params
+
+
+def discover_movies_tv(filters):
+    params = convert_filters_to_params(filters) 
+    result = discover_media(params) 
+    
+    if len(result) < 4:
+        return apology("We couldn't find anything for you. Change the filters and Try Again.")
+
+    return result

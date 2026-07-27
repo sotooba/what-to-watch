@@ -49,7 +49,7 @@ def get_all_languages():
     return response_data
 
 
-def discover_movies_tv(params, media_type="movie"):
+def discover_media(params, media_type="movie"):
     endpoint = f"discover/{media_type}"
     response_data = make_request(endpoint, params)
 

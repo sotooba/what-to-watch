@@ -2,8 +2,8 @@ from flask import Flask, redirect, render_template, request
 from random import sample
 
 # My methods
-from tmdb_service import get_movie_genres, get_all_languages, discover_movies_tv, get_details
-from helpers import get_popular_languages, convert_filters_to_params
+from tmdb_service import get_movie_genres, get_all_languages
+from helpers import get_popular_languages, discover_movies_tv
 from const_data import MOODS, YEAR_OPTIONS, RATING_OPTIONS, MOOD_FILTERS
 
 app = Flask(__name__)
@@ -36,20 +36,10 @@ def recommendations():
     # Get the watch type
     watch_type = filters["type"]
 
-    # Convert the filters to parameters for the API request
-    params = convert_filters_to_params(filters)   
+    results = discover_movies_tv(filters)
 
-    # Get the results from TMDB
-    result = discover_movies_tv(params, watch_type)  
-
-    # If returned result does not have 4 or more Movies/TV-Shows
-    # Show error
-    if len(result) < 4:
-        return apology("We couldn't find anything for you. Change the filters and Try Again.") 
     # Randomly sample only 4
-    random_samples = sample(result, k=4)
-    for item in random_samples:
-            item["details"] = get_details(item["id"])
+    random_samples = sample(results, k=4)
 
     return render_template('components/recommendations.html',
                            random_samples=random_samples)
@@ -61,22 +51,18 @@ def recommendation(mood):
     filters = MOOD_FILTERS.get(mood)
     filters["adult"] = request.form.get("adult") == "true"
 
-    params = convert_filters_to_params(filters) 
-    result = discover_movies_tv(params) 
-
-    if len(result) < 4:
-        return apology("We couldn't find anything for you. Change the filters and Try Again.") 
+    result = discover_movies_tv(filters)
+     
     # Randomly sample only 4
-    random_samples = sample(result, k=4) 
+    random_samples = sample(result, k=4)
+    print(random_samples)
 
     return render_template('components/recommendations.html',
                                random_samples=random_samples)
 
 
 
-# Return aplogy (error) if something goes wrong
-def apology(message):
-    return render_template('error.html', msg=message)
+
 
 
 @app.route('/about')
