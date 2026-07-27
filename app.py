@@ -45,8 +45,7 @@ def recommendations():
     # If returned result does not have 4 or more Movies/TV-Shows
     # Show error
     if len(result) < 4:
-        return render_template('error.html',
-                               msg="Movies/TV-Shows with such filters does not exist. Try changing the filters") 
+        return apology("We couldn't find anything for you. Change the filters and Try Again.") 
     # Randomly sample only 4
     random_samples = sample(result, k=4)
     for item in random_samples:
@@ -66,17 +65,18 @@ def recommendation(mood):
     result = discover_movies_tv(params) 
 
     if len(result) < 4:
-        return render_template('error.html',
-                                msg="Movies/TV-Shows with such filters does not exist. Try changing the filters") 
+        return apology("We couldn't find anything for you. Change the filters and Try Again.") 
     # Randomly sample only 4
     random_samples = sample(result, k=4) 
-    
-    for item in random_samples:
-        item["details"] = get_details(item["id"])  
+
     return render_template('components/recommendations.html',
                                random_samples=random_samples)
 
 
+
+# Return aplogy (error) if something goes wrong
+def apology(message):
+    return render_template('error.html', msg=message)
 
 
 @app.route('/about')
