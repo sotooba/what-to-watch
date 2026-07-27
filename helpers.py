@@ -1,4 +1,7 @@
 from flask import render_template
+from random import sample
+
+# My methods
 from const_data import POPULAR_LANGUAGES, MOVIE_ERA_MAPPING, TV_ERA_MAPPING
 from tmdb_service import  discover_media
 
@@ -56,4 +59,6 @@ def discover_movies_tv(filters):
     if len(result) < 4:
         return apology("We couldn't find anything for you. Change the filters and Try Again.")
 
-    return result
+    # Randomly sample only 4
+    return sample(result, k=4)
+    
