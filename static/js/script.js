@@ -75,3 +75,109 @@ function updateResponsiveFilters() {
 // Calling the function
 document.addEventListener("DOMContentLoaded", updateResponsiveFilters);
 window.addEventListener("resize", updateResponsiveFilters);
+
+
+// Dynamically load the genres based on the watch type selected
+document.addEventListener("DOMContentLoaded", () => {
+
+    const movieGenres = window.movieGenres;
+    const tvGenres = window.tvGenres;
+
+    const desktopContainer = document.getElementById("desktopGenreContainer");
+    const mobileSelect = document.getElementById("mobileGenreSelect");
+
+    const watchTypeRadios = document.querySelectorAll(
+        'input[name="type"]'
+    );
+
+
+    // -----------------------------
+    // Desktop Genre Pills
+    // -----------------------------
+    function renderDesktopGenres(genres) {
+
+        let html = `
+            <label class="pill-checkbox-item">
+                <input
+                    type="radio"
+                    name="genre"
+                    value=""
+                    checked>
+                <span>All</span>
+            </label>
+        `;
+
+        genres.forEach(genre => {
+
+            html += `
+                <label class="pill-checkbox-item">
+                    <input
+                        type="radio"
+                        name="genre"
+                        value="${genre.id}">
+                    <span>${genre.name}</span>
+                </label>
+            `;
+
+        });
+
+        desktopContainer.innerHTML = html;
+    }
+
+
+    // -----------------------------
+    // Mobile Dropdown
+    // -----------------------------
+    function renderMobileGenres(genres) {
+
+        let html = `
+            <option value="" selected>
+                All
+            </option>
+        `;
+
+        genres.forEach(genre => {
+
+            html += `
+                <option value="${genre.id}">
+                    ${genre.name}
+                </option>
+            `;
+
+        });
+
+        mobileSelect.innerHTML = html;
+    }
+
+
+    // Initial Render
+    renderDesktopGenres(movieGenres);
+    renderMobileGenres(movieGenres);
+
+
+    // -----------------------------
+    // Change Watch Type
+    // -----------------------------
+    watchTypeRadios.forEach(radio => {
+
+        radio.addEventListener("change", function () {
+
+            if (this.value === "movie") {
+
+                renderDesktopGenres(movieGenres);
+                renderMobileGenres(movieGenres);
+
+            }
+
+            else if (this.value === "tv") {
+
+                renderDesktopGenres(tvGenres);
+                renderMobileGenres(tvGenres);
+
+            }
+
+        });
+
+    });
+
+});

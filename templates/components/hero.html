@@ -20,7 +20,7 @@
             {% for mood in moods %}
             <div class="col">
 
-                <a href="{{ url_for('recommendation', mood=mood.value) }}"
+                <a href="{{ url_for('mood_recommendation', mood=mood.value) }}"
                     class="mood-pod d-flex flex-column align-items-center justify-content-center p-4">
 
                     <div class="mood-emoji mb-2">
@@ -83,17 +83,10 @@
                         <!-- Row: Genre -->
                         <div class="filter-row d-flex align-items-start mb-4">
                             <span class="filter-key-label me-4 pt-1">Genre</span>
-                            <div class="filter-values-group d-flex flex-wrap gap-2">
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="genre" value="" checked>
-                                    <span>All</span>
-                                </label>
-                                {% for genre in genres %}
-                                <label class="pill-checkbox-item">
-                                    <input type="radio" name="genre" value="{{ genre.id }}">
-                                    <span>{{ genre.name }}</span>
-                                </label>
-                                {% endfor %}
+                            <div id="desktopGenreContainer" class="filter-values-group d-flex flex-wrap gap-2">
+
+                                <!-- Genre Container: Genres are displayed dynamically based on movie/tv-show -->
+
                             </div>
                         </div>
 
@@ -194,11 +187,8 @@
 
                             <div class="col-6">
                                 <label class="filter-label mb-2">Genre</label>
-                                <select class="form-select filter-select rounded-pill px-3" name="genre">
-                                    <option value="" selected>Any Genre</option>
-                                    {% for genre in genres %}
-                                    <option value="{{ genre.id }}">{{ genre.name }}</option>
-                                    {% endfor %}
+                                <select id="mobileGenreSelect" class="form-select filter-select rounded-pill px-3" name="genre">
+                                    
                                 </select>
                             </div>
 

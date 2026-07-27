@@ -46,7 +46,7 @@ MOODS = [
     },
     {
         "emoji": "💀",
-        "title": "Horror Night",
+        "title": "Horror Night",   
         "subtitle": "Fear & Screams",
         "value": "horror"
     },
@@ -164,7 +164,7 @@ MOOD_FILTERS = {
     },
 
     "date": {
-        "genre": "10749,35,9648",  # Romance, Comedy, Mystery
+        "genre": "10749,35,10770",  # Romance, Comedy, TV movie
         "rating": "7"
     },
 

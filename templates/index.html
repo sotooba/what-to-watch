@@ -9,3 +9,14 @@
     {% include 'components/hero.html' %}
 
 {% endblock %}
+
+{% block scripts %}
+
+    <script>
+        window.movieGenres = {{ movie_genres | tojson }};
+        window.tvGenres = {{ tv_genres | tojson }};
+    </script>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+{% endblock %}

@@ -1,14 +1,8 @@
-from flask import render_template
 from random import sample
 
 # My methods
 from const_data import POPULAR_LANGUAGES, MOVIE_ERA_MAPPING, TV_ERA_MAPPING
 from tmdb_service import  discover_media
-
-
-# Return aplogy (error) if something goes wrong
-def apology(message):
-    return render_template('error.html', msg=message)
 
 
 def get_popular_languages(all_languages):
@@ -52,13 +46,10 @@ def convert_filters_to_params(filters):
     return params
 
 
-def discover_movies_tv(filters):
-    params = convert_filters_to_params(filters) 
-    result = discover_media(params) 
-    
-    if len(result) < 4:
-        return apology("We couldn't find anything for you. Change the filters and Try Again.")
+def discover_movies_tv(filters, watch_type="movie"):
+    params = convert_filters_to_params(filters)
+    result = discover_media(params, watch_type) 
 
     # Randomly sample only 4
-    return sample(result, k=4)
+    return sample(result, k=min(4, len(result)))
     
