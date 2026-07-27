@@ -1,6 +1,4 @@
-/* ==========================================================================
-   1. Movie Cards Base Layout (Desktop)
-   ========================================================================== */
+/* Movie Cards Base Layout (Desktop) */
 .movie-card {
     position: relative;
     border-radius: 24px;
@@ -80,9 +78,7 @@
     transform: translateY(0);
 }
 
-/* ==========================================================================
-   2. Action Buttons (Retry & Filters)
-   ========================================================================== */
+/* Action Buttons (Retry & Filters) */
 .btn-action {
     display: inline-flex;
     align-items: center;
@@ -116,9 +112,7 @@
     transform: translateY(0);
 }
 
-/* ==========================================================================
-   3. New Mobile Caption Typography Layout (Inspiration Aligned)
-   ========================================================================== */
+/* New Mobile Caption Typography Layout */
 .mobile-movie-caption {
     cursor: pointer;
 }
@@ -132,33 +126,21 @@
 .mobile-caption-meta {
     font-size: 0.78rem;
     font-weight: 500;
-    color: #a0a0a0 !important; /* Soft gray color matching screenshot */
+    color: #a0a0a0 !important;
 }
 
-/* ==========================================================================
-   4. Refactored Mobile Responsive View Safety Guard (< 576px)
-   ========================================================================== */
-@media (max-width: 576px) {
+/* Refactored Mobile Responsive View */
+@media (max-width: 767.98px) {
     .movie-card {
-        max-width: 100%; /* Spans across the column width cleanly */
+        max-width: 100%; 
         margin: 0 auto;
-        border-radius: 16px; /* Smooth rounded corners matching your screenshot */
+        border-radius: 16px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     }
 
-    /* FIX: Completely strips the floating card glass overlay box from mobile viewports */
-    .movie-card .movie-details {
-        display: none !important;
-    }
-
-    /* FIX: Disables scaling animation on touch screens to preserve layout boundaries */
+    /* Disable scaling animations on mobile view touch devices completely */
     .movie-card:hover .movie-poster {
         transform: none !important;
-        opacity: 1 !important;
-    }
-
-    /* Keeps full opacity on mobile so poster image stays clean and crisp */
-    .movie-poster {
         opacity: 1 !important;
     }
 }
