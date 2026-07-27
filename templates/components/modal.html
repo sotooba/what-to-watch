@@ -1,10 +1,167 @@
 {% extends "base.html" %}
 
 {% block title %}
-    {{movie.title or movie.original_name}}
+{{ movie.title }}
 {% endblock %}
 
 {% block main %}
 
 
+<!-- Fluid container layout with fixed horizontal overflow configurations (Added .movie-detail-breakout-container) -->
+<div class="container-fluid p-0 min-vh-100 liquid-glass-bg text-white w-100 position-relative overflow-x-hidden text-start movie-detail-breakout-container">
+    
+    <!-- Full-width hero backdrop starting from true absolute top (0px) -->
+    <div class="modal-hero-backdrop w-100"
+        style="background-image: url('https://image.tmdb.org/t/p/original{{ movie.backdrop }}');">
+
+        <!-- Subtle deep fade mask layer -->
+        <div class="backdrop-gradient-mask"></div>
+    </div>
+
+    <!-- Rest of your movie_detail.html code remains exactly the same below... -->
+
+
+    <!-- Close floating circle button -->
+    <a href="javascript:void(0);" onclick="window.history.back();"
+        class="btn-close-modal d-flex align-items-center justify-content-center text-decoration-none"
+        aria-label="Close">
+        <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path
+                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+        </svg>
+    </a>
+
+    <!-- Relative layout content layer positioned over the backdrop graphics -->
+    <div class="movie-content-layout-wrapper w-100 position-relative text-start d-flex flex-column align-items-start">
+
+        <!-- Header Content Grid Section: Strict Left-Aligned Column Wrapper Block -->
+        <div class="container-xl modal-header-info px-4 px-md-5 text-start d-flex flex-column align-items-start mx-0 w-100 style-full-width-override"
+            style="max-width: 100%;">
+
+            <h1 class="fw-bold tracking-wide text-white text-start align-self-start text-wrap cinematic-title"
+                style="margin-left: 0;">
+                {{ movie.title }}
+            </h1>
+
+            {% if movie.tagline %}
+            <p class="text-uppercase tracking-wider text-gradient fw-semibold mb-4 text-start align-self-start"
+                style="font-size: 0.75rem; letter-spacing: 0.12em; margin-left: 0;">
+                {{ movie.tagline }}
+            </p>
+            {% endif %}
+
+            <!-- Metadata Badge Row: Left aligned flex row layout -->
+            <div class="d-flex flex-wrap gap-2 align-items-center mb-4 justify-content-start align-self-start w-100"
+                style="margin-left: 0;">
+                <span class="meta-badge-pill glass-surface">
+                    {{ movie.release_date[:4] if movie.release_date else 'N/A' }}
+                </span>
+
+                <span class="meta-badge-pill glass-surface d-inline-flex align-items-center">
+                    IMDb <span class="ms-1 fw-bold text-warning">{{ movie.rating | round(1) if movie.rating else '0.0'
+                        }}</span>
+                </span>
+
+                {% if movie.runtime %}
+                <span class="meta-badge-pill glass-surface">
+                    {{ movie.runtime }} min
+                </span>
+                {% endif %}
+
+                <!-- Trailer Link Component triggering toggle function -->
+                {% if movie.trailer %}
+                <a href="javascript:void(0);" onclick="toggleTrailerDisplayPreview()"
+                    class="meta-badge-pill glass-surface btn-modal-action btn-mobile-stretch text-white text-decoration-none align-items-center fw-medium">
+                    <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor"
+                        class="bi bi-play-btn-fill text-danger me-2" viewBox="0 0 16 16">
+                        <path
+                            d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z" />
+                    </svg>
+                    Watch Trailer
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Left Aligned Core Body Information Panels -->
+        <div class="container-xl modal-body px-4 px-md-5 pb-5 text-start d-flex flex-column align-items-start mx-0 w-100 style-full-width-override"
+            style="max-width: 100%;">
+            {% if movie.genres %}
+            <p class="text-secondary mb-3 text-start align-self-start"
+                style="font-size: 0.88rem; color: #b0b0b0; margin-left: 0;">
+                <strong class="text-white fw-medium">Genres:</strong> {{ movie.genres }}
+            </p>
+            {% endif %}
+
+            <p class="lh-base mb-5 text-light-muted text-start text-wrap align-self-start w-100"
+                style="font-size: 1rem; line-height: 1.6; margin-left: 0; margin-right: 0;">
+                {{ movie.overview or "No description overview record data available for this production listing." }}
+            </p>
+
+            <!-- Hidden on load iframe video preview zone -->
+            {% if movie.trailer %}
+            <div id="trailerSection" class="w-100 mb-5 d-none trailer-reveal-animation">
+                <!-- Desktop constraint helper element added here -->
+                <div class="desktop-trailer-wrapper w-100">
+                    <div class="ratio ratio-16x9 w-100 video-iframe-shadow overflow-hidden"
+                        style="border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+                        <iframe id="trailervideoframe" src="https://www.youtube.com/embed/{{ movie.trailer }}"
+                            title="{{ movie.title }} Official Trailer" allowfullscreen loading="lazy" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+
+            <!-- Technical Production Footer Specs Data Matrix (White border classes removed) -->
+            <div class="row g-3 pt-2 mt-2 text-start justify-content-start w-100"
+                style="font-size: 0.9rem; margin-left: 0;">
+                {% if movie.director and movie.director != 'N/A' %}
+                <div class="col-12 col-md-6 text-light-muted text-start text-wrap ps-0">
+                    <strong class="text-white fw-medium">Director:</strong> {{ movie.director }}
+                </div>
+                {% endif %}
+
+                {% if movie.cast and movie.cast != 'N/A' %}
+                <div class="col-12 col-md-6 text-light-muted text-wrap text-start">
+                    <strong class="text-white fw-medium">Cast:</strong> {{ movie.cast }}
+                </div>
+                {% endif %}
+
+                {% if movie.country %}
+                <div class="col-12 col-md-6 text-light-muted text-start text-wrap ps-0">
+                    <strong class="text-white fw-medium">Country:</strong> {{ movie.country }}
+                </div>
+                {% endif %}
+
+                {% if movie.language %}
+                <div class="col-12 col-md-6 text-light-muted text-start text-wrap">
+                    <strong class="text-white fw-medium">Language:</strong> {{ movie.language }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function toggleTrailerDisplayPreview() {
+        const trailerBlock = document.getElementById('trailerSection');
+        if (trailerBlock) {
+            if (trailerBlock.classList.contains('d-none')) {
+                trailerBlock.classList.remove('d-none');
+                setTimeout(() => {
+                    trailerBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            } else {
+                trailerBlock.classList.add('d-none');
+            }
+        }
+    }
+</script>
 {% endblock %}
