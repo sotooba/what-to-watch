@@ -40,5 +40,5 @@ build/
 dist/
 *.egg-info/
 
-# AI
+# DOCS
 /project-notes
