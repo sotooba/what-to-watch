@@ -25,7 +25,7 @@
 
                         <!-- Poster Image Container Card Area -->
                         <div class="movie-card w-100">
-                            <a href="{{ url_for('recommendation_click', watch_type=watch_type, tmdb_id=sample.id) }}">
+                            <a href="{{ url_for('recommendation_click', page_name=page_name , watch_type=watch_type, tmdb_id=sample.id) }}">
 
                                 <img src="https://image.tmdb.org/t/p/original{{sample.poster_path}}" class="movie-poster"
                                     alt="{{sample.title or sample.name}}">
