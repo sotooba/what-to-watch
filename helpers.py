@@ -106,12 +106,17 @@ def get_necessary_details(response):
             break
 
 
-    # Watch Providers   
-    watch_providers = (
-        response["watch/providers"]["results"]
-        .get("US", {})
-        .get("flatrate", [])
-    )
+   # Extract the country dictionary
+    country_data = response["watch/providers"]["results"].get("US", {})
+
+    # Get each array (default to an empty list if missing)
+    flatrate_list = country_data.get("flatrate", [])
+    free_list     = country_data.get("free", [])
+    ads_list      = country_data.get("ads", [])
+
+    # Combine them all into one flat list
+    watch_providers = flatrate_list + free_list + ads_list
+
 
     country_codes = (
     response.get("origin_country")
