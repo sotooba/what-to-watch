@@ -23,14 +23,14 @@ MOODS = [
     {
         "emoji": "✨",
         "title": "Happy",
-        "subtitle": "Feel-good & Uplifting",
+        "subtitle": "Joy in every scene",
         "value": "happy"
     },
     {
         "emoji": "🌧️",
-        "title": "Melancholic",
-        "subtitle": "Deep & Emotional",
-        "value": "melancholic"
+        "title": "Emotional",
+        "subtitle": "Stories that stay",
+        "value": "emotional"
     },
     {
         "emoji": "🍕",
@@ -41,19 +41,19 @@ MOODS = [
     {
         "emoji": "💘",
         "title": "Date Night",
-        "subtitle": "Romance & Drama",
+        "subtitle": "Love starts here",
         "value": "date"
     },
     {
         "emoji": "💀",
         "title": "Horror Night",   
-        "subtitle": "Fear & Screams",
+        "subtitle": "Enter if you dare",
         "value": "horror"
     },
     {
         "emoji": "🤷‍♂️",
         "title": "Not Sure",
-        "subtitle": "Let us decide for you",
+        "subtitle": "Find your next favorite",
         "value": "not_sure"
     }
 ]
@@ -149,33 +149,33 @@ TV_ERA_MAPPING = {
 
 MOOD_FILTERS = {
     "happy": {
-        "genre": "35,12,10751",  # Adventure, Animation, Adventure, Family
+        "genre": "35|10751|16",      # Comedy, Family, Animation
         "rating": "7",
     },
 
-    "melancholic": {
-        "genre": "10402,14,18",  # Music, Fantsay, Drama
-        "rating": "7"
+    "emotional": {
+        "genre": "18|10749",         # Drama, Romance
+        "rating": "7",
     },
 
     "family": {
-        "genre": "10751,16,35",  # Family, Animation, Comedy
-        "rating": "7"
+        "genre": "10751|16",         # Family, Animation
+        "rating": "7",
     },
 
     "date": {
-        "genre": "10749,35,10770",  # Romance, Comedy, TV movie
-        "rating": "7"
+        "genre": "10749|35",         # Romance, Comedy
+        "rating": "7",
     },
 
     "horror": {
-        "genre": "27,53,9648",  # Horror, Thriller, Mystery
-        "rating": "7"
+        "genre": "27",               # Horror only
+        "rating": "7",
     },
 
     "not_sure": {
-        "genre": "28,12,14,53,878",  # Action, Adventure, Fantasy, Thriller, Science Fiction
-        "rating": "7"
+        "genre": "28|12|878|80",        # Action, Adventure, Sci-Fi
+        "rating": "7",
     },
 }
 

@@ -57,11 +57,13 @@ def get_all_languages():
     return response_data
 
 
-def discover_media(params, watch_type="movie"):
+def discover_media(params, watch_type="movie", page=1):
     endpoint = f"discover/{watch_type}"
-    response_data = make_request(endpoint, params)
 
-    return response_data.get("results", [])
+    params = params.copy()
+    params["page"] = page
+
+    return make_request(endpoint, params)
 
 
 def get_movie_tv_details(tmdb_id, watch_type="movie"):

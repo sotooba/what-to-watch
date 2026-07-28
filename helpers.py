@@ -1,4 +1,4 @@
-from random import sample
+from random import randint, sample
 import pycountry
 
 # My methods
@@ -17,42 +17,67 @@ def get_popular_languages(all_languages):
 
 
 def convert_filters_to_params(filters):
-    params = {}
+    params = {
+        "sort_by": "popularity.desc",
+        "include_adult": filters["adult"],
+    }
+
+    watch_type = filters.get("type")
+    selected_year = filters.get("year")
 
     # Genre
     if filters.get("genre"):
         params["with_genres"] = filters["genre"]
 
-    # Year as per watch_type
-    if filters.get("type") == "movie":    
-        era = filters.get("year")
-        if era in MOVIE_ERA_MAPPING:
-            params.update(MOVIE_ERA_MAPPING[era])
-    else:
-        era = filters.get("year")
-        if era in TV_ERA_MAPPING:
-            params.update(TV_ERA_MAPPING[era])
-
     # Language
     if filters.get("language"):
         params["with_original_language"] = filters["language"]
 
-    # Rating
-    if filters.get("rating"):
-        params["vote_average.gte"] = filters["rating"]
+    # Minimum Rating
+    params["vote_average.gte"] = filters.get("rating") or 7
 
-    # Adult Content
-    params["include_adult"] = filters["adult"]
-    
+    # Movie-specific filters
+    if watch_type == "movie":
+        params["vote_count.gte"] = 2000
+
+        if selected_year:
+            params.update(MOVIE_ERA_MAPPING[selected_year])
+        else:
+            params["primary_release_date.gte"] = "1980-01-01"
+
+    # TV-specific filters
+    else:
+        params["vote_count.gte"] = 500
+
+        if selected_year:
+            params.update(TV_ERA_MAPPING[selected_year])
+        else:
+            params["first_air_date.gte"] = "1980-01-01"
+
     return params
 
 
 def discover_movies_tv(filters, watch_type="movie"):
     params = convert_filters_to_params(filters)
-    result = discover_media(params, watch_type) 
 
-    # Randomly sample only 4
-    return sample(result, k=min(4, len(result)))
+    response = discover_media(params, watch_type)
+
+    total_pages = min(response.get("total_pages", 1), 500)
+
+    start_page = randint(1, max(total_pages - 2, 1))
+
+    movies = []
+
+    for page in range(start_page, min(start_page + 3, total_pages + 1)):
+        response = discover_media(params, watch_type, page)
+        movies.extend(response.get("results", []))
+
+    # Remove duplicates by TMDb ID
+    unique_movies = {movie["id"]: movie for movie in movies}.values()
+
+    unique_movies = list(unique_movies)
+
+    return sample(unique_movies, k=min(4, len(unique_movies)))
 
 
 def get_necessary_details(response):
