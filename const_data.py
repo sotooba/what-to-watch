@@ -40,8 +40,8 @@ MOODS = [
     },
     {
         "emoji": "💘",
-        "title": "Date Night",
-        "subtitle": "Love starts here",
+        "title": "Love & Laughter",
+        "subtitle": "Feel Every Moment",
         "value": "date"
     },
     {

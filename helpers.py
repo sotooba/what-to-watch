@@ -20,9 +20,11 @@ def convert_filters_to_params(filters):
     params = {
         "sort_by": "popularity.desc",
         "include_adult": filters["adult"],
+        "vote_average.gte": filters.get("rating") or 7,
     }
 
     watch_type = filters.get("type")
+    language = filters.get("language", "en")
     selected_year = filters.get("year")
 
     # Genre
@@ -33,24 +35,20 @@ def convert_filters_to_params(filters):
     if filters.get("language"):
         params["with_original_language"] = filters["language"]
 
-    # Minimum Rating
-    params["vote_average.gte"] = filters.get("rating") or 7
-
-    # Movie-specific filters
+    # Vote count threshold
     if watch_type == "movie":
-        params["vote_count.gte"] = 2000
+        params["vote_count.gte"] = 2000 if language == "en" else 300
 
         if selected_year:
-            params.update(MOVIE_ERA_MAPPING[selected_year])
+            params.update(MOVIE_ERA_MAPPING.get(selected_year, {}))
         else:
             params["primary_release_date.gte"] = "1980-01-01"
 
-    # TV-specific filters
     else:
-        params["vote_count.gte"] = 500
+        params["vote_count.gte"] = 500 if language == "en" else 10
 
         if selected_year:
-            params.update(TV_ERA_MAPPING[selected_year])
+            params.update(TV_ERA_MAPPING.get(selected_year, {}))
         else:
             params["first_air_date.gte"] = "1980-01-01"
 
@@ -60,25 +58,30 @@ def convert_filters_to_params(filters):
 def discover_movies_tv(filters, watch_type="movie"):
     params = convert_filters_to_params(filters)
 
+    # First request to determine the number of available pages
     response = discover_media(params, watch_type)
-
     total_pages = min(response.get("total_pages", 1), 500)
 
-    start_page = randint(1, max(total_pages - 2, 1))
+    # Pick up to 3 unique random pages
+    random_pages = sample(
+        range(1, total_pages + 1),
+        k=min(3, total_pages)
+    )
 
     movies = []
 
-    for page in range(start_page, min(start_page + 3, total_pages + 1)):
+    # Fetch movies from each random page
+    for page in random_pages:
         response = discover_media(params, watch_type, page)
         movies.extend(response.get("results", []))
 
-    # Remove duplicates by TMDb ID
-    unique_movies = {movie["id"]: movie for movie in movies}.values()
+    # Remove duplicate movies by TMDb ID
+    unique_movies = list(
+        {movie["id"]: movie for movie in movies}.values()
+    )
 
-    unique_movies = list(unique_movies)
-
+    # Return 4 random recommendations
     return sample(unique_movies, k=min(4, len(unique_movies)))
-
 
 def get_necessary_details(response):
     
@@ -108,7 +111,7 @@ def get_necessary_details(response):
     # Top Cast (8)    
     cast = []   
 
-    for actor in response["credits"]["cast"][:8]:
+    for actor in response["credits"]["cast"][:10]:
         cast.append({
             "name": actor.get("name"),
             "original_name": actor.get("original_name") or actor.get("name"),
@@ -268,22 +271,22 @@ def get_alt_providers(watch_type, tmdb_id):
             "url": f"https://www.cineplay.to/{watch_type}/{tmdb_id}",
             "logo": "https://www.cineplay.to/logo.png"
         },
-        
-        {
-            "name": "Skyflix",
-            "url": f"https://www.skyflix.to/title/{watch_type}/{tmdb_id}",
-            "logo": "https://www.skyflix.to/logo.png"
-        },
         {
             "name": "Cineby",
             "url": f"https://cineby.tech/{watch_type}/{tmdb_id}/watch",
-            "logo": "https://cineby.tech/cineby-logo@2x.webp"
+                "logo": "https://cineby.tech/cineby-logo@2x.webp"
         },
         {
             "name": "Dulo",
             "url": f"https://dulo.tv/",
             "logo": "https://dulo.tv/dulo-auth-mark.png"
+        },        
+        {
+            "name": "Skyflix",
+            "url": f"https://www.skyflix.to/title/{watch_type}/{tmdb_id}",
+            "logo": "https://www.skyflix.to/logo.png"
         }
+        
     ]
 
 

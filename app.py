@@ -65,8 +65,7 @@ def recommendations():
 
     return render_template('components/recommendations.html',
                            random_samples=result,
-                           watch_type=watch_type,
-                           page_name="recommendations")
+                           watch_type=watch_type)
 
     
 
@@ -81,13 +80,12 @@ def mood_recommendations(mood):
 
     return render_template('components/recommendations.html',
                             random_samples=result,
-                            watch_type="movie",
-                            page_name="recommendations")
+                            watch_type="movie")
 
 
 
-@app.route('/<page_name>/<watch_type>/<int:tmdb_id>')
-def recommendation_click(watch_type, tmdb_id, page_name):
+@app.route('/recommendation/<watch_type>/<int:tmdb_id>')
+def recommendation_click(watch_type, tmdb_id):
     # Ensure you are using an f-string so {movie_id} renders as a number
     response = get_movie_tv_details(tmdb_id, watch_type)
     movie = get_necessary_details(response)

@@ -63,7 +63,9 @@ def discover_media(params, watch_type="movie", page=1):
     params = params.copy()
     params["page"] = page
 
-    return make_request(endpoint, params)
+    response_data = make_request(endpoint, params)
+    
+    return response_data
 
 
 def get_movie_tv_details(tmdb_id, watch_type="movie"):
