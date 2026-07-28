@@ -73,7 +73,7 @@ def get_movie_tv_details(tmdb_id, watch_type="movie"):
     }
 
     response_data = make_request(f"{watch_type}/{tmdb_id}", params)
-
+    
     if not response_data:
             return None
     return response_data

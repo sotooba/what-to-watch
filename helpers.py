@@ -81,7 +81,7 @@ def discover_movies_tv(filters, watch_type="movie"):
 
 
 def get_necessary_details(response):
-
+    
     # TMDB's transparent title artwork. Prefer an English logo, then a
     # language-neutral one, so the detail page can use the official title art.
     logos = response.get("images", {}).get("logos", [])
@@ -106,10 +106,9 @@ def get_necessary_details(response):
 
     
     # Top Cast (8)    
-    cast = []
+    cast = []   
 
     for actor in response["credits"]["cast"][:8]:
-
         cast.append({
             "name": actor.get("name"),
             "original_name": actor.get("original_name") or actor.get("name"),
