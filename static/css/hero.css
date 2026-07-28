@@ -35,13 +35,6 @@
     line-height: 1.6;
 }
 
-.text-gradient {
-    background: linear-gradient(135deg, #ffffff 30%, var(--accent-cinema-gold) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
 /* =======================================
    Interactive Mood Pods Configuration
    ======================================= */

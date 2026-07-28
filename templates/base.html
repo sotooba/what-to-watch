@@ -44,7 +44,8 @@
     <title>WhatToWatch | {% block title %}{% endblock %}</title>
 </head>
 
-<body>
+<body class="{% block body_class %}{% endblock %}">
+    {% block page_background %}{% endblock %}
     <!-- Navbar -->
     {% include 'components/navbar.html' %}
 

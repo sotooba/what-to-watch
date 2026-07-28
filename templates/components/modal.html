@@ -1,25 +1,20 @@
 {% extends "base.html" %}
-
 {% block title %}
 {{ movie.title }}
 {% endblock %}
-
+{% block body_class %}detail-page{% endblock %}
+{% block page_background %}
+<div class="detail-page-atmosphere"
+    style="--detail-backdrop: url('https://image.tmdb.org/t/p/original{{ movie.backdrop }}');"
+    aria-hidden="true"></div>
+<div class="detail-page-backdrop"
+    style="--detail-backdrop: url('https://image.tmdb.org/t/p/original{{ movie.backdrop }}');"
+    aria-hidden="true"></div>
+{% endblock %}
 {% block main %}
-
-
 <!-- Fluid container layout with fixed horizontal overflow configurations (Added .movie-detail-breakout-container) -->
-<div class="container-fluid p-0 min-vh-100 liquid-glass-bg text-white w-100 position-relative overflow-x-hidden text-start movie-detail-breakout-container">
-    
-    <!-- Full-width hero backdrop starting from true absolute top (0px) -->
-    <div class="modal-hero-backdrop w-100"
-        style="background-image: url('https://image.tmdb.org/t/p/original{{ movie.backdrop }}');">
-
-        <!-- Subtle deep fade mask layer -->
-        <div class="backdrop-gradient-mask"></div>
-    </div>
-
-    <!-- Rest of your movie_detail.html code remains exactly the same below... -->
-
+<div
+    class="container-fluid p-0 min-vh-100 liquid-glass-bg text-white w-100 position-relative overflow-x-hidden text-start movie-detail-breakout-container">
 
     <!-- Close floating circle button -->
     <a href="javascript:void(0);" onclick="window.history.back();"
@@ -38,10 +33,16 @@
         <div class="container-xl modal-header-info px-4 px-md-5 text-start d-flex flex-column align-items-start mx-0 w-100 style-full-width-override"
             style="max-width: 100%;">
 
+            {% if movie.title_logo %}
+            <h1 class="visually-hidden">{{ movie.title }}</h1>
+            <img class="cinematic-title-logo" src="https://image.tmdb.org/t/p/original{{ movie.title_logo }}"
+                alt="{{ movie.title }}">
+            {% else %}
             <h1 class="fw-bold tracking-wide text-white text-start align-self-start text-wrap cinematic-title"
                 style="margin-left: 0;">
                 {{ movie.title }}
             </h1>
+            {% endif %}
 
             {% if movie.tagline %}
             <p class="text-uppercase tracking-wider text-gradient fw-semibold mb-4 text-start align-self-start"
@@ -67,7 +68,6 @@
                     {{ movie.runtime }} min
                 </span>
                 {% endif %}
-
                 <!-- Trailer Link Component triggering toggle function -->
                 {% if movie.trailer %}
                 <a href="javascript:void(0);" onclick="toggleTrailerDisplayPreview()"
@@ -82,7 +82,6 @@
                 {% endif %}
             </div>
         </div>
-
         <!-- Left Aligned Core Body Information Panels -->
         <div class="container-xl modal-body px-4 px-md-5 pb-5 text-start d-flex flex-column align-items-start mx-0 w-100 style-full-width-override"
             style="max-width: 100%;">
@@ -93,14 +92,14 @@
             </p>
             {% endif %}
 
-            <p class="lh-base mb-5 text-light-muted text-start text-wrap align-self-start w-100"
-                style="font-size: 1rem; line-height: 1.6; margin-left: 0; margin-right: 0;">
+            <p class="lh-base text-light-muted text-start text-wrap align-self-start w-100"
+                style="font-size: 1rem; line-height: 1.6; margin-left: 0; margin-right: 0; text-wrap-style: pretty;">
                 {{ movie.overview or "No description overview record data available for this production listing." }}
             </p>
 
             <!-- Hidden on load iframe video preview zone -->
             {% if movie.trailer %}
-            <div id="trailerSection" class="w-100 mb-5 d-none trailer-reveal-animation">
+            <div id="trailerSection" class="w-100 mb-3 d-none trailer-reveal-animation">
                 <!-- Desktop constraint helper element added here -->
                 <div class="desktop-trailer-wrapper w-100">
                     <div class="ratio ratio-16x9 w-100 video-iframe-shadow overflow-hidden"
@@ -113,37 +112,129 @@
                 </div>
             </div>
             {% endif %}
+            <!-- Liquid Glass Information Table Module -->
+            <div class="w-100 mt-3 glass-surface p-4 rounded-4 video-iframe-shadow mb-5"
+                style="max-width: 100%; margin-left: 0; margin-right: auto;">
 
-
-            <!-- Technical Production Footer Specs Data Matrix (White border classes removed) -->
-            <div class="row g-3 pt-2 mt-2 text-start justify-content-start w-100"
-                style="font-size: 0.9rem; margin-left: 0;">
-                {% if movie.director and movie.director != 'N/A' %}
-                <div class="col-12 col-md-6 text-light-muted text-start text-wrap ps-0">
-                    <strong class="text-white fw-medium">Director:</strong> {{ movie.director }}
+                <!-- Row: Original Language -->
+                <div class="row py-3 align-items-center m-0">
+                    <div class="col-6 p-0 text-white opacity-70 fw-medium text-start">Original language</div>
+                    <div class="col-6 p-0 text-end text-white fw-normal">{{ movie.language or 'N/A' }}</div>
                 </div>
-                {% endif %}
 
-                {% if movie.cast and movie.cast != 'N/A' %}
-                <div class="col-12 col-md-6 text-light-muted text-wrap text-start">
-                    <strong class="text-white fw-medium">Cast:</strong> {{ movie.cast }}
+                <!-- Row: Country -->
+                <div class="row py-3 align-items-center border-top border-dark m-0">
+                    <div class="col-6 p-0 text-white opacity-70 fw-medium text-start">Country</div>
+                    <div class="col-6 p-0 text-end text-white fw-normal">{{ movie.country or 'N/A' }}</div>
                 </div>
-                {% endif %}
+                <!-- Row: Release Date -->
+                <div class="row py-3 align-items-center border-top border-dark m-0">
+                    <div class="col-6 p-0 text-white opacity-70 fw-medium text-start">Release date</div>
+                    <div class="col-6 p-0 text-end text-white fw-normal">
+                        {% if movie.release_date %}
+                        {{ movie.release_date[8:10] }}/{{ movie.release_date[5:7] }}/{{ movie.release_date[:4] }}
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- Row: Status -->
+                <div class="row py-3 align-items-center border-top border-dark m-0">
+                    <div class="col-6 p-0 text-white opacity-70 fw-medium text-start">Status</div>
+                    <div class="col-6 p-0 text-end text-white fw-normal">{{ movie.status or 'N/A' }}</div>
+                </div>
+                <!-- Row: Director -->
+                <div class="row py-3 align-items-center border-top border-dark m-0">
+                    <div class="col-6 p-0 text-white opacity-70 fw-medium text-start">Director</div>
+                    <div class="col-6 p-0 text-end text-white fw-normal">{{ movie.director or 'N/A' }}</div>
+                </div>
 
-                {% if movie.country %}
-                <div class="col-12 col-md-6 text-light-muted text-start text-wrap ps-0">
-                    <strong class="text-white fw-medium">Country:</strong> {{ movie.country }}
+                <!-- Row: Runtime -->
+                <div class="row py-3 align-items-center border-top border-dark m-0">
+                    <div class="col-6 p-0 text-white opacity-70 fw-medium text-start">Runtime</div>
+                    <div class="col-6 p-0 text-end text-white fw-normal">
+                        {% if movie.runtime %}
+                        {% set hours = movie.runtime // 60 %}
+                        {% set minutes = movie.runtime % 60 %}
+                        {{ hours }}h {{ minutes }}m
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </div>
                 </div>
-                {% endif %}
-
-                {% if movie.language %}
-                <div class="col-12 col-md-6 text-light-muted text-start text-wrap">
-                    <strong class="text-white fw-medium">Language:</strong> {{ movie.language }}
+                <!-- Row: Budget -->
+                <div class="row py-3 align-items-center border-top border-dark m-0">
+                    <div class="col-6 p-0 text-white opacity-70 fw-medium text-start">Budget</div>
+                    <div class="col-6 p-0 text-end text-white fw-normal">{{ movie.budget or 'N/A' }}</div>
                 </div>
-                {% endif %}
+                <!-- Row: Revenue -->
+                <div class="row py-3 align-items-center border-top border-dark m-0">
+                    <div class="col-6 p-0 text-white opacity-70 fw-medium text-start">Revenue</div>
+                    <div class="col-6 p-0 text-end text-white fw-normal">{{ movie.revenue or 'N/A' }}</div>
+                </div>
+                <!-- Row: Genres -->
+                <div class="row py-3 align-items-center border-top border-dark m-0">
+                    <div class="col-6 p-0 text-white opacity-70 fw-medium text-start">Genres</div>
+                    <div class="col-6 p-0 text-end text-white fw-normal">{{ movie.genres or 'N/A' }}</div>
+                </div>
             </div>
-        </div>
+            {% if movie.watch_providers %}
+            <section class="watch-providers-section w-100" aria-labelledby="watch-providers-heading">
+                <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
+                    <div>
+                        <h2 id="watch-providers-heading" class="watch-providers-heading mb-1 text-white">Where to watch</h2>
+                        <p class="watch-providers-subtitle mb-0">Included with these streaming services</p>
+                    </div>
+                    <i class="bi bi-play-circle watch-providers-icon" aria-hidden="true"></i>
+                </div>
 
+                <div class="watch-providers-scroll" tabindex="0" aria-label="Streaming providers">
+                    {% for provider in movie.watch_providers %}
+                    <article class="watch-provider-card glass-surface">
+                        {% if provider.logo_path %}
+                        <img class="watch-provider-logo"
+                            src="https://image.tmdb.org/t/p/w185{{ provider.logo_path }}"
+                            alt="{{ provider.provider_name }}">
+                        {% else %}
+                        <div class="watch-provider-logo watch-provider-logo-fallback" aria-hidden="true">
+                            <i class="bi bi-play-fill"></i>
+                        </div>
+                        {% endif %}
+                        <p class="watch-provider-name">{{ provider.provider_name }}</p>
+                    </article>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+            {% if movie.cast %}
+            <section class="cast-section w-100" aria-labelledby="cast-heading">
+                <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
+                    <h2 id="cast-heading" class="cast-heading mb-0 text-white">Top cast</h2>
+                    <span class="cast-scroll-hint d-none d-md-inline">Scroll to explore</span>
+                </div>
+
+                <div class="cast-scroll" tabindex="0" aria-label="Top cast">
+                    {% for cast_member in movie.cast %}
+                    <article class="cast-card glass-surface">
+                        {% if cast_member.profile %}
+                        <img class="cast-profile-image" src="https://image.tmdb.org/t/p/w342{{ cast_member.profile }}"
+                            alt="{{ cast_member.original_name or cast_member.name }}">
+                        {% else %}
+                        <div class="cast-profile-fallback" aria-hidden="true">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        {% endif %}
+                        <div class="cast-card-body">
+                            <h3 class="cast-name">{{ cast_member.original_name or cast_member.name or 'Unknown cast
+                                member' }}</h3>
+                            <p class="cast-character">{{ cast_member.character or 'Character unavailable' }}</p>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

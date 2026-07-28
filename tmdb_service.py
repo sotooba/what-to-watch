@@ -66,7 +66,8 @@ def discover_media(params, watch_type="movie"):
 
 def get_movie_tv_details(tmdb_id, watch_type="movie"):
     params = {
-    "append_to_response": "credits,videos,watch/providers"
+    "append_to_response": "credits,videos,watch/providers,images",
+    "include_image_language": "en,null"
     }
 
     response_data = make_request(f"{watch_type}/{tmdb_id}", params)

@@ -57,6 +57,20 @@ def discover_movies_tv(filters, watch_type="movie"):
 
 def get_necessary_details(response):
 
+    # TMDB's transparent title artwork. Prefer an English logo, then a
+    # language-neutral one, so the detail page can use the official title art.
+    logos = response.get("images", {}).get("logos", [])
+    title_logo = next(
+        (logo.get("file_path") for logo in logos if logo.get("iso_639_1") == "en"),
+        None
+    ) or next(
+        (logo.get("file_path") for logo in logos if logo.get("iso_639_1") is None),
+        None
+    ) or next(
+        (logo.get("file_path") for logo in logos),
+        None
+    )
+
     # Director
     director = None
 
@@ -72,9 +86,10 @@ def get_necessary_details(response):
     for actor in response["credits"]["cast"][:8]:
 
         cast.append({
-            "name": actor["name"],
-            "character": actor["character"],
-            "profile": actor["profile_path"]
+            "name": actor.get("name"),
+            "original_name": actor.get("original_name") or actor.get("name"),
+            "character": actor.get("character"),
+            "profile": actor.get("profile_path")
         })
 
    
@@ -91,7 +106,7 @@ def get_necessary_details(response):
             break
 
 
-    # Watch Providers (Pakistan)    
+    # Watch Providers   
     watch_providers = (
         response["watch/providers"]["results"]
         .get("US", {})
@@ -116,6 +131,8 @@ def get_necessary_details(response):
         "id": response["id"],
 
         "title": response.get("title") or response.get("name"),
+
+        "title_logo": title_logo,
 
         "overview": response["overview"],
 
