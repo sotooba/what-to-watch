@@ -11,11 +11,8 @@ def create_app(test_config=None):
     """Create and configure the WhatToWatch Flask application."""
     load_dotenv()
 
-    app = Flask(
-        __name__,
-        template_folder="../templates",
-        static_folder="../static",
-    )
+    app = Flask(__name__)
+    
     app.config.from_mapping(
         TMDB_API_KEY=os.getenv("TMDB_API_KEY"),
         CACHE_TYPE="SimpleCache",
