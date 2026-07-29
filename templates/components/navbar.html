@@ -9,11 +9,17 @@
             <a class="navbar-brand text-white fw-bold me-4" href="{{ url_for('index') }}">🎬WhatToWatch</a>
 
             <!-- Compact Mobile Menu Toggle Button -->
-            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse"
-                data-bs-target="#whatToWatchNav" aria-controls="whatToWatchNav" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-            </button>
+            <div class="mobile-nav-actions d-flex d-lg-none align-items-center gap-2 ms-auto">
+                <button id="mobileSearchToggle" class="mobile-nav-icon-btn" type="button"
+                    aria-controls="mobileSearchPanel" aria-expanded="false" aria-label="Open search">
+                    <i class="bi bi-search" aria-hidden="true"></i>
+                </button>
+                <button class="navbar-toggler border-0 text-white p-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#whatToWatchNav" aria-controls="whatToWatchNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+                </button>
+            </div>
 
             <!-- Expandable Navbar Elements -->
             <div class="collapse navbar-collapse pb-3 pb-lg-0" id="whatToWatchNav">
@@ -84,7 +90,7 @@
                 </ul>
 
                 <!-- Search -->
-                <form class="d-flex position-relative align-items-center mt-3 mt-lg-0" role="search"
+                <form class="d-none d-lg-flex position-relative align-items-center" role="search"
                     action="{{ url_for('search') }}" method="GET" onsubmit="handleMobileSearch()">
 
                     <button
@@ -106,6 +112,18 @@
                 </form>
 
 
+            </div>
+
+            <!-- Mobile search is deliberately separate from the menu collapse,
+                 so opening it never changes the navbar's height. -->
+            <div id="mobileSearchPanel" class="mobile-search-panel d-lg-none" hidden>
+                <form class="d-flex position-relative align-items-center" role="search" action="{{ url_for('search') }}"
+                    method="GET" onsubmit="handleMobileSearch('mobileSearchInput')">
+                    <i class="bi bi-search mobile-search-input-icon" aria-hidden="true"></i>
+                    <input id="mobileSearchInput" autocomplete="off"
+                        class="form-control text-white border-0 rounded-pill ps-5 pe-4 search-input-field" type="search"
+                        name="q" placeholder="Search movies and shows" aria-label="Search movies and shows">
+                </form>
             </div>
         </div>
     </nav>

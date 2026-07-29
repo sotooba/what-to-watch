@@ -5,6 +5,10 @@
     transition: opacity 0.2s ease;
 }
 
+.navbar {
+    position: relative;
+}
+
 /* Current-page navigation state: a compact liquid-glass capsule rather than
    a text-only colour change. */
 .navbar-nav .nav-link-active {
@@ -68,6 +72,51 @@
     color: #ffffff !important;
 }
 
+.mobile-nav-actions {
+    min-height: 38px;
+}
+
+.mobile-nav-icon-btn {
+    display: inline-grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.mobile-nav-icon-btn:hover,
+.mobile-nav-icon-btn[aria-expanded="true"] {
+    background: var(--glass-subtle-bg);
+    color: var(--text-primary);
+}
+
+.mobile-search-panel {
+    position: absolute;
+    z-index: 4;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    left: 0;
+    padding: 0.75rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 1.25rem;
+    background: var(--glass-panel-bg);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    box-shadow: var(--shadow-card);
+}
+
+.mobile-search-input-icon {
+    position: absolute;
+    z-index: 1;
+    left: 1.5rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
 /* Responsive container boundary controls */
 .custom-rounded-nav {
     border-radius: 1.5rem; 
@@ -85,10 +134,30 @@
 
 /* Mobile search expansion style tweak */
 @media (max-width: 991.98px) {
+    .navbar-collapse {
+        position: absolute;
+        z-index: 3;
+        top: calc(100% + 0.75rem);
+        right: 0;
+        left: 0;
+        padding: 0.75rem 1rem 1rem;
+        border: 1px solid var(--glass-border);
+        border-radius: 1.25rem;
+        background: var(--glass-panel-bg);
+        backdrop-filter: blur(16px) saturate(120%);
+        -webkit-backdrop-filter: blur(16px) saturate(120%);
+        box-shadow: var(--shadow-card);
+    }
+
+    .navbar-collapse .navbar-nav {
+        gap: 0.35rem !important;
+    }
+
     .search-input-field {
         width: 100%;
     }
-    form {
+
+    .navbar form {
         width: 100%;
     }
 }

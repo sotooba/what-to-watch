@@ -3,14 +3,49 @@
  * When enter key is pressed on the mobile devices
  * Hide the keyboard
  */
-function handleMobileSearch() {
-    // Finds search input field element
-    const searchInput = document.getElementById('navSearchInput');
+function handleMobileSearch(inputId = 'navSearchInput') {
+    // Finds the relevant search input field element
+    const searchInput = document.getElementById(inputId);
     if (searchInput) {
         // Strips focus away from the field, which tells the mobile OS to hide the keyboard
         searchInput.blur();
     }
 }
+
+/**
+ * Mobile navbar overlays: search and navigation occupy the same visual layer
+ * without expanding the header or moving the page content.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const searchToggle = document.getElementById('mobileSearchToggle');
+    const searchPanel = document.getElementById('mobileSearchPanel');
+    const searchInput = document.getElementById('mobileSearchInput');
+    const navCollapse = document.getElementById('whatToWatchNav');
+
+    if (!searchToggle || !searchPanel || !searchInput || !navCollapse) return;
+
+    const closeSearch = () => {
+        searchPanel.hidden = true;
+        searchToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    searchToggle.addEventListener('click', () => {
+        const opening = searchPanel.hidden;
+
+        if (opening && window.bootstrap) {
+            window.bootstrap.Collapse.getOrCreateInstance(navCollapse, { toggle: false }).hide();
+        }
+
+        searchPanel.hidden = !opening;
+        searchToggle.setAttribute('aria-expanded', String(opening));
+
+        if (opening) {
+            requestAnimationFrame(() => searchInput.focus());
+        }
+    });
+
+    navCollapse.addEventListener('show.bs.collapse', closeSearch);
+});
 
 
 /**
