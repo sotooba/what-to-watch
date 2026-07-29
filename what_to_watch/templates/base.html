@@ -48,6 +48,23 @@
 
 <body class="{% block body_class %}{% endblock %}">
     {% block page_background %}{% endblock %}
+
+    <!-- Shown immediately while a server-rendered TMDB request is in flight. -->
+    <div id="pageLoadingOverlay" class="page-loading-overlay" role="status" aria-live="polite" hidden>
+        <div class="loading-skeleton-shell glass-panel" aria-hidden="true">
+            <div class="skeleton-line skeleton-eyebrow"></div>
+            <div class="skeleton-line skeleton-title"></div>
+            <div class="skeleton-line skeleton-copy"></div>
+            <div class="skeleton-card-grid">
+                <div class="skeleton-card"><div class="skeleton-poster"></div><div class="skeleton-line skeleton-card-title"></div><div class="skeleton-line skeleton-card-meta"></div></div>
+                <div class="skeleton-card"><div class="skeleton-poster"></div><div class="skeleton-line skeleton-card-title"></div><div class="skeleton-line skeleton-card-meta"></div></div>
+                <div class="skeleton-card"><div class="skeleton-poster"></div><div class="skeleton-line skeleton-card-title"></div><div class="skeleton-line skeleton-card-meta"></div></div>
+                <div class="skeleton-card"><div class="skeleton-poster"></div><div class="skeleton-line skeleton-card-title"></div><div class="skeleton-line skeleton-card-meta"></div></div>
+            </div>
+        </div>
+        <span class="visually-hidden">Finding something to watch…</span>
+    </div>
+
     <!-- Navbar -->
     {% include 'components/navbar.html' %}
 

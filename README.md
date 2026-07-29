@@ -1,2 +1,3 @@
-# what-to-watch
-A Flask web application for discovering random Movies/Tv-shows.
+# WhatToWatch
+
+A Flask application for discovering movies and TV shows through TMDB.

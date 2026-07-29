@@ -25,7 +25,7 @@
 
                         <!-- Poster Image Container Card Area -->
                         <div class="movie-card w-100">
-                            <a href="{{ url_for('recommendation_click', watch_type=watch_type, tmdb_id=sample.id) }}"">
+                            <a href="{{ url_for('web.recommendation_click', watch_type=watch_type, tmdb_id=sample.id) }}">
 
                                 <img src="https://image.tmdb.org/t/p/original{{sample.poster_path}}" class="movie-poster"
                                     alt="{{sample.title or sample.name}}">
@@ -85,7 +85,7 @@
                 style="max-width: 520px;">
 
                 <!-- Retry / Roll Action -->
-                <a href="javascript:void(0);" onclick="window.location.reload();"
+                <button type="button" data-loading-reload
                     class="btn-action glass-panel w-100 text-center text-decoration-none">
                     <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor" class="bi bi-arrow-clockwise me-2"
                         viewBox="0 0 16 16">
@@ -94,7 +94,7 @@
                             d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
                     </svg>
                     Something Else
-                </a>
+                </button>
 
                 <!-- Return Home Action -->
                 <a href="javascript:void(0);" onclick="window.history.back();"

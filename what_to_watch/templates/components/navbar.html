@@ -6,7 +6,7 @@
         <div class="container-fluid">
 
             <!-- Brand Logo Context Links to Index Route -->
-            <a class="navbar-brand text-white fw-bold me-4" href="{{ url_for('index') }}">🎬WhatToWatch</a>
+            <a class="navbar-brand text-white fw-bold me-4" href="{{ url_for('web.index') }}">🎬WhatToWatch</a>
 
             <!-- Compact Mobile Menu Toggle Button -->
             <div class="mobile-nav-actions d-flex d-lg-none align-items-center gap-2 ms-auto">
@@ -28,13 +28,8 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-1 gap-lg-2 mt-2 mt-lg-0">
 
                     <li class="nav-item">
-                        <a class="nav-link text-white fw-medium {% if request.endpoint == 'index' %}nav-link-active{% else %}opacity-75{% endif %}"
-                            href="{{ url_for('index') }}">Home</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-white fw-medium {% if request.endpoint == 'about' %}nav-link-active{% else %}opacity-75{% endif %}"
-                            href="{{ url_for('about') }}">About</a>
+                        <a class="nav-link text-white fw-medium {% if request.endpoint == 'web.index' %}nav-link-active{% else %}opacity-75{% endif %}"
+                            href="{{ url_for('web.index') }}">Home</a>
                     </li>
 
                     <!-- Trending Dropdown Menu Element -->
@@ -47,7 +42,7 @@
                             <li>
                                 <!-- Links dynamically to today trending route -->
                                 <a class="dropdown-item text-white rounded-3 d-flex align-items-center gap-2 py-2"
-                                    href="{{ url_for('trending_today') }}">
+                                    href="{{ url_for('web.trending_today') }}">
                                     <!-- Role Icon: Lightning Bolt (Daily/Instant updates) -->
                                     <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor"
                                         class="bi bi-lightning-charge-fill" viewBox="0 0 16 16">
@@ -60,7 +55,7 @@
                             <li>
                                 <!-- Links dynamically to weekly trending route -->
                                 <a class="dropdown-item text-white rounded-3 d-flex align-items-center gap-2 py-2"
-                                    href="{{ url_for('trending_weekly') }}">
+                                    href="{{ url_for('web.trending_weekly') }}">
                                     <!-- Role Icon: Calendar Range (Weekly collection) -->
                                     <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor"
                                         class="bi bi-calendar-week" viewBox="0 0 16 16">
@@ -74,7 +69,7 @@
 
                                 <!-- Links dynamically to popular route -->
                                 <a class="dropdown-item text-white rounded-3 d-flex align-items-center gap-2 py-2"
-                                    href="{{ url_for('get_popular_media') }}">
+                                    href="{{ url_for('web.get_popular_media') }}">
                                     <!-- Role Icon: Fire/Flame (What is hot/Popular right now) -->
                                     <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor"
                                         class="bi bi-fire" viewBox="0 0 16 16">
@@ -85,13 +80,16 @@
                                 </a>
                             </li>
                         </ul>
-
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-medium {% if request.endpoint == 'web.about' %}nav-link-active{% else %}opacity-75{% endif %}"
+                            href="{{ url_for('web.about') }}">About</a>
                     </li>
                 </ul>
 
                 <!-- Search -->
                 <form class="d-none d-lg-flex position-relative align-items-center" role="search"
-                    action="{{ url_for('search') }}" method="GET" onsubmit="handleMobileSearch()">
+                    action="{{ url_for('web.search') }}" method="GET" onsubmit="handleMobileSearch()">
 
                     <button
                         class="btn p-0 border-0 position-absolute start-0 ms-3 d-flex align-items-center justify-content-center text-white opacity-50 search-icon-btn"
@@ -117,7 +115,7 @@
             <!-- Mobile search is deliberately separate from the menu collapse,
                  so opening it never changes the navbar's height. -->
             <div id="mobileSearchPanel" class="mobile-search-panel d-lg-none" hidden>
-                <form class="d-flex position-relative align-items-center" role="search" action="{{ url_for('search') }}"
+                <form class="d-flex position-relative align-items-center" role="search" action="{{ url_for('web.search') }}"
                     method="GET" onsubmit="handleMobileSearch('mobileSearchInput')">
                     <i class="bi bi-search mobile-search-input-icon" aria-hidden="true"></i>
                     <input id="mobileSearchInput" autocomplete="off"

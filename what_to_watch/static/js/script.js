@@ -47,6 +47,106 @@ document.addEventListener('DOMContentLoaded', () => {
     navCollapse.addEventListener('show.bs.collapse', closeSearch);
 });
 
+/**
+ * Keep a responsive skeleton visible while a request that needs TMDB data is
+ * being rendered by Flask. It is intentionally triggered before navigation,
+ * so slow API responses never leave the visitor with a blank page.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const loadingOverlay = document.getElementById('pageLoadingOverlay');
+    let navigationPending = false;
+
+    if (!loadingOverlay) return;
+
+    const showLoading = () => {
+        loadingOverlay.hidden = false;
+        document.body.setAttribute('aria-busy', 'true');
+    };
+
+    const beginLoadingNavigation = (navigate) => {
+        if (navigationPending) return;
+
+        navigationPending = true;
+        showLoading();
+
+        // Give the browser one frame to paint the skeleton before navigating.
+        requestAnimationFrame(() => window.setTimeout(navigate, 120));
+    };
+
+    /**
+     * Custom Filter Form
+     */
+    document.querySelectorAll('form[action="/recommendations"]').forEach((form) => {
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            beginLoadingNavigation(() => form.submit());
+        });
+
+    });
+
+    /**
+     * Mood Pods
+     */
+    document.querySelectorAll('.mood-pod').forEach((moodPod) => {
+
+        moodPod.addEventListener('click', (event) => {
+
+            // Allow Ctrl+Click / Cmd+Click / Middle Click to behave normally.
+            const modifiedClick =
+                event.button !== 0 ||
+                event.metaKey ||
+                event.ctrlKey ||
+                event.shiftKey ||
+                event.altKey;
+
+            if (modifiedClick) return;
+
+            event.preventDefault();
+
+            beginLoadingNavigation(() => {
+                window.location.assign(moodPod.href);
+            });
+
+        });
+
+    });
+
+    /**
+     * "Something Else" button
+     */
+    document.querySelectorAll('[data-loading-reload]').forEach((button) => {
+
+        button.addEventListener('click', () => {
+
+            beginLoadingNavigation(() => {
+                window.location.reload();
+            });
+
+        });
+
+    });
+
+    /**
+     * Browsers often restore pages from the Back/Forward Cache (bfcache)
+     * instead of reloading them.
+     *
+     * Reset the loading overlay and internal navigation flag so the user
+     * can immediately submit another search without refreshing the page.
+     */
+    window.addEventListener('pageshow', () => {
+
+        navigationPending = false;
+
+        loadingOverlay.hidden = true;
+
+        document.body.removeAttribute('aria-busy');
+
+    });
+
+});
+
 
 /**
  * Resets all advanced custom dashboard selection values.
@@ -91,6 +191,8 @@ function updateResponsiveFilters() {
     const desktopContainer = document.getElementById("desktop-filters");
     const mobileContainer = document.getElementById("mobile-filters");
 
+    if (!desktopContainer || !mobileContainer) return;
+
     // Grab all the interactive inputs (radios, dropdowns, etc.) inside both containers
     const desktopControls = desktopContainer.querySelectorAll("input, select, textarea");
     const mobileControls = mobileContainer.querySelectorAll("input, select, textarea");
@@ -124,6 +226,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const watchTypeRadios = document.querySelectorAll(
         'input[name="type"]'
     );
+
+    if (!Array.isArray(movieGenres) || !Array.isArray(tvGenres) || !desktopContainer || !mobileSelect) return;
 
 
     // -----------------------------

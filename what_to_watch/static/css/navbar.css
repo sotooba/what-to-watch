@@ -7,6 +7,13 @@
 
 .navbar {
     position: relative;
+    transform: none !important;
+}
+
+.navbar:hover,
+.navbar-nav .nav-link,
+.navbar-nav .nav-link:hover {
+    transform: none !important;
 }
 
 /* Current-page navigation state: a compact liquid-glass capsule rather than

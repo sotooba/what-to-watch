@@ -2,24 +2,27 @@ from random import randint, sample
 import pycountry
 
 # My methods
-from const_data import POPULAR_LANGUAGES, MOVIE_ERA_MAPPING, TV_ERA_MAPPING
-from tmdb_service import  discover_media
+from .constants import POPULAR_LANGUAGES, MOVIE_ERA_MAPPING, TV_ERA_MAPPING
+from .services.tmdb import  discover_media
 
 
 def get_popular_languages(all_languages):
+    if not all_languages:
+        return []
+
     filtered_languages = []
 
     for language in all_languages:
-        if language["iso_639_1"] in POPULAR_LANGUAGES:
+        if language.get("iso_639_1") in POPULAR_LANGUAGES:
             filtered_languages.append(language)
     
-    return sorted(filtered_languages, key=lambda d: d["english_name"])
+    return sorted(filtered_languages, key=lambda d: d.get("english_name", ""))
 
 
 def convert_filters_to_params(filters):
     params = {
         "sort_by": "popularity.desc",
-        "include_adult": filters["adult"],
+        "include_adult": filters.get("adult", False),
         "vote_average.gte": filters.get("rating") or 7,
     }
 
@@ -60,6 +63,9 @@ def discover_movies_tv(filters, watch_type="movie"):
 
     # First request to determine the number of available pages
     response = discover_media(params, watch_type)
+    if not response:
+        return None
+
     total_pages = min(response.get("total_pages", 1), 500)
 
     # Pick up to 3 unique random pages
@@ -73,6 +79,8 @@ def discover_movies_tv(filters, watch_type="movie"):
     # Fetch movies from each random page
     for page in random_pages:
         response = discover_media(params, watch_type, page)
+        if not response:
+            return None
         movies.extend(response.get("results", []))
 
     # Remove duplicate movies by TMDb ID
@@ -84,6 +92,8 @@ def discover_movies_tv(filters, watch_type="movie"):
     return sample(unique_movies, k=min(4, len(unique_movies)))
 
 def get_necessary_details(response):
+    if not response:
+        return None
     
     # TMDB's transparent title artwork. Prefer an English logo, then a
     # language-neutral one, so the detail page can use the official title art.
@@ -102,7 +112,7 @@ def get_necessary_details(response):
     # Director
     director = None
 
-    for person in response["credits"]["crew"]:
+    for person in response.get("credits", {}).get("crew", []):
         if person["job"] == "Director":
             director = person["name"]
             break
@@ -111,7 +121,7 @@ def get_necessary_details(response):
     # Top Cast (8)    
     cast = []   
 
-    for actor in response["credits"]["cast"][:10]:
+    for actor in response.get("credits", {}).get("cast", [])[:10]:
         cast.append({
             "name": actor.get("name"),
             "original_name": actor.get("original_name") or actor.get("name"),
@@ -123,7 +133,7 @@ def get_necessary_details(response):
     # Trailer    
     trailer = None
 
-    for video in response["videos"]["results"]:
+    for video in response.get("videos", {}).get("results", []):
 
         if (
             video["site"] == "YouTube"
@@ -134,7 +144,7 @@ def get_necessary_details(response):
 
 
    # Extract the country dictionary
-    country_data = response["watch/providers"]["results"].get("US", {})
+    country_data = response.get("watch/providers", {}).get("results", {}).get("US", {})
 
     # Get each array (default to an empty list if missing)
     flatrate_list = country_data.get("flatrate", [])
@@ -158,21 +168,21 @@ def get_necessary_details(response):
     
     movie = {
 
-        "adult": response["adult"],
+        "adult": response.get("adult", False),
 
-        "id": response["id"],
+        "id": response.get("id"),
 
         "title": response.get("title") or response.get("name"),
 
         "title_logo": title_logo,
 
-        "overview": response["overview"],
+        "overview": response.get("overview", ""),
 
-        "poster": response["poster_path"],
+        "poster": response.get("poster_path"),
 
-        "backdrop": response["backdrop_path"],
+        "backdrop": response.get("backdrop_path"),
 
-        "rating": response["vote_average"],
+        "rating": response.get("vote_average", 0),
 
         "runtime": (
             response.get("runtime")
@@ -190,7 +200,7 @@ def get_necessary_details(response):
 
         "genres": ", ".join(
             genre["name"]
-            for genre in response["genres"]
+            for genre in response.get("genres", [])
         ),
 
         "director": director,
@@ -236,6 +246,9 @@ def usd(value):
 def format_language(language_code):
     """Convert language code (en) -> English."""
 
+    if not language_code:
+        return None
+
     language = pycountry.languages.get(alpha_2=language_code)
 
     if language:
@@ -275,11 +288,6 @@ def get_alt_providers(watch_type, tmdb_id):
             "name": "Cineby",
             "url": f"https://cineby.tech/{watch_type}/{tmdb_id}/watch",
                 "logo": "https://cineby.tech/cineby-logo@2x.webp"
-        },
-        {
-            "name": "Dulo",
-            "url": f"https://dulo.tv/",
-            "logo": "https://dulo.tv/dulo-auth-mark.png"
         },        
         {
             "name": "Skyflix",

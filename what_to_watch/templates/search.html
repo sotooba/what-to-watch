@@ -22,7 +22,7 @@
                 {% if item.media_type in ['movie', 'tv'] %}
                 <div class="media-card-wrapper">
                     <!-- Pass explicit media_type ('movie' or 'tv') directly to the click route -->
-                    <a href="{{ url_for('recommendation_click', watch_type=item.media_type, tmdb_id=item.id) }}" class="text-decoration-none">
+                    <a href="{{ url_for('web.recommendation_click', watch_type=item.media_type, tmdb_id=item.id) }}" class="text-decoration-none">
                         <div class="glass-surface media-card">
                             
                             <!-- Poster Media Area -->

@@ -20,7 +20,7 @@
         <div class="media-grid preview-only">
             {% for movie in movies %}
             <div class="media-card-wrapper {% if loop.index > 6 %}hidden-item{% endif %}">
-                <a href="{{ url_for('recommendation_click', watch_type='movie', tmdb_id=movie.id) }}" class="text-decoration-none">
+                <a href="{{ url_for('web.recommendation_click', watch_type='movie', tmdb_id=movie.id) }}" class="text-decoration-none">
                 <div class="glass-surface media-card">
                     <div class="poster-container">
                         {% if movie.poster_path %}
@@ -60,7 +60,7 @@
         <div class="media-grid preview-only">
             {% for show in tv_shows %}
             <div class="media-card-wrapper {% if loop.index > 6 %}hidden-item{% endif %}">
-                <a href="{{ url_for('recommendation_click', watch_type='tv', tmdb_id=show.id) }}"  class="text-decoration-none">
+                <a href="{{ url_for('web.recommendation_click', watch_type='tv', tmdb_id=show.id) }}"  class="text-decoration-none">
                     <div class="glass-surface media-card">
                         <div class="poster-container">
                             {% if show.poster_path %}
