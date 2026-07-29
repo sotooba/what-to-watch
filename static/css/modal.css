@@ -342,6 +342,26 @@
     font-size: 0.76rem;
 }
 
+/* Cast Scroll buttons */
+.cast-scroll {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-behavior: smooth; /* Forces fluid transition movements when clicked */
+    padding-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar completely to maintain look */
+.cast-scroll::-webkit-scrollbar {
+    display: none;
+}
+.cast-scroll {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
 @media (max-width: 767.98px) {
     .glass-surface .row div {
         font-size: 0.88rem;

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block main %}
+<div class="container py-3 md-4">
+    <!-- Search Results Header -->
+    <div class="mb-3 px-2">
+        <p class="text-uppercase small mb-1">Search Results for</p>
+        <span class="text-gradient fw-bold text-white mb-2" style="font-size: 1.65rem;">{{ query | title }}</span>
+        
+    </div>
+
+    <!-- Results Component Section -->
+    <section class="media-section">
+        <!-- Reusing your fluid responsive grid architecture -->
+        <div class="media-grid">
+            {% for item in media_items %}
+                <!-- Skip item if it's a person/actor instead of a movie or show -->
+                {% if item.media_type in ['movie', 'tv'] %}
+                <div class="media-card-wrapper">
+                    <!-- Pass explicit media_type ('movie' or 'tv') directly to the click route -->
+                    <a href="{{ url_for('recommendation_click', watch_type=item.media_type, tmdb_id=item.id) }}" class="text-decoration-none">
+                        <div class="glass-surface media-card">
+                            
+                            <!-- Poster Media Area -->
+                            <div class="poster-container">
+                                {% if item.poster_path %}
+                                <img src="https://image.tmdb.org/t/p/original{{ item.poster_path }}" alt="{{ item.title or item.name }}" class="poster-img" loading="lazy">
+                                {% else %}
+                                <div class="poster-placeholder">No Image</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Card Inner Details Wrapper -->
+                            <div class="card-details">
+                                <!-- Handles Movie Titles vs TV Show Names on the fly -->
+                                <h3 class="card-title-text">
+                                    {{ item.title if item.media_type == 'movie' else item.name }}
+                                </h3>
+                                
+                                <div class="card-metadata">
+                                    <span class="meta-rating">
+                                        <span class="star-icon">★</span> {{ "%.1f"|format(item.vote_average or 0.0) }}
+                                    </span>
+                                    
+                                    <!-- Handles Release Dates vs First Air Dates safely -->
+                                    <span class="meta-year">
+                                        {% if item.media_type == 'movie' %}
+                                            {{ item.release_date[:4] if item.release_date else 'N/A' }}
+                                        {% else %}
+                                            {{ item.first_air_date[:4] if item.first_air_date else 'N/A' }}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}

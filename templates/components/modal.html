@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body_class %}
-    detail-page
+detail-page
 {% endblock %}
 
 {% block page_background %}
@@ -42,7 +42,7 @@
             <img class="cinematic-title-logo" src="https://image.tmdb.org/t/p/original{{ movie.title_logo }}"
                 alt="{{ movie.title }}">
             {% else %}
-            <h1 class="fw-bold tracking-wide text-white text-start align-self-start text-wrap cinematic-title"
+            <h1 class="fw-bold text-white text-start align-self-start text-wrap cinematic-title"
                 style="margin-left: 0;">
                 {{ movie.title }}
             </h1>
@@ -220,7 +220,8 @@
                         style="cursor: pointer; list-style: none; outline: none;">
                         <div>
                             <h2 class="watch-providers-heading mb-1 text-white">But I don't have a subscription...</h2>
-                            <p class="watch-providers-subtitle mb-0">Alternative free streaming platforms (Use Adblocker)</p>
+                            <p class="watch-providers-subtitle mb-0">Alternative free streaming platforms (Use
+                                Adblocker)</p>
                         </div>
                         <!-- Reuses your exact icon styling, rotates slightly via inline style when open if you like -->
                         <i class="bi bi-chevron-down watch-providers-icon" aria-hidden="true"></i>
@@ -230,13 +231,14 @@
                     <div class="watch-providers-scroll" tabindex="0" aria-label="Alternative streaming providers">
                         {% for provider in providers %}
                         <article class="watch-provider-card glass-surface">
-                            <a href="{{ provider.url }}" target="_blank" class="text-decoration-none w-100 h-100 d-flex flex-column align-items-center justify-content-center">
-                            <img class="watch-provider-logo" src="{{ provider.logo }}" alt="{{ provider.name }}">
+                            <a href="{{ provider.url }}" target="_blank"
+                                class="text-decoration-none w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                                <img class="watch-provider-logo" src="{{ provider.logo }}" alt="{{ provider.name }}">
 
-                            <p class="watch-provider-name">{{ provider.name }}</p>
+                                <p class="watch-provider-name">{{ provider.name }}</p>
                             </a>
                         </article>
-                        {% endfor %}                              
+                        {% endfor %}
                     </div>
                 </details>
             </div>
@@ -246,12 +248,39 @@
 
             {% if movie.cast %}
             <section class="cast-section w-100" aria-labelledby="cast-heading">
+                <!-- Header with Dynamic Pill Arrow Actions -->
                 <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
                     <h2 id="cast-heading" class="cast-heading mb-0 text-white">Top cast</h2>
-                    <span class="cast-scroll-hint d-none d-md-inline">Scroll to explore</span>
+
+                    <!-- Navigation Buttons: Hidden on mobile (touch devices scroll naturally), visible on desktop -->
+                    <div class="d-none d-md-flex align-items-center gap-2">
+                        <!-- Left Arrow Button -->
+                        <button
+                            class="btn btn-action btn-action-secondary p-2 rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 36px; height: 36px;" onclick="scrollCast('left')"
+                            aria-label="Scroll cast left">
+                            <svg xmlns="http://w3.org" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                            </svg>
+                        </button>
+                        <!-- Right Arrow Button -->
+                        <button
+                            class="btn btn-action btn-action-secondary p-2 rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 36px; height: 36px;" onclick="scrollCast('right')"
+                            aria-label="Scroll cast right">
+                            <svg xmlns="http://w3.org" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="cast-scroll" tabindex="0" aria-label="Top cast">
+                <!-- Scrollable container id assigned here for JavaScript access -->
+                <div class="cast-scroll" id="castContainer" tabindex="0" aria-label="Top cast">
                     {% for cast_member in movie.cast %}
                     <article class="cast-card glass-surface">
                         {% if cast_member.profile %}
@@ -259,7 +288,10 @@
                             alt="{{ cast_member.original_name or cast_member.name }}">
                         {% else %}
                         <div class="cast-profile-fallback" aria-hidden="true">
-                            <i class="bi bi-person-fill"></i>
+                            <svg xmlns="http://w3.org" width="24" height="24" fill="currentColor"
+                                class="bi bi-person-fill text-muted" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                            </svg>
                         </div>
                         {% endif %}
                         <div class="cast-card-body">
@@ -272,6 +304,7 @@
                 </div>
             </section>
             {% endif %}
+
         </div>
     </div>
 </div>
@@ -292,5 +325,21 @@
             }
         }
     }
+
+    function scrollCast(direction) {
+        const container = document.getElementById('castContainer');
+        if (!container) return;
+
+        // Calculate dynamic shifting width based on your actual view width
+        // Moves by roughly 3 card footprints per click
+        const scrollAmount = container.clientWidth * 0.75;
+
+        if (direction === 'left') {
+            container.scrollLeft -= scrollAmount;
+        } else {
+            container.scrollLeft += scrollAmount;
+        }
+    }
+
 </script>
 {% endblock %}

@@ -2,6 +2,7 @@
 POPULAR_LANGUAGES = {
         "en",  # English
         "hi",  # Hindi
+        "ur",  # Urdu
         "ja",  # Japanese
         "ko",  # Korean
         "fr",  # French

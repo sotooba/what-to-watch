@@ -85,19 +85,18 @@ def get_movie_tv_details(tmdb_id, watch_type="movie"):
 def get_trending(media_type, time):
     endpoints = f"trending/{media_type}/{time}"
     response_data = make_request(endpoints)
-    if not response_data:
-        return []
-    return response_data["results"]
+    return response_data.get("results", [])
 
 
 
 def get_popular(media_type):
     endpoints = f"{media_type}/popular"
     response_data = make_request(endpoints)
-    if not response_data:
-        return []
-    return response_data["results"]
+    return response_data.get("results", [])
 
 
-
+def get_search_results(query):
+    endpoint = f"search/multi?query={query}"
+    response_data = make_request(endpoint)
+    return response_data.get("results", [])
 

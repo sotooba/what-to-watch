@@ -45,7 +45,7 @@ def convert_filters_to_params(filters):
             params["primary_release_date.gte"] = "1980-01-01"
 
     else:
-        params["vote_count.gte"] = 500 if language == "en" else 10
+        params["vote_count.gte"] = 500 if language == "en" else 5
 
         if selected_year:
             params.update(TV_ERA_MAPPING.get(selected_year, {}))

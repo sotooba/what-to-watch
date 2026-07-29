@@ -1,7 +1,7 @@
 from flask import Flask, redirect, render_template, request
 
 # My methods
-from tmdb_service import get_movie_genres, get_tv_genres, get_all_languages, get_movie_tv_details, get_trending, get_popular
+from tmdb_service import get_movie_genres, get_tv_genres, get_all_languages, get_movie_tv_details, get_trending, get_popular, get_search_results
 from helpers import get_popular_languages, discover_movies_tv, get_necessary_details, get_alt_providers
 from const_data import MOODS, YEAR_OPTIONS, RATING_OPTIONS, MOOD_FILTERS
 
@@ -127,12 +127,33 @@ def get_popular_media():
                            movies=movies,
                            tv_shows=shows)
 
-  
+@app.route("/search")
+def search():
+    query = request.args.get("q", "").strip()
+    if not query:
+        return apology("Search for something to view the results")
+
+    # Fetch multi-search array payload
+    raw_results = get_search_results(query)
+
+    # FILTER: Keep only dictionaries flagged explicitly as a movie or tv show
+    filtered_media = [
+        item for item in raw_results if item.get("media_type") in ["movie", "tv"]
+    ]
+
+    if not filtered_media:
+        return apology(f"We couldn't find any movies or shows for '{query}'. Check the spelling or try something else.")
+
+    print(f"Displaying {len(filtered_media)} valid media titles.")
+
+    return render_template('search.html',
+                           query=query,
+                           media_items=filtered_media
+    )
+
+
 
 @app.route('/about')
 def about():
     return "about"
 
-@app.route('/search')
-def search():
-    return "search page"
