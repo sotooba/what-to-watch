@@ -84,7 +84,7 @@ def mood_recommendations(mood):
 
 
 
-@app.route('/recommendation/<watch_type>/<int:tmdb_id>')
+@app.route('/<watch_type>/<int:tmdb_id>')
 def recommendation_click(watch_type, tmdb_id):
     # Ensure you are using an f-string so {movie_id} renders as a number
     response = get_movie_tv_details(tmdb_id, watch_type)
@@ -155,5 +155,5 @@ def search():
 
 @app.route('/about')
 def about():
-    return "about"
+    return render_template('about.html')
 

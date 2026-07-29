@@ -1,0 +1,101 @@
+/* About Page Liquid Glass Custom Overlay Stylesheet */
+
+/* Reusable Glass Panel Token Grouping */
+.main-about-card, .features-card, .tmdb-attribution-card {
+    border-radius: 24px !important;
+    transition: var(--transition-smooth);
+}
+
+/* Base Glass Cards Hover Micro-interactions */
+.glass-panel:hover, .glass-surface:hover {
+    transform: translateY(-3px);
+    border-color: var(--glass-border-strong) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), var(--shadow-glass);
+}
+
+/* Core Stack Tech List Layout Mapping */
+.badge-pill-glass {
+    background: var(--glass-subtle-bg);
+    border: 1px solid var(--glass-border);
+    padding: 10px 16px;
+    border-radius: var(--radius-pill);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Why Use WhatToWatch Checklist Fit-Content Capsules */
+.bg-glass-pill {
+    background: var(--glass-subtle-bg);
+    border: 1px solid var(--glass-border);
+    white-space: nowrap; 
+    width: max-content;   
+    transition: var(--transition-fast);
+}
+
+.bg-glass-pill:hover {
+    background: var(--glass-hover-bg);
+    border-color: var(--glass-border-strong);
+    transform: translateY(-2px);
+}
+
+/* Stats Counter Sub-Grid Interactivity */
+.col-6 .glass-surface {
+    border-radius: 16px !important;
+    transition: var(--transition-smooth);
+}
+
+.col-6 .glass-surface:hover {
+    transform: scale(1.03);
+    border-color: var(--glass-border-strong) !important;
+}
+
+/* High-Contrast Silver Text Optimization Layer */
+.tracking-silver {
+    color: rgba(255, 255, 255, 0.55) !important;
+    font-weight: 500;
+}
+
+.stat-label-silver {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-weight: 600;
+}
+
+.body-text-silver {
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-weight: 400;
+}
+
+.attribution-text-silver {
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-weight: 450;
+}
+
+/* TMDB External Branding Vector Adjustments */
+.tmdb-logo-wrapper {
+    width: 80px;
+    height: auto;
+}
+
+.tmdb-img-fluid {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Miscellaneous Layout Spacers */
+.leading-relaxed {
+    line-height: 1.65;
+}
+
+.max-width-text {
+    max-width: 650px;
+}
+
+.text-accent-cinema-gold {
+    color: var(--accent-cinema-gold) !important;
+}
+
+.font-medium {
+    font-weight: 500;
+}

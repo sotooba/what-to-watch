@@ -3,7 +3,7 @@
     --bg-pure-black: #000;
     --surface-matte: #08080c;
     --text-primary: #fff;
-    --text-muted: #b4b4bc;
+    --text-muted: #d1d1d6;
     --accent-cinema-gold: #ffd700;
 
     --glass-panel-bg: rgba(45, 45, 45, 0.35);
@@ -85,4 +85,15 @@ html, body {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+::selection {
+    background-color: var(--accent-cinema-gold); /* Fallback to solid thematic accent gold */
+    color: var(--bg-pure-black);                /* Switch text color to pitch black for extreme contrast */
+}
+
+/* Safari support */
+::-moz-selection {
+    background-color: var(--accent-cinema-gold);
+    color: var(--bg-pure-black);
 }
