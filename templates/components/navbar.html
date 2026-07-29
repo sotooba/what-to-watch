@@ -33,37 +33,53 @@
 
                     <!-- Trending Dropdown Menu Element -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white fw-medium {% if request.endpoint == 'trending' %}nav-link-active{% else %}opacity-75{% endif %}"
-                            href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle text-white fw-medium {% if request.endpoint in ['trending_today', 'trending_weekly', 'get_popular_media'] %} nav-link-active{% else %}opacity-75{% endif %}"
+                            href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Trending
                         </a>
                         <ul class="dropdown-menu glass-panel shadow border-0 mt-2 p-2 rounded-4">
                             <li>
-                                <!-- Links dynamically to movie trending route -->
+                                <!-- Links dynamically to today trending route -->
                                 <a class="dropdown-item text-white rounded-3 d-flex align-items-center gap-2 py-2"
-                                    href="{{ url_for('trending', media_type='movies') }}">
+                                    href="{{ url_for('trending_today') }}">
+                                    <!-- Role Icon: Lightning Bolt (Daily/Instant updates) -->
                                     <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor"
-                                        class="bi bi-film" viewBox="0 0 16 16">
+                                        class="bi bi-lightning-charge-fill" viewBox="0 0 16 16">
                                         <path
-                                            d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1-1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8zM1 1v2h2V1zm2 3H1v2h2zM1 7v2h2V7zm2 3H1v2h2zm-2 3v2h2v-2zM15 1v2h-2V1zm-2 3h2v2h-2zm2 3v2h-2V7zm-2 3h2v2h-2zm2 3v2h-2v-2z" />
+                                            d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z" />
                                     </svg>
-                                    <span>Movies This Week</span>
+                                    <span>Today</span>
                                 </a>
                             </li>
                             <li>
-                                <!-- Links dynamically to TV trending route -->
+                                <!-- Links dynamically to weekly trending route -->
                                 <a class="dropdown-item text-white rounded-3 d-flex align-items-center gap-2 py-2"
-                                    href="{{ url_for('trending', media_type='tv') }}">
+                                    href="{{ url_for('trending_weekly') }}">
+                                    <!-- Role Icon: Calendar Range (Weekly collection) -->
                                     <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor"
-                                        class="bi bi-tv" viewBox="0 0 16 16">
+                                        class="bi bi-calendar-week" viewBox="0 0 16 16">
                                         <path
-                                            d="M2.5 13.5A.5.5 0 0 1 3 13h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5M13.991 3H2c-.325 0-.602.26-.602.591v6.82c0 .328.277.589.602.589h11.991c.325 0 .602-.261.602-.589V3.592c0-.33-.277-.592-.602-.592M14 2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" />
+                                            d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                        <path
+                                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
                                     </svg>
-                                    <span>TV Shows Today</span>
+                                    <span>This Week</span>
+                                </a>
+
+                                <!-- Links dynamically to popular route -->
+                                <a class="dropdown-item text-white rounded-3 d-flex align-items-center gap-2 py-2"
+                                    href="{{ url_for('get_popular_media') }}">
+                                    <!-- Role Icon: Fire/Flame (What is hot/Popular right now) -->
+                                    <svg xmlns="http://w3.org" width="14" height="14" fill="currentColor"
+                                        class="bi bi-fire" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 9 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16m0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15" />
+                                    </svg>
+                                    <span>Popular</span>
                                 </a>
                             </li>
                         </ul>
+
                     </li>
                 </ul>
 
@@ -75,10 +91,12 @@
                         class="btn p-0 border-0 position-absolute start-0 ms-3 d-flex align-items-center justify-content-center text-white opacity-50 search-icon-btn"
                         type="submit" style="height: 38px; z-index: 5;">
 
-                        <svg xmlns="http://w3.org" width="15" height="15" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        <svg xmlns="http://w3.org" width="15" height="15" fill="currentColor" class="bi bi-search"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                         </svg>
-                        
+
                     </button>
 
                     <!-- Added id="navSearchInput" so JavaScript can locate it -->

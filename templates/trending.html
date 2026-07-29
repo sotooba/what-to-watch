@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block main %}
+<div class="container py-3 md-4">
+
+    <!-- SECTION 1: MOVIES -->
+    <section class="media-section mb-5" id="movies-section">
+        <div class="d-flex justify-content-between align-items-center mb-4 px-2">
+            <h2 class="h4 fw-bold text-white mb-0 section-title">Movies</h2>
+            <button class="btn btn-action btn-action-secondary see-more-btn" onclick="toggleView('movies-section')">
+                <span class="btn-text">See More</span>
+            </button>
+        </div>
+
+        <!-- Media Container Box Grid Layout -->
+        <div class="media-grid preview-only">
+            {% for movie in movies %}
+            <div class="media-card-wrapper {% if loop.index > 6 %}hidden-item{% endif %}">
+                <a href="{{ url_for('recommendation_click', watch_type='movie', tmdb_id=movie.id) }}" class="text-decoration-none">
+                <div class="glass-surface media-card">
+                    <div class="poster-container">
+                        {% if movie.poster_path %}
+                        <img src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" alt="{{ movie.title }}"
+                            class="poster-img" loading="lazy">
+                        {% else %}
+                        <div class="poster-placeholder">No Image</div>
+                        {% endif %}
+                    </div>
+                    <div class="card-details">
+                        <h3 class="card-title-text">{{ movie.title }}</h3>
+                        <div class="card-metadata">
+                            <span class="meta-rating">
+                                <span class="star-icon">★</span> {{ "%.1f"|format(movie.vote_average) }}
+                            </span>
+                            <span class="meta-year">
+                                {{ movie.release_date[:4] if movie.release_date else 'N/A' }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- SECTION 2: TV SHOWS -->
+    <section class="media-section" id="tv-section">
+        <div class="d-flex justify-content-between align-items-center mb-4 px-2">
+            <h2 class="h4 fw-bold text-white mb-0 section-title">TV-Shows</h2>
+            <button class="btn btn-action btn-action-secondary see-more-btn" onclick="toggleView('tv-section')">
+                <span class="btn-text">See More</span>
+            </button>
+        </div>
+
+        <div class="media-grid preview-only">
+            {% for show in tv_shows %}
+            <div class="media-card-wrapper {% if loop.index > 6 %}hidden-item{% endif %}">
+                <a href="{{ url_for('recommendation_click', watch_type='tv', tmdb_id=show.id) }}"  class="text-decoration-none">
+                    <div class="glass-surface media-card">
+                        <div class="poster-container">
+                            {% if show.poster_path %}
+                            <img src="https://image.tmdb.org/t/p/original{{ show.poster_path }}" alt="{{ show.name }}"
+                                class="poster-img" loading="lazy">
+                            {% else %}
+                            <div class="poster-placeholder">No Image</div>
+                            {% endif %}
+                        </div>
+                        <div class="card-details">
+                            <h3 class="card-title-text">{{ show.name }}</h3>
+                            <div class="card-metadata">
+                                <span class="meta-rating">
+                                    <span class="star-icon">★</span> {{ "%.1f"|format(show.vote_average) }}
+                                </span>
+                                <span class="meta-year">
+                                    {{ show.first_air_date[:4] if show.first_air_date else 'N/A' }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    function toggleView(sectionId) {
+        const section = document.getElementById(sectionId);
+        const grid = section.querySelector('.media-grid');
+        const btnText = section.querySelector('.btn-text');
+
+        if (grid.classList.contains('preview-only')) {
+            grid.classList.remove('preview-only');
+            btnText.textContent = 'See Less';
+        } else {
+            grid.classList.add('preview-only');
+            btnText.textContent = 'See More';
+            // Smooth scroll back up to focus section title if user minimized
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+</script>
+{% endblock %}

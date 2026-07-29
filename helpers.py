@@ -304,4 +304,3 @@ def get_alt_providers(watch_type, tmdb_id):
         })
 
     return providers
-

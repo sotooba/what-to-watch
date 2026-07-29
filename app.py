@@ -1,7 +1,7 @@
 from flask import Flask, redirect, render_template, request
 
 # My methods
-from tmdb_service import get_movie_genres, get_tv_genres, get_all_languages, get_movie_tv_details
+from tmdb_service import get_movie_genres, get_tv_genres, get_all_languages, get_movie_tv_details, get_trending, get_popular
 from helpers import get_popular_languages, discover_movies_tv, get_necessary_details, get_alt_providers
 from const_data import MOODS, YEAR_OPTIONS, RATING_OPTIONS, MOOD_FILTERS
 
@@ -96,7 +96,38 @@ def recommendation_click(watch_type, tmdb_id):
                            providers=providers)
 
 
+@app.route('/trending/today')
+def trending_today():
+    movies = get_trending("movie", "day")
+    shows = get_trending("tv", "day")
 
+    return render_template('trending.html',
+                           title="Trending Today",
+                           movies=movies,
+                           tv_shows=shows
+                           )
+
+
+@app.route('/trending/weekly')
+def trending_weekly():
+    movies = get_trending("movie", "week")
+    shows = get_trending("tv", "week")
+    return render_template('trending.html',
+                           title="Trending Weekly",
+                           movies=movies,
+                           tv_shows=shows)
+
+
+@app.route('/popular')
+def get_popular_media():
+    movies = get_popular("movie")
+    shows = get_popular("tv")
+    return render_template('trending.html',
+                           title="Popular",
+                           movies=movies,
+                           tv_shows=shows)
+
+  
 
 @app.route('/about')
 def about():
@@ -105,7 +136,3 @@ def about():
 @app.route('/search')
 def search():
     return "search page"
-
-@app.route('/trending')
-def trending():
-    return "trending media type"
