@@ -81,6 +81,10 @@
                         </ul>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link text-white fw-medium {% if request.endpoint == 'web.my_picks' %}nav-link-active{% else %}opacity-75{% endif %}"
+                            href="{{ url_for('web.my_picks') }}">My Picks</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link text-white fw-medium {% if request.endpoint == 'web.about' %}nav-link-active{% else %}opacity-75{% endif %}"
                             href="{{ url_for('web.about') }}">About</a>
                     </li>

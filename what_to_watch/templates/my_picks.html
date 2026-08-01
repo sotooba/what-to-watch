@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}My Picks{% endblock %}
+
+{% block main %}
+<div class="my-picks-page">
+    <section class="my-picks-hero text-center">
+        <div class="container">
+            <div class="text-center mb-3 px-2 py-2">
+                <div class="eyebrow mb-3">My Picks</div>
+                <h1 class="display-5 fw-bold text-gradient mb-3 text-balance about-hero-title">A curated list of favorites</h1>
+                <p class="tracking-wide text-uppercase small tracking-silver text-balance about-hero-subtitle">Created to make discovering your next favorite easier.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-3 px-3">
+        {% if picks %}
+
+            {% if tags %}
+                <div class="tags-filter-wrap mb-3 text-center gap-2">
+                    <button type="button" class="chip filter-chip filter-clear" data-action="clear">Clear Filters</button>
+                    {% if tags|length > 4 %}
+                    <button type="button" class="chip filter-toggle" data-expanded="false">See more</button>
+                    {% endif %}
+                </div>                
+                
+                <div class="filter-row mb-5">
+                    <div class="filter-tag-group">
+                        {% for tag in tags %}
+                            <button type="button" class="chip filter-chip" data-tag="{{ tag }}">{{ tag }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+            {% endif %}
+
+            <div class="row g-4 justify-content-center">
+                {% for pick in picks %}
+                    <div class="col-12">
+                        <a href="{{ url_for('web.recommendation_click', watch_type=pick.media_type, tmdb_id=pick.id) }}"
+                           class="glass-panel pick-card text-decoration-none text-reset"
+                           data-tags="{{ pick.tags | join('||') }}">
+                            <div class="card-image-wrapper">
+                                {% if pick.poster_url %}
+                                    <img src="{{ pick.poster_url }}" alt="{{ pick.title }} poster" class="pick-poster">
+                                {% endif %}
+                            </div>
+                            <div class="card-content d-flex flex-column justify-content-between">
+                                <div>
+                                    <h2 class="card-title mb-2">{{ pick.title }}</h2>
+                                    <div class="card-meta-row mb-3">
+                                        <span class="media-label">{{ pick.media_type|title }}</span>
+                                        <span class="star-icon" style="font-size: 0.9rem;">
+                                            {% if pick.rating %}
+                                                ★ {{ "%.1f" | format(pick.rating) }}
+                                            {% else %}
+                                                {{ pick.runtime or pick.episode_count or 'Curated' }}
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    <p class="text-white-70 mb-0">{{ pick.note or 'A favorite worth revisiting.' }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="glass-panel p-5 text-center">
+                <h2 class="h4 mb-3">No picks yet</h2>
+                <p class="text-white-50 mb-0">Add a few entries to the JSON file to populate this page.</p>
+            </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

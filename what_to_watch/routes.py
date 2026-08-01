@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request
 
 from .constants import MOODS, MOOD_FILTERS, RATING_OPTIONS, YEAR_OPTIONS
-from .helpers import discover_movies_tv, get_necessary_details, get_popular_languages
+from .helpers import discover_movies_tv, get_my_picks, get_necessary_details, get_popular_languages
 from .services.tmdb import (
     get_all_languages,
     get_movie_genres,
@@ -147,6 +147,18 @@ def search():
     return render_template("search.html",
                            query=query,
                            media_items=media_items)
+
+
+@web.route("/my-picks")
+def my_picks():
+    picks = get_my_picks()
+    unique_tags = []
+    for pick in picks:
+        for tag in pick.get("tags", []):
+            if tag not in unique_tags:
+                unique_tags.append(tag)
+
+    return render_template("my_picks.html", picks=picks, tags=unique_tags)
 
 
 @web.route("/about")

@@ -1,0 +1,206 @@
+.my-picks-page {
+    min-height: 100vh;
+}
+
+.my-picks-hero {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.my-picks-hero .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.my-picks-hero .eyebrow {
+    letter-spacing: 0.5em;
+    color: #f3c96d;
+    font-size: 0.75rem;
+}
+
+.pick-card {
+    display: grid;
+    grid-template-columns: minmax(110px, 140px) minmax(0, 1fr);
+    gap: 1rem;
+    width: 100%;
+    background: rgba(12, 14, 24, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 52px rgba(0, 0, 0, 0.28);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.pick-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 215, 140, 0.35);
+    box-shadow: 0 28px 62px rgba(0, 0, 0, 0.32);
+}
+
+.card-image-wrapper {
+    position: relative;
+    min-height: auto;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+}
+
+.pick-poster {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    display: block;
+    border-radius: 1rem;
+}
+
+.card-content {
+    padding: 1.5rem 1.5rem 1.5rem 0;
+    min-height: 100%;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+}
+
+.card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.9rem;
+}
+
+.media-label {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.72);
+    font-weight: 600;
+}
+
+
+.tags-filter-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+
+.filter-row {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.75rem;
+    width: 100%;
+    min-width: 0;
+    padding-bottom: 0.25rem;
+}
+
+.filter-tag-group {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.55rem;
+    min-width: 0;
+}
+
+.filter-toggle-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.filter-tag-group .filter-chip,
+.filter-toggle {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.filter-chip.active {
+    background: rgba(255, 215, 140, 0.24);
+    border-color: rgba(255, 215, 140, 0.7);
+    color: #ffffff;
+}
+
+.filter-chip.active:hover,
+.filter-chip.active:focus-visible {
+    background: rgba(255, 215, 140, 0.30);
+}
+
+.filter-chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.45rem 1rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.82);
+    cursor: pointer;
+    transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.filter-chip:hover,
+.filter-chip:focus-visible {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.24);
+    color: #ffffff;
+}
+
+.filter-toggle {
+    white-space: nowrap;
+}
+
+.filter-hidden {
+    display: none !important;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.45rem 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.82rem;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 0.75rem;
+    color: #f2c46d;
+}
+
+@media (max-width: 992px) {
+    .pick-card {
+        grid-template-columns: minmax(110px, 140px) minmax(0, 1fr);
+    }
+
+    .card-image-wrapper {
+        min-height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pick-card {
+        grid-template-columns: minmax(90px, 120px) minmax(0, 1fr);
+        border-radius: 1.2rem;
+    }
+
+    .card-content {
+        padding: 1.2rem 1.2rem 1.2rem 0;
+    }
+
+    .my-picks-hero .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .card-meta-row {
+        gap: 0.75rem;
+    }
+}

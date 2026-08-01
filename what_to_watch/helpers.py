@@ -1,9 +1,14 @@
+import hashlib
+import json
+from pathlib import Path
 from random import randint, sample
 import pycountry
+from flask import current_app
 
 # My methods
 from .constants import POPULAR_LANGUAGES, MOVIE_ERA_MAPPING, TV_ERA_MAPPING
-from .services.tmdb import  discover_media
+from .extensions import cache
+from .services.tmdb import discover_media, get_movie_tv_details
 
 
 def get_popular_languages(all_languages):
@@ -90,6 +95,67 @@ def discover_movies_tv(filters, watch_type="movie"):
 
     # Return 4 random recommendations
     return sample(unique_movies, k=min(4, len(unique_movies)))
+
+def _my_picks_cache_key(data_path: Path) -> str:
+    try:
+        file_bytes = data_path.read_bytes()
+    except OSError:
+        return "my-picks:missing"
+
+    digest = hashlib.sha256(file_bytes).hexdigest()
+    return f"my-picks:{digest}"
+
+
+def _load_my_picks_json(data_path: Path):
+    try:
+        with data_path.open(encoding="utf-8") as handle:
+            return json.load(handle)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
+
+def get_my_picks():
+    """Load curated picks from JSON and enrich them with TMDB details."""
+    data_path = Path(__file__).resolve().parent / "data" / "my_picks.json"
+    cache_key = _my_picks_cache_key(data_path)
+
+    cached = cache.get(cache_key)
+    if cached is not None:
+        return cached
+
+    curated_entries = _load_my_picks_json(data_path)
+    if not curated_entries:
+        cache.set(cache_key, [], timeout=300)
+        return []
+
+    prepared_picks = []
+    for entry in curated_entries:
+        tmdb_id = entry.get("tmdb_id")
+        media_type = entry.get("media_type")
+
+        if not tmdb_id or media_type not in {"movie", "tv"}:
+            continue
+
+        details_response = get_movie_tv_details(tmdb_id, media_type)
+        if not details_response:
+            continue
+
+        details = get_necessary_details(details_response)
+        if not details:
+            continue
+
+        details.update({
+            "media_type": media_type,
+            "note": entry.get("note", ""),
+            "tags": entry.get("tags", []),
+            "poster_url": f"https://image.tmdb.org/t/p/w342{details.get('poster')}" if details.get("poster") else None,
+        })
+
+        prepared_picks.append(details)
+
+    cache.set(cache_key, prepared_picks, timeout=3600)
+    return prepared_picks
+
 
 def get_necessary_details(response):
     if not response:

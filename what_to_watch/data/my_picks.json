@@ -1,0 +1,22 @@
+[
+    {
+        "tmdb_id": 157336,
+        "media_type": "movie",
+        "note": "The sci-fi movie I recommend more than any other.",
+        "tags": [
+            "Mind-bending",
+            "Sci-Fi",
+            "Must Watch"
+        ]
+    },
+    {
+        "tmdb_id": 70523,
+        "media_type": "tv",
+        "note": "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "tags": [
+            "Sci-Fi",
+            "Mystery",
+            "Time Travel"
+        ]
+    }
+]

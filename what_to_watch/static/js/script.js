@@ -320,3 +320,82 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+/**
+ * Dynamic My Picks filter chips.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const clearButton = document.querySelector('.filter-clear');
+    const toggleButton = document.querySelector('.filter-toggle');
+    const tagButtons = Array.from(document.querySelectorAll('.filter-chip[data-tag]'));
+    const cards = Array.from(document.querySelectorAll('.pick-card'));
+    if (!tagButtons.length || !cards.length) return;
+
+    const activeTags = new Set();
+    const maxVisible = 4;
+    const hiddenTags = tagButtons.slice(maxVisible);
+
+    const setHiddenTags = (hidden) => {
+        hiddenTags.forEach(button => {
+            button.classList.toggle('filter-hidden', hidden);
+            button.hidden = hidden;
+        });
+    };
+
+    const resetToggle = () => {
+        if (!toggleButton) return;
+        setHiddenTags(true);
+        toggleButton.dataset.expanded = 'false';
+        toggleButton.textContent = 'See more';
+    };
+
+    const updateCards = () => {
+        const shouldShowAll = activeTags.size === 0;
+        cards.forEach(card => {
+            const tags = card.dataset.tags ? card.dataset.tags.split('||') : [];
+            const matches = shouldShowAll || tags.some(tag => activeTags.has(tag));
+            card.closest('.col-12').style.display = matches ? 'block' : 'none';
+        });
+    };
+
+    if (hiddenTags.length && toggleButton) {
+        setHiddenTags(true);
+        toggleButton.addEventListener('click', () => {
+            const expanded = toggleButton.dataset.expanded === 'true';
+            setHiddenTags(expanded);
+            toggleButton.dataset.expanded = String(!expanded);
+            toggleButton.textContent = expanded ? 'See more' : 'See less';
+        });
+    }
+
+    if (clearButton) {
+        clearButton.addEventListener('click', () => {
+            activeTags.clear();
+            tagButtons.forEach(button => {
+                button.classList.remove('active');
+                button.setAttribute('aria-pressed', 'false');
+            });
+            updateCards();
+            resetToggle();
+        });
+    }
+
+    tagButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const tag = button.dataset.tag;
+            if (!tag) return;
+
+            if (activeTags.has(tag)) {
+                activeTags.delete(tag);
+                button.classList.remove('active');
+                button.setAttribute('aria-pressed', 'false');
+            } else {
+                activeTags.add(tag);
+                button.classList.add('active');
+                button.setAttribute('aria-pressed', 'true');
+            }
+
+            updateCards();
+        });
+    });
+});
