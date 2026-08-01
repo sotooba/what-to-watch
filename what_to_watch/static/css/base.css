@@ -46,6 +46,15 @@ html, body {
     box-shadow: var(--shadow-glass);
 }
 
+.text-balance {
+    text-wrap-style: balance;
+}
+
+.page-shell {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 /* Shared pill action used by recommendation and error pages. */
 .btn-action {
     display: inline-flex;
@@ -103,7 +112,7 @@ html, body {
     backdrop-filter: blur(20px) saturate(120%);
     -webkit-backdrop-filter: blur(20px) saturate(120%);
     opacity: 0;
-    animation: overlayFadeIn 350ms ease-out forwards;
+    animation: overlayFadeIn 220ms ease-out forwards;
 }
 
 .loading-skeleton-shell {
@@ -127,7 +136,7 @@ html, body {
     place-items: center;
     text-align: center;
     transform: scale(0.98);
-    animation: panelRise 350ms ease-out forwards;
+    animation: panelRise 220ms ease-out forwards;
 }
 
 .loading-ambient {
@@ -138,7 +147,7 @@ html, body {
         radial-gradient(circle at 80% 30%, rgba(255, 215, 0, 0.08), transparent 24%);
     filter: blur(36px);
     opacity: 0.9;
-    animation: ambientPulse 5s ease-in-out infinite;
+    animation: ambientPulse 4s ease-in-out infinite;
     pointer-events: none;
 }
 
@@ -151,7 +160,7 @@ html, body {
     border: 1px solid rgba(255, 215, 0, 0.22);
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 0 40px rgba(255, 215, 0, 0.12);
     filter: blur(0.2px);
-    animation: spotlightSweep 5.5s ease-in-out infinite;
+    animation: spotlightSweep 4.2s ease-in-out infinite;
     pointer-events: none;
 }
 
@@ -206,7 +215,7 @@ html, body {
     color: var(--text-primary);
     opacity: 0;
     transform: translateY(10px);
-    animation: messageCycle 10s ease-in-out infinite;
+    animation: messageCycle 7s ease-in-out infinite;
     text-wrap: balance;
 }
 
@@ -242,7 +251,7 @@ html, body {
     height: 100%;
     border-radius: inherit;
     background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 215, 0, 0.85), rgba(255, 255, 255, 0.08));
-    animation: progressSweep 1.8s ease-in-out infinite;
+    animation: progressSweep 1.2s ease-in-out infinite;
 }
 
 .loading-hint {

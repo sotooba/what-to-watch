@@ -69,8 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
         navigationPending = true;
         showLoading();
 
-        // Give the browser one frame to paint the skeleton before navigating.
-        requestAnimationFrame(() => window.setTimeout(navigate, 120));
+        // Show the loading state briefly, but avoid keeping the user waiting longer than necessary.
+        requestAnimationFrame(() => window.setTimeout(navigate, 50));
     };
 
     /**

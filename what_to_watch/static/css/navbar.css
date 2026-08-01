@@ -1,4 +1,12 @@
 /* Navigation Links */
+.navbar-shell {
+    max-width: 1300px;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
 .navbar-nav .nav-link:hover {
     color: #ffffff !important;
     opacity: 1 !important;

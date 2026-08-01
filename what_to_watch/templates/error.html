@@ -5,7 +5,7 @@ Error • WhatToWatch
 {% endblock %}
 
 {% block main %}
-<div class="container d-flex align-items-center justify-content-center flex-grow-1" style="min-height: 75vh;">
+<div class="container d-flex align-items-center justify-content-center flex-grow-1 error-page-shell">
     <!-- Centered Glass Card Wrapper -->
     <div class="error-glass-card glass-panel text-center p-4 p-md-5 w-100 mx-3">
 
@@ -20,19 +20,17 @@ Error • WhatToWatch
             </svg>
         </div>
 
-        <h2 class="fw-bold text-white mb-3 text-uppercase h4" style="letter-spacing: 0.05em;">
+        <h2 class="fw-bold text-white mb-3 text-uppercase h4 error-page-title">
             Uh, oh!
         </h2>
 
         <!-- The Dynamic Route Error Message -->
-        <p class="text-secondary small mx-auto  opacity-75"
-            style="max-width: 380px; font-size: 0.95rem; line-height: 1.6; text-wrap-style: balance;">
+        <p class="text-secondary small mx-auto opacity-75 text-balance error-page-copy">
             {{ msg }}
         </p>
 
         <!-- Button Container -->
-        <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 w-100 mx-auto"
-            style="max-width: 400px;">
+        <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 w-100 mx-auto error-page-actions">
             <a href="/" class="btn-action glass-panel w-100 text-center text-decoration-none btn-action-secondary">
                 Return Home
             </a>

@@ -1,4 +1,8 @@
 /* Error Layout Wrapper & Fade Animation */
+.error-page-shell {
+    min-height: 75vh;
+}
+
 .error-glass-card {
     max-width: 520px;
     border-radius: 28px;
@@ -7,6 +11,20 @@
 }
 
 /* Accent decorative placeholder ring for the warning icon */
+.error-page-title {
+    letter-spacing: 0.05em;
+}
+
+.error-page-copy {
+    max-width: 380px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.error-page-actions {
+    max-width: 400px;
+}
+
 .error-icon-glow {
     width: 64px;
     height: 64px;

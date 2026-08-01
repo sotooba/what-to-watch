@@ -22,6 +22,10 @@
     font-weight: 600;
 }
 
+.featured-shell {
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
 .featured-tonight-scroll {
     display: flex;

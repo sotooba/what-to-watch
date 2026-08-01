@@ -14,6 +14,26 @@
 }
 
 /* Core Stack Tech List Layout Mapping */
+.about-stat-card {
+    border-radius: 16px !important;
+    padding: 1rem;
+}
+
+.about-hero-title {
+    font-size: clamp(2rem, 3.2vw, 2.8rem);
+    line-height: 1.1;
+}
+
+.about-hero-subtitle {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.about-stat-label {
+    font-size: 0.6rem;
+}
+
 .badge-pill-glass {
     background: var(--glass-subtle-bg);
     border: 1px solid var(--glass-border);
