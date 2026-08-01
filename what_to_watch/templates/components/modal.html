@@ -182,7 +182,7 @@ detail-page
                     <div class="col-6 p-0 text-end text-white fw-normal">{{ movie.genres or 'N/A' }}</div>
                 </div>
             </div>
-            {% if movie.watch_providers %}
+            
             <section class="watch-providers-section w-100" aria-labelledby="watch-providers-heading">
                 <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
                     <div>
@@ -193,7 +193,7 @@ detail-page
                     </div>
                     <i class="bi bi-play-circle watch-providers-icon" aria-hidden="true"></i>
                 </div>
-
+                {% if movie.watch_providers %}
                 <div class="watch-providers-scroll" tabindex="0" aria-label="Streaming providers">
                     {% for provider in movie.watch_providers %}
                     <article class="watch-provider-card glass-surface">
@@ -209,10 +209,13 @@ detail-page
                     </article>
                     {% endfor %}
                 </div>
+                {% else %}
+                <p class="text-warning mb-3" style="text-wrap-style: pretty;">No streaming options are available in your region.</p>
+                {% endif %}
             </section>
-            {% endif %}
-
             
+
+
             {% if movie.cast %}
             <section class="cast-section w-100" aria-labelledby="cast-heading">
                 <!-- Header with Dynamic Pill Arrow Actions -->
@@ -224,7 +227,7 @@ detail-page
                         <!-- Left Arrow Button -->
                         <button
                             class="btn btn-action btn-action-secondary p-2 rounded-circle d-flex align-items-center justify-content-center"
-                            style="width: 36px; height: 36px;" onclick="scrollCast('left')"
+                            style="width: 36px; height: 36px;" onclick="scrollCarousel('castContainer', 'left')"
                             aria-label="Scroll cast left">
                             <svg xmlns="http://w3.org" width="16" height="16" fill="currentColor"
                                 class="bi bi-chevron-left" viewBox="0 0 16 16">
@@ -235,7 +238,7 @@ detail-page
                         <!-- Right Arrow Button -->
                         <button
                             class="btn btn-action btn-action-secondary p-2 rounded-circle d-flex align-items-center justify-content-center"
-                            style="width: 36px; height: 36px;" onclick="scrollCast('right')"
+                            style="width: 36px; height: 36px;" onclick="scrollCarousel('castContainer', 'right')"
                             aria-label="Scroll cast right">
                             <svg xmlns="http://w3.org" width="16" height="16" fill="currentColor"
                                 class="bi bi-chevron-right" viewBox="0 0 16 16">
@@ -272,6 +275,70 @@ detail-page
             </section>
             {% endif %}
 
+            {% if recommendations %}
+            <section class="recommendations-section w-100" aria-labelledby="recommendations-heading">
+                <div class="d-flex align-items-center justify-content-between gap-3 mt-5 mb-3">
+                    <div>
+                        <h2 id="recommendations-heading" class="cast-heading mb-0 text-white">More like this</h2>
+                        <p class="cast-scroll-hint mb-0">A few more titles worth a closer look.</p>
+                    </div>
+
+                    <div class="d-none d-md-flex align-items-center gap-2">
+                        <button
+                            class="btn btn-action btn-action-secondary p-2 rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 36px; height: 36px;" onclick="scrollCarousel('recommendationsContainer', 'left')"
+                            aria-label="Scroll recommendations left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                            </svg>
+                        </button>
+                        <button
+                            class="btn btn-action btn-action-secondary p-2 rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 36px; height: 36px;" onclick="scrollCarousel('recommendationsContainer', 'right')"
+                            aria-label="Scroll recommendations right">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="cast-scroll" id="recommendationsContainer" tabindex="0" aria-label="More like this recommendations">
+                    {% for item in recommendations %}
+                    <a class="recommendation-card glass-surface text-decoration-none" href="{{ url_for('web.recommendation_click', watch_type=watch_type, tmdb_id=item.id) }}">
+                        {% if item.poster_path %}
+                        <img class="recommendation-poster" src="https://image.tmdb.org/t/p/w342{{ item.poster_path }}"
+                            alt="{{ item.title or item.name }}">
+                        {% else %}
+                        <div class="recommendation-poster recommendation-poster-fallback" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                class="bi bi-film text-muted" viewBox="0 0 16 16">
+                                <path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8zM1 1v2h2V1zm2 3H1v2h2zM1 7v2h2V7zm2 3H1v2h2zm-2 3v2h2v-2zM15 1h-2v2h2zm-2 3v2h2V4zm2 3h-2v2h2zm-2 3v2h2v-2zm2 3h-2v2h2z" />
+                            </svg>
+                        </div>
+                        {% endif %}
+                        <div class="recommendation-card-body">
+                            <h3 class="recommendation-title">{{ item.title or item.name or 'Untitled title' }}</h3>
+                            <div class="recommendation-meta">
+                                <span class="recommendation-rating">
+                                    <i class="bi bi-star-fill me-1"></i>
+                                    {{ item.vote_average|round(1) if item.vote_average else '—' }}
+                                </span>
+                                <span class="recommendation-year">
+                                    {{ (item.release_date or item.first_air_date or '')[:4] if (item.release_date or item.first_air_date) else 'N/A' }}
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+
         </div>
     </div>
 </div>
@@ -293,12 +360,10 @@ detail-page
         }
     }
 
-    function scrollCast(direction) {
-        const container = document.getElementById('castContainer');
+    function scrollCarousel(containerId, direction) {
+        const container = document.getElementById(containerId);
         if (!container) return;
 
-        // Calculate dynamic shifting width based on your actual view width
-        // Moves by roughly 3 card footprints per click
         const scrollAmount = container.clientWidth * 0.75;
 
         if (direction === 'left') {

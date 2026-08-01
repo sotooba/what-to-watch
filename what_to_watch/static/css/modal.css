@@ -347,20 +347,97 @@
     display: flex;
     gap: 16px;
     overflow-x: auto;
-    scroll-behavior: smooth; /* Forces fluid transition movements when clicked */
+    scroll-behavior: smooth;
     padding-bottom: 12px;
     -webkit-overflow-scrolling: touch;
 }
 
-/* Hide scrollbar completely to maintain look */
 .cast-scroll::-webkit-scrollbar {
     display: none;
 }
 .cast-scroll {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
+.recommendations-section {
+    min-width: 0;
+    padding-bottom: 1rem;
+}
+
+.recommendation-card {
+    flex: 0 0 clamp(8.25rem, 14vw, 10rem);
+    overflow: hidden;
+    border-radius: 1rem;
+    scroll-snap-align: start;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 2px 24px rgba(0, 0, 0, 0.42);
+    display: flex;
+    flex-direction: column;
+    color: inherit;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recommendation-card:hover,
+.recommendation-card:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(255, 215, 0, 0.25);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.14), 0 10px 28px rgba(0, 0, 0, 0.46);
+}
+
+.recommendation-poster,
+.recommendation-poster-fallback {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.recommendation-poster-fallback {
+    display: grid;
+    place-items: center;
+    color: rgba(255, 255, 255, 0.42);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+    font-size: 2rem;
+}
+
+.recommendation-card-body {
+    padding: 0.75rem;
+    display: grid;
+    gap: 0.35rem;
+}
+
+.recommendation-title {
+    margin: 0;
+    color: #ffffff;
+    font-size: 0.84rem;
+    font-weight: 600;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.recommendation-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    color: var(--text-muted-gray);
+    font-size: 0.72rem;
+}
+
+.recommendation-rating {
+    display: inline-flex;
+    align-items: center;
+    color: var(--accent-cinema-gold);
+}
+
+.recommendation-year {
+    color: rgba(255, 255, 255, 0.7);
+}
 
 @media (max-width: 767.98px) {
     .glass-surface .row div {
@@ -381,6 +458,10 @@
 
     .cast-card {
         flex-basis: 8.5rem;
+    }
+
+    .recommendation-card {
+        flex-basis: 8rem;
     }
 }
 

@@ -7,6 +7,7 @@ from .services.tmdb import (
     get_movie_genres,
     get_movie_tv_details,
     get_popular,
+    get_related_recommendations,
     get_search_results,
     get_trending,
     get_tv_genres,
@@ -87,9 +88,13 @@ def recommendation_click(watch_type, tmdb_id):
     if not movie:
         return apology(CONNECTION_ERROR)
 
+    recommendations = get_related_recommendations(tmdb_id, watch_type)
+
     return render_template(
         "components/modal.html",
-        movie=movie
+        movie=movie,
+        recommendations=recommendations,
+        watch_type=watch_type,
     )
 
 

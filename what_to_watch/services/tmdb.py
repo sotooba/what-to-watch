@@ -100,6 +100,21 @@ def get_movie_tv_details(tmdb_id, watch_type="movie"):
     )
 
 
+def get_related_recommendations(tmdb_id, watch_type="movie"):
+    endpoints = [
+        f"{watch_type}/{tmdb_id}/recommendations",
+        f"{watch_type}/{tmdb_id}/similar",
+    ]
+
+    for endpoint in endpoints:
+        payload = _get(endpoint, namespace="related", timeout=_ttl("details"))
+        results = (payload or {}).get("results", [])
+        if results:
+            return results[:10]
+
+    return []
+
+
 def get_trending(media_type, time_window):
     payload = _get(
         f"trending/{media_type}/{time_window}",
