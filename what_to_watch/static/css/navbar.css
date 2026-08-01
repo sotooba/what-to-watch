@@ -109,12 +109,26 @@
     right: 0;
     left: 0;
     padding: 0.75rem;
-    border: 1px solid var(--glass-border);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 1.25rem;
-    background: var(--glass-panel-bg);
-    backdrop-filter: blur(16px) saturate(120%);
-    -webkit-backdrop-filter: blur(16px) saturate(120%);
-    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    isolation: isolate;
+    background: linear-gradient(135deg, rgba(8, 10, 16, 0.88), rgba(22, 24, 30, 0.72));
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+}
+
+.mobile-search-panel::before,
+.navbar-collapse::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.12), transparent 38%),
+        linear-gradient(130deg, rgba(255, 255, 255, 0.08), transparent 55%);
+    pointer-events: none;
 }
 
 .mobile-search-input-icon {
@@ -128,6 +142,7 @@
 .custom-rounded-nav {
     border-radius: 1.5rem; 
 }
+
 
 /* Fluid responsive switch back to elegant capsule shape on desktops */
 @media (min-width: 992px) {
@@ -148,12 +163,14 @@
         right: 0;
         left: 0;
         padding: 0.75rem 1rem 1rem;
-        border: 1px solid var(--glass-border);
+        border: 1px solid rgba(255, 255, 255, 0.16);
         border-radius: 1.25rem;
-        background: var(--glass-panel-bg);
-        backdrop-filter: blur(16px) saturate(120%);
-        -webkit-backdrop-filter: blur(16px) saturate(120%);
-        box-shadow: var(--shadow-card);
+        overflow: hidden;
+        isolation: isolate;
+        background: linear-gradient(135deg, rgba(8, 10, 16, 0.88), rgba(22, 24, 30, 0.72));
+        backdrop-filter: blur(22px) saturate(140%);
+        -webkit-backdrop-filter: blur(22px) saturate(140%);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
     }
 
     .navbar-collapse .navbar-nav {

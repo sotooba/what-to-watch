@@ -31,6 +31,8 @@ def index():
     if not movie_genres or not tv_genres or not languages:
         return apology("Could not load genres and languages. Check your connection and try again.")
 
+    featured_movies = get_trending("movie", "day")[:8]
+
     return render_template(
         "index.html",
         movie_genres=movie_genres,
@@ -39,6 +41,7 @@ def index():
         moods=MOODS,
         years=YEAR_OPTIONS,
         ratings=RATING_OPTIONS,
+        featured_movies=featured_movies,
     )
 
 
