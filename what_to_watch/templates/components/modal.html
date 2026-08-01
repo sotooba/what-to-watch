@@ -212,40 +212,7 @@ detail-page
             </section>
             {% endif %}
 
-            <!-- Dropdown Section for Free/Alternative Options -->
-            <div class="w-100 mb-5">
-                <details class="w-100">
-                    <!-- The Clickable Header Button -->
-                    <summary class="d-flex align-items-center justify-content-between gap-3 mb-3"
-                        style="cursor: pointer; list-style: none; outline: none;">
-                        <div>
-                            <h2 class="watch-providers-heading mb-1 text-white">But I don't have a subscription...</h2>
-                            <p class="watch-providers-subtitle mb-0">Alternative free streaming platforms (Use
-                                Adblocker)</p>
-                        </div>
-                        <!-- Reuses your exact icon styling, rotates slightly via inline style when open if you like -->
-                        <i class="bi bi-chevron-down watch-providers-icon" aria-hidden="true"></i>
-                    </summary>
-
-                    <!-- The Content Wrapper (Revealed when clicked) -->
-                    <div class="watch-providers-scroll" tabindex="0" aria-label="Alternative streaming providers">
-                        {% for provider in providers %}
-                        <article class="watch-provider-card glass-surface">
-                            <a href="{{ provider.url }}" target="_blank"
-                                class="text-decoration-none w-100 h-100 d-flex flex-column align-items-center justify-content-center">
-                                <img class="watch-provider-logo" src="{{ provider.logo }}" alt="{{ provider.name }}">
-
-                                <p class="watch-provider-name">{{ provider.name }}</p>
-                            </a>
-                        </article>
-                        {% endfor %}
-                    </div>
-                </details>
-            </div>
-
-
-
-
+            
             {% if movie.cast %}
             <section class="cast-section w-100" aria-labelledby="cast-heading">
                 <!-- Header with Dynamic Pill Arrow Actions -->

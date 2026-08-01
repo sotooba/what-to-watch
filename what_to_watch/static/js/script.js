@@ -159,7 +159,7 @@ function clearAllFilters(formElement) {
     // Reset standard textual selectors (Mobile View drop-downs)
     const selectElements = formElement.querySelectorAll('.filter-select');
     selectElements.forEach(select => {
-        select.selectedIndex = 0; // Forces to "All/Any" option element index
+        select.selectedIndex = 0; // Forces to      "All/Any" option element index
     });
 
     // Locate and check the default radio buttons (Desktop View Pills)

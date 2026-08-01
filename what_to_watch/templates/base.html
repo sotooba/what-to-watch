@@ -52,14 +52,21 @@
     <!-- Shown immediately while a server-rendered TMDB request is in flight. -->
     <div id="pageLoadingOverlay" class="page-loading-overlay" role="status" aria-live="polite" hidden>
         <div class="loading-skeleton-shell glass-panel" aria-hidden="true">
-            <div class="skeleton-line skeleton-eyebrow"></div>
-            <div class="skeleton-line skeleton-title"></div>
-            <div class="skeleton-line skeleton-copy"></div>
-            <div class="skeleton-card-grid">
-                <div class="skeleton-card"><div class="skeleton-poster"></div><div class="skeleton-line skeleton-card-title"></div><div class="skeleton-line skeleton-card-meta"></div></div>
-                <div class="skeleton-card"><div class="skeleton-poster"></div><div class="skeleton-line skeleton-card-title"></div><div class="skeleton-line skeleton-card-meta"></div></div>
-                <div class="skeleton-card"><div class="skeleton-poster"></div><div class="skeleton-line skeleton-card-title"></div><div class="skeleton-line skeleton-card-meta"></div></div>
-                <div class="skeleton-card"><div class="skeleton-poster"></div><div class="skeleton-line skeleton-card-title"></div><div class="skeleton-line skeleton-card-meta"></div></div>
+            <div class="loading-ambient" aria-hidden="true"></div>
+            <div class="loading-focus" aria-hidden="true"></div>
+            <div class="loading-copy">
+                <p class="loading-eyebrow">Now screening</p>
+                <div class="loading-messages">
+                    <span class="loading-message">Finding your next favorite</span>
+                    <span class="loading-message">Rolling the opening credits</span>
+                    <span class="loading-message">Picking something special</span>
+                    <span class="loading-message">Searching through thousands of stories</span>
+                    <span class="loading-message">One moment</span>
+                </div>
+                <div class="loading-progress" aria-hidden="true">
+                    <span class="loading-progress-bar"></span>
+                </div>
+                <p class="loading-hint">Looking for stories worth your time.</p>
             </div>
         </div>
         <span class="visually-hidden">Finding something to watch…</span>

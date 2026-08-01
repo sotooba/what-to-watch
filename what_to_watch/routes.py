@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request
 
 from .constants import MOODS, MOOD_FILTERS, RATING_OPTIONS, YEAR_OPTIONS
-from .helpers import discover_movies_tv, get_alt_providers, get_necessary_details, get_popular_languages
+from .helpers import discover_movies_tv, get_necessary_details, get_popular_languages
 from .services.tmdb import (
     get_all_languages,
     get_movie_genres,
@@ -89,8 +89,7 @@ def recommendation_click(watch_type, tmdb_id):
 
     return render_template(
         "components/modal.html",
-        movie=movie,
-        providers=get_alt_providers(watch_type, tmdb_id),
+        movie=movie
     )
 
 

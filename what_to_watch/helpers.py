@@ -277,38 +277,3 @@ def format_country(country_codes):
     return ", ".join(countries)
 
 
-def get_alt_providers(watch_type, tmdb_id):
-    providers = [
-        {
-            "name": "Cineplay",
-            "url": f"https://www.cineplay.to/{watch_type}/{tmdb_id}",
-            "logo": "https://www.cineplay.to/logo.png"
-        },
-        {
-            "name": "Cineby",
-            "url": f"https://cineby.tech/{watch_type}/{tmdb_id}/watch",
-                "logo": "https://cineby.tech/cineby-logo@2x.webp"
-        },        
-        {
-            "name": "Skyflix",
-            "url": f"https://www.skyflix.to/title/{watch_type}/{tmdb_id}",
-            "logo": "https://www.skyflix.to/logo.png"
-        }
-        
-    ]
-
-
-    if watch_type == "tv":
-        providers.append({
-            "name": "StreamFun",
-            "url": f"https://streamfun.space/watch/{watch_type}/{tmdb_id}?s=1&ep=1",
-            "logo": "https://streamfun.space/streamfun_icon.png"
-        })
-    else:
-        providers.append({
-            "name": "StreamFun",
-            "url": f"https://streamfun.space/watch/movie/{tmdb_id}",
-            "logo": "https://streamfun.space/streamfun_icon.png"
-        })
-
-    return providers
