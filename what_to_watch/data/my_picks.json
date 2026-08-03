@@ -1,8 +1,47 @@
 [
     {
+        "tmdb_id": 110316,
+        "media_type": "tv",
+        "note": "Will always prefer this over Squid Game (no hate thou)",
+        "tags": [
+            "Thriller",
+            "Crime",
+            "Mind-bending"
+        ]
+    },
+    {
+        "tmdb_id": 70523,
+        "media_type": "tv",
+        "note": "If you think you understood the plot, you are wrong",
+        "tags": [
+            "Thriller",
+            "Crime",
+            "Mind-bending",
+            "Made me stare the wall"
+        ]
+    },
+    {
+        "tmdb_id": 220289,
+        "media_type": "movie",
+        "note": "You will have to re-watching 2-3x, in order to grasp every single detail",
+        "tags": [
+            "Time Travel",
+            "Mind-bending"
+        ]
+    },
+    {
+        "tmdb_id": 26466,
+        "media_type": "movie",
+        "note": "A psychological horror and time-loop thriller",
+        "tags": [
+            "Time Travel",
+            "Mind-bending"
+        ]
+    },
+    {
         "tmdb_id": 488623,
         "media_type": "movie",
-        "note": "I never saw the plot twist coming..",
+        "note": "I never saw the plot twist coming.",
         "tags": [
             "Thriller"
         ]
@@ -36,7 +75,7 @@
     {
         "tmdb_id": 157336,
         "media_type": "movie",
-        "note": "Is love really the greatest force of the universe? I'd to rewath this to understand it better.",
+        "note": "I'd to rewath this to understand it better.",
         "tags": [
             "Sci-Fi",
             "Space"
@@ -58,13 +97,23 @@
         "tags": [
             "Time Travel",
             "Sci-Fi",
-            "Made me stare the wall"
+            "Made me stare the wall",
+            "Mind-bending"
         ]
     },
     {
         "tmdb_id": 575604,
         "media_type": "movie",
         "note": "This movie really messed with my emotions.",
+        "tags": [
+            "Thriller",
+            "Mystery"
+        ]
+    },
+    {
+        "tmdb_id": 745,
+        "media_type": "movie",
+        "note": "Okay, but why did I guessed the plot and that too right after the first 10 minutes of the movie?",
         "tags": [
             "Thriller",
             "Mystery"
