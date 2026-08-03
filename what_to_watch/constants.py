@@ -43,7 +43,7 @@ MOODS = [
         "emoji": "💘",
         "title": "Love & Laughter",
         "subtitle": "Feel Every Moment",
-        "value": "date"
+        "value": "love"
     },
     {
         "emoji": "💀",
@@ -164,7 +164,7 @@ MOOD_FILTERS = {
         "rating": "7",
     },
 
-    "date": {
+    "love": {
         "genre": "10749|35",         # Romance, Comedy
         "rating": "7",
     },
