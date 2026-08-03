@@ -417,3 +417,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+
+/**
+ * Register the Service Worker so the application can be installed
+ * and the basic application shell can be cached.
+ */
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker
+            .register("/static/sw.js")
+            .then(registration => {
+                console.log("Service Worker registered:", registration.scope);
+            })
+            .catch(error => {
+                console.error("Service Worker registration failed:", error);
+            });
+    });
+}
