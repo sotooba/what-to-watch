@@ -223,12 +223,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const desktopContainer = document.getElementById("desktopGenreContainer");
     const mobileSelect = document.getElementById("mobileGenreSelect");
 
-    const watchTypeRadios = document.querySelectorAll(
-        'input[name="type"]'
-    );
+    // Watch type controls: desktop radios and mobile select
+    const watchTypeRadios = document.querySelectorAll('input[name="type"]');
+    const mobileTypeSelect = document.querySelector('#mobile-filters select[name="type"]');
 
     if (!Array.isArray(movieGenres) || !Array.isArray(tvGenres) || !desktopContainer || !mobileSelect) return;
-
 
     // -----------------------------
     // Desktop Genre Pills
@@ -289,35 +288,54 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // Initial Render
-    renderDesktopGenres(movieGenres);
-    renderMobileGenres(movieGenres);
+    // Initial Render: choose based on current selection (desktop checked radio or mobile select)
+    const currentRadio = document.querySelector('input[name="type"]:checked');
+    const currentMobileType = mobileTypeSelect ? mobileTypeSelect.value : null;
+    const initialType = (currentRadio && currentRadio.value) || currentMobileType || 'movie';
+
+    if (initialType === 'tv') {
+        renderDesktopGenres(tvGenres);
+        renderMobileGenres(tvGenres);
+    } else {
+        renderDesktopGenres(movieGenres);
+        renderMobileGenres(movieGenres);
+    }
 
 
     // -----------------------------
     // Change Watch Type
     // -----------------------------
+    // Desktop radios
     watchTypeRadios.forEach(radio => {
-
         radio.addEventListener("change", function () {
-
             if (this.value === "movie") {
-
                 renderDesktopGenres(movieGenres);
                 renderMobileGenres(movieGenres);
-
             }
-
             else if (this.value === "tv") {
-
                 renderDesktopGenres(tvGenres);
                 renderMobileGenres(tvGenres);
+            }
+        });
+    });
 
+    // Mobile select (for small screens) — keep genres in sync when user changes type
+    if (mobileTypeSelect) {
+        mobileTypeSelect.addEventListener('change', function () {
+            const val = this.value;
+            if (val === 'tv') {
+                renderDesktopGenres(tvGenres);
+                renderMobileGenres(tvGenres);
+            } else {
+                renderDesktopGenres(movieGenres);
+                renderMobileGenres(movieGenres);
             }
 
+            // Also update the desktop radio selection so internal state matches
+            const correspondingRadio = document.querySelector('input[name="type"][value="' + val + '"]');
+            if (correspondingRadio) correspondingRadio.checked = true;
         });
-
-    });
+    }
 
 });
 
