@@ -2,6 +2,8 @@
 
 WhatToWatch is a Flask web app that helps you discover movies and TV shows based on your mood or custom filters using TMDB data.
 
+[Visit WhatToWatch](https://mywhattowatch.vercel.app/)
+
 ## Features
 
 - Browse trending movies and TV shows
