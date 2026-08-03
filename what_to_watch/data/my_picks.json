@@ -1,22 +1,82 @@
 [
     {
-        "tmdb_id": 157336,
+        "tmdb_id": 488623,
         "media_type": "movie",
-        "note": "The sci-fi movie I recommend more than any other.",
+        "note": "I never saw the plot twist coming..",
         "tags": [
-            "Mind-bending",
-            "Sci-Fi",
-            "Must Watch"
+            "Thriller"
         ]
     },
     {
-        "tmdb_id": 70523,
-        "media_type": "tv",
-        "note": "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "tmdb_id": 12477,
+        "media_type": "movie",
+        "note": "A masterpiece I would never watch again.",
+        "tags": [
+            "Emotional Damage"
+        ]
+    },
+    {
+        "tmdb_id": 46738,
+        "media_type": "movie",
+        "note": "What the hell did I just watch?",
+        "tags": [
+            "Made me stare the wall",
+            "Mystery"
+        ]
+    },
+    {
+        "tmdb_id": 27205,
+        "media_type": "movie",
+        "note": "The cinematography, the plot, the acting, the music, everything was perfect.",
+        "tags": [
+            "Mind-bending",
+            "Sci-Fi"
+        ]
+    },
+    {
+        "tmdb_id": 157336,
+        "media_type": "movie",
+        "note": "Is love really the greatest force of the universe? I'd to rewath this to understand it better.",
         "tags": [
             "Sci-Fi",
+            "Space"
+        ]
+    },
+    {
+        "tmdb_id": 1124,
+        "media_type": "movie",
+        "note": "A gripping thriller that kept me guessing until the end.",
+        "tags": [
             "Mystery",
-            "Time Travel"
+            "Thriller"
+        ]
+    },
+    {
+        "tmdb_id": 206487,
+        "media_type": "movie",
+        "note": "The ending was a mind-bending twist that left me speechless.",
+        "tags": [
+            "Time Travel",
+            "Sci-Fi",
+            "Made me stare the wall"
+        ]
+    },
+    {
+        "tmdb_id": 575604,
+        "media_type": "movie",
+        "note": "This movie really messed with my emotions.",
+        "tags": [
+            "Thriller",
+            "Mystery"
+        ]
+    },
+    {
+        "tmdb_id": 117378,
+        "media_type": "tv",
+        "note": "A compelling series that explores the depths of human nature.",
+        "tags": [
+            "Crime",
+            "Mystery"
         ]
     }
 ]

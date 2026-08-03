@@ -89,7 +89,7 @@
     margin-bottom: 1.25rem;
 }
 
-.filter-row {
+.my-picks-page .filter-row {
     display: flex;
     justify-content: center;
     overflow-x: auto;
@@ -100,7 +100,7 @@
     padding-bottom: 0.25rem;
 }
 
-.filter-tag-group {
+.my-picks-page .filter-tag-group {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
@@ -108,13 +108,13 @@
     min-width: 0;
 }
 
-.filter-toggle-wrap {
+.my-picks-page .filter-toggle-wrap {
     display: flex;
     justify-content: center;
 }
 
-.filter-tag-group .filter-chip,
-.filter-toggle {
+.my-picks-page .filter-tag-group .filter-chip,
+.my-picks-page .filter-toggle {
     flex: 0 0 auto;
     white-space: nowrap;
 }
