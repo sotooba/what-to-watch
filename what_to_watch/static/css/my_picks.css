@@ -1,3 +1,13 @@
+.my-picks-body {
+    overflow-x: hidden;
+}
+
+.my-picks-body main,
+.my-picks-body .my-picks-page {
+    overflow-x: hidden;
+    position: relative;
+}
+
 .my-picks-page {
     min-height: 100vh;
 }
@@ -96,16 +106,23 @@
     -webkit-overflow-scrolling: touch;
     gap: 0.75rem;
     width: 100%;
+    max-width: 100%;
     min-width: 0;
     padding-bottom: 0.25rem;
+    scroll-snap-type: x mandatory;
+}
+
+.my-picks-page .filter-row > .filter-tag-group {
+    min-width: 0;
+    max-width: 100%;
 }
 
 .my-picks-page .filter-tag-group {
-    display: flex;
-    flex-wrap: nowrap;
+    display: inline-flex;
     align-items: center;
     gap: 0.55rem;
     min-width: 0;
+    max-width: 100%;
 }
 
 .my-picks-page .filter-toggle-wrap {
@@ -116,7 +133,7 @@
 .my-picks-page .filter-tag-group .filter-chip,
 .my-picks-page .filter-toggle {
     flex: 0 0 auto;
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 
 .filter-chip.active {
