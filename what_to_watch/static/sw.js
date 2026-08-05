@@ -9,7 +9,6 @@ const CACHE_NAME = "whattowatch-v1";
 const APP_SHELL = [
     "/",
     "/static/css/base.css",
-    "/static/css/style.css",
     "/static/js/script.js",
     "/static/images/favicon/android-chrome-192x192.png",
     "/static/images/favicon/android-chrome-512x512.png",
